@@ -1,5 +1,5 @@
-'use client'
+import { redirect } from 'next/navigation'
 
-import { HomeScreen } from 'app/features/home/screen'
-
-export default HomeScreen
+export default function RootPage() {
+  redirect('/home')
+}
