@@ -1,0 +1,12 @@
+import { config } from '@my/config'
+
+export type Conf = typeof config
+
+declare module '@my/ui' {
+  interface TamaguiCustomConfig extends Conf {}
+}
+
+declare module '*.json' {
+  const value: any
+  export default value
+}
