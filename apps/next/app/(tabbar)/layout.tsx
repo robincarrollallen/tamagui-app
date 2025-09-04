@@ -1,136 +1,139 @@
-// apps/next/app/(tabbar)/layout.tsx
 'use client'
 
+import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 import { usePathname, useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
+import { SvgUri } from 'react-native-svg'
 import { ReactNode } from 'react'
+import { ICONS, SVG } from '@my/assets'
 import {
   YStack,
   XStack,
   styled,
   Text,
   Circle,
-  useTheme,
+  Image,
 } from 'tamagui'
-import {
-  Home,
-  User,
-  Plus,
-  Search,
-  Heart,
-} from '@tamagui/lucide-icons'
 
-// 保持你原来的样式组件
+// tabbar组件
 const TabBarBackground = styled(YStack, {
-  position: 'fixed',
-  left: 0,
-  right: 0,
-  bottom: 0,
-  height: 80,
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  overflow: 'hidden',
-  backgroundColor: '$background',
-  backdropFilter: 'blur(10px)',
-  borderTopWidth: 1,
-  borderTopColor: '$borderColor',
-  boxShadow: '0 -2px 20px rgba(0,0,0,0.1)',
-  zIndex: 1000,
-})
-
-const CenterButton = styled(Circle, {
+  l: 0,
+  r: 0,
+  b: 0,
   position: 'absolute',
-  size: 60,
-  backgroundColor: '$blue10',
-  borderWidth: 4,
-  borderColor: '$background',
-  zIndex: 10,
-  top: -30,
-  left: '50%',
-  marginLeft: -30,
-  cursor: 'pointer',
-  transition: 'all 0.2s ease',
-  
-  pressStyle: {
-    scale: 0.95,
-  },
-  
-  hoverStyle: {
-    backgroundColor: '$blue11',
-    scale: 1.02,
+  aspectRatio: '390/91',
+  backgroundSize: '100% auto',
+  backgroundPosition: 'bottom',
+  backgroundRepeat: 'no-repeat',
+  backgroundImage: `url(${SVG.tabbar_background_25})`,
+  style: {
+    justifyContent: 'flex-end',
   },
 })
 
-const TabButton = styled(YStack, {
-  alignItems: 'center',
-  justifyContent: 'center',
-  paddingVertical: '$2',
-  paddingHorizontal: '$3',
-  minHeight: 50,
-  flex: 1,
-  cursor: 'pointer',
-  transition: 'all 0.2s ease',
-  userSelect: 'none',
-  
-  variants: {
-    focused: {
-      true: {
-        opacity: 1,
-        scale: 1.1,
-      },
-      false: {
-        opacity: 0.6,
-        scale: 1,
-      }
-    }
-  },
-  
-  pressStyle: {
-    opacity: 0.8,
-    scale: 0.98,
-  },
-  
-  hoverStyle: {
-    backgroundColor: '$backgroundHover',
+const CenterButton = ({ onPress }: { onPress: () => void }) => {
+  const { rem } = useResponsiveSize()
+
+  const styles = {
+    position: 'relative',
+    height: '100%',
+    minWidth: '20%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundImage: `url(${SVG.tabbar_bg_flexible_25})`,
+    backgroundSize: '120% 120%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  } as const
+
+  return <Circle {...styles}><Image source={{ uri: ICONS.tabbar_flexible_25 }} style={{ width: rem(30), height: rem(30) }} /></Circle>
+}
+
+const TabButton = ({ 
+  focused, 
+  onPress, 
+  children,
+  ...props 
+}: {
+  focused?: boolean
+  onPress?: () => void
+  children?: React.ReactNode
+  [key: string]: any
+}) => {
+  const { rem } = useResponsiveSize()
+
+  const baseStyles = {
+    py: rem(10),
+    px: rem(3),
+    minH: '20%',
+    flex: 1,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    style: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      userSelect: 'none',
+    },
+    pressStyle: {
+      opacity: 0.8,
+      scale: 0.98,
+    },
+    hoverStyle: {
+      background: '$backgroundHover',
+      opacity: 1,
+    },
+  } as const
+
+  // Apply focused variant manually
+  const focusedStyles = focused ? {
     opacity: 1,
-  },
-})
+    scale: 1,
+  } : {
+    opacity: 0.6,
+    scale: 1,
+  }
 
-// Tab 配置
-const tabs = [
-  { name: 'home', label: '首页', icon: Home, path: '/home' },
-  { name: 'search', label: '搜索', icon: Search, path: '/search' },
-  { name: 'profile', label: '我的', icon: User, path: '/profile' },
-  { name: 'favorites', label: '收藏', icon: Heart, path: '/favorites' },
-]
+  return (
+    <YStack 
+      {...baseStyles} 
+      {...focusedStyles}
+      onPress={onPress}
+      {...props}
+    >
+      {children}
+    </YStack>
+  )
+}
 
 const CustomTabButton = ({ 
   focused, 
-  icon: Icon, 
+  icon, 
+  activeIcon,
   label, 
   onPress 
 }: {
   focused: boolean
-  icon: any
+  icon: string
+  activeIcon: string
   label: string
   onPress: () => void
 }) => {
-  const theme = useTheme()
-  
+  const { rem } = useResponsiveSize()
+
   return (
     <TabButton
       focused={focused}
       onPress={onPress}
     >
-      <Icon
-        size={24}
-        color={focused ? theme.blue10.val : theme.color.val}
-      />
+      <SvgUri width={rem(32)} height={rem(32)}  uri={focused ? activeIcon : icon}/>
       <Text
         fontSize={12}
         fontWeight={focused ? "600" : "400"}
         color={focused ? "$blue10" : "$color"}
-        marginTop="$1"
-        userSelect="none"
+        mt="$1"
+        style={{
+          userSelect: 'none',
+        }}
       >
         {label}
       </Text>
@@ -139,30 +142,50 @@ const CustomTabButton = ({
 }
 
 const NextTabBar = () => {
+  const { t } = useTranslation()
   const pathname = usePathname()
   const router = useRouter()
+  const { rem } = useResponsiveSize()
+
+
+  // Tab 配置
+  const tabs = [
+    { name: 'home', label: t('home'), icon: SVG.tabbar_home_25, activeIcon: SVG.tabbar_home_active_25, path: '/home' },
+    { name: 'search', label: t('search'), icon: SVG.tabbar_activity_25, activeIcon: SVG.tabbar_activity_active_25, path: '/search' },
+    { name: 'add', label: t('add'), icon: '', path: '/add' }, // 中间特殊按钮
+    { name: 'favorites', label: t('favorites'), icon: SVG.tabbar_deposit_25, activeIcon: SVG.tabbar_deposit_active_25, path: '/favorites' },
+    { name: 'profile', label: t('profile'), icon: SVG.tabbar_profile_25, activeIcon: SVG.tabbar_profile_active_25, path: '/profile' },
+  ]
   
   return (
     <TabBarBackground>
       <XStack
-        height={80}
-        alignItems="center"
-        justifyContent="space-around"
-        paddingHorizontal="$4"
-        zIndex={5}
+        style={{
+          alignItems: 'flex-end',
+          justifyContent: 'space-around',
+        }}
+        height='100%'
+        px={rem(10)}
+        z={5}
       >
         {tabs.map((tab, index) => {
-          const isFocused = pathname.includes(tab.name)
+          const isFocused = pathname?.includes(tab.name) || false
           
           // 中间位置占位符
           if (index === Math.floor(tabs.length / 2)) {
-            return <YStack key={`spacer-${index}`} flex={1} />
+            return <CenterButton
+              onPress={() => {
+                console.log('Center button pressed')
+                // router.push('/add')
+              }}
+            />
           }
 
           return (
             <CustomTabButton
               key={tab.name}
               focused={isFocused}
+              activeIcon={tab.activeIcon}
               icon={tab.icon}
               label={tab.label}
               onPress={() => router.push(tab.path)}
@@ -170,16 +193,6 @@ const NextTabBar = () => {
           )
         })}
       </XStack>
-
-      {/* 中间按钮 */}
-      <CenterButton
-        onPress={() => {
-          console.log('Center button pressed')
-          // router.push('/add')
-        }}
-      >
-        <Plus size={28} color="white" />
-      </CenterButton>
     </TabBarBackground>
   )
 }
@@ -188,7 +201,7 @@ export default function TabLayout({ children }: { children: ReactNode }) {
   return (
     <YStack flex={1}>
       {/* 主内容区域 */}
-      <YStack flex={1} paddingBottom={80}>
+      <YStack flex={1} pb={80}>
         {children}
       </YStack>
       

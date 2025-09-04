@@ -1,4 +1,9 @@
 {
   "greeting": "Hello",
-  "welcome": "Welcome to the app"
+  "welcome": "Welcome to the app",
+  "home": "Home",
+  "search": "Search",
+  "add": "Add",
+  "favorites": "Favorites",
+  "profile": "Profile"
 }

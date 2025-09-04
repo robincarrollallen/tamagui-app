@@ -11,6 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@my/assets": "0.0.1",
     "@tamagui/config": "^1.130.8",
     "@tamagui/next-theme": "^1.130.8",
     "app": "0.0.0",

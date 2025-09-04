@@ -1,4 +1,9 @@
 {
   "greeting": "你好",
-  "welcome": "欢迎使用本应用"
+  "welcome": "欢迎使用本应用",
+  "home": "首页",
+  "search": "搜索",
+  "add": "发布",
+  "favorites": "收藏",
+  "profile": "我的"
 }
