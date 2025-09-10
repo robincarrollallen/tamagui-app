@@ -4,7 +4,7 @@ import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { SvgUri } from 'react-native-svg'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { ICONS, SVG } from '@my/assets'
 import {
   YStack,
@@ -13,6 +13,7 @@ import {
   Text,
   Circle,
   Image,
+  Square,
 } from 'tamagui'
 
 // tabbar组件
@@ -33,20 +34,37 @@ const TabBarBackground = styled(YStack, {
 
 const CenterButton = ({ onPress }: { onPress: () => void }) => {
   const { rem } = useResponsiveSize()
+  const [rotateAngle, setRotateAngle] = useState(0)
+  
+  useEffect(() => {
+    setRotateAngle(360)
+    const interval = setInterval(() => {
+      setRotateAngle(prev => prev + 360) // 累加角度
+    }, 2000) // 每2秒增加360度
+    
+    return () => clearInterval(interval)
+  }, [])
 
   const styles = {
-    position: 'relative',
     height: '100%',
     minWidth: '20%',
+    position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: `url(${SVG.tabbar_bg_flexible_25})`,
-    backgroundSize: '120% 120%',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
   } as const
 
-  return <Circle {...styles}><Image source={{ uri: ICONS.tabbar_flexible_25 }} style={{ width: rem(30), height: rem(30) }} /></Circle>
+  return  <Circle {...styles}>
+            <Square style={{ position: 'relative', width: rem(30), aspectRatio: 1 }}>
+              <Image source={{ uri: SVG.tabbar_bg_flexible_25 }} style={{ position: 'absolute', width: '300%',  aspectRatio: 1 }} />
+              <Image source={{ uri: ICONS.tabbar_flexible_25 }} style={{ position: 'absolute', inset: 0 }} />
+              <Circle style={{ position: 'absolute', width: '170%', aspectRatio: 1 }} animation="spin" rotate={`${rotateAngle}deg`}>
+                <SvgUri uri={SVG.tabbar_ring_inside_25 } style={{ width: '100%', height: '100%' }} />
+              </Circle>
+              <Circle style={{ position: 'absolute', width: '200%', aspectRatio: 1 }} animation="spin" rotate={`${-rotateAngle}deg`}>
+                <SvgUri uri={SVG.tabbar_ring_outside_25 } style={{ width: '100%', height: '100%' }} />
+              </Circle>
+            </Square>
+          </Circle>
 }
 
 const TabButton = ({ 
@@ -174,6 +192,7 @@ const NextTabBar = () => {
           // 中间位置占位符
           if (index === Math.floor(tabs.length / 2)) {
             return <CenterButton
+              key={tab.name}
               onPress={() => {
                 console.log('Center button pressed')
                 // router.push('/add')

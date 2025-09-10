@@ -5,6 +5,11 @@ export const animations = createAnimations({
     type: 'timing',
     duration: 100,
   },
+  spin: {
+    type: 'timing',
+    duration: 2000,
+    loop: true,
+  },
   bouncy: {
     damping: 9,
     mass: 0.9,

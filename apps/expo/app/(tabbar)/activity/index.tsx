@@ -7,7 +7,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: 'Profile',
+          title: 'Activity',
         }}
       />
       <HomeScreen />

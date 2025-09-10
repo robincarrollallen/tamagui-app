@@ -10,6 +10,7 @@ import {
   useToastController,
   XStack,
   YStack,
+  ScrollView,
 } from '@my/ui'
 import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
@@ -24,43 +25,45 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   })
 
   return (
-    <YStack flex={1} justify="center" items="center" gap="$8" p="$4" bg="$background">
-      <XStack
-        position="absolute"
-        width="100%"
-        t="$6"
-        gap="$6"
-        justify="center"
-        flexWrap="wrap"
-        $sm={{ position: 'relative', t: 0 }}
-      >
-        {Platform.OS === 'web' && (
-          <>
-            <SwitchRouterButton pagesMode={pagesMode} />
-            <SwitchThemeButton />
-            <SwitchLanguageButton />
-          </>
-        )}
-      </XStack>
+    <ScrollView bg="$background">
+      <YStack justify="center" items="center" gap="$8" p="$4">
+        <XStack
+          position="absolute"
+          width="100%"
+          t="$6"
+          gap="$6"
+          justify="center"
+          flexWrap="wrap"
+          $sm={{ position: 'relative', t: 0 }}
+        >
+          {Platform.OS === 'web' && (
+            <>
+              <SwitchRouterButton pagesMode={pagesMode} />
+              <SwitchThemeButton />
+              <SwitchLanguageButton />
+            </>
+          )}
+        </XStack>
 
-      <YStack gap="$4">
-        <H1 text="center" color="$color12">
-          Welcome to Tamagui.
-        </H1>
-        <Paragraph color="$color10" text="center">
-          Here's a basic starter to show navigating from one screen to another.
-        </Paragraph>
-        <Separator />
-        <Paragraph text="center">
-          This screen uses the same code on Next.js and React Native.
-        </Paragraph>
-        <Separator />
+        <YStack gap="$4">
+          <H1 text="center" color="$color12">
+            Welcome to Tamagui.
+          </H1>
+          <Paragraph color="$color10" text="center">
+            Here's a basic starter to show navigating from one screen to another.
+          </Paragraph>
+          <Separator />
+          <Paragraph text="center">
+            This screen uses the same code on Next.js and React Native.
+          </Paragraph>
+          <Separator />
+        </YStack>
+
+        <Button {...linkProps}>Link to user</Button>
+
+        <SheetDemo />
       </YStack>
-
-      <Button {...linkProps}>Link to user</Button>
-
-      <SheetDemo />
-    </YStack>
+    </ScrollView>
   )
 }
 

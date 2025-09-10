@@ -1,6 +1,10 @@
 import { Tabs } from 'expo-router'
-import { Pressable, Platform } from 'react-native'
+import { Pressable, Platform, ImageBackground } from 'react-native'
+import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 import { LinearGradient } from '@tamagui/linear-gradient'
+import { SvgXml } from 'react-native-svg'
+import { ICONS, SVG } from '@my/assets'
+import { useRouter } from 'solito/navigation'
 import {
   YStack,
   XStack,
@@ -8,6 +12,7 @@ import {
   Text,
   Circle,
   useTheme,
+  Image,
   TamaguiElement,
 } from 'tamagui'
 import {
@@ -19,18 +24,6 @@ import {
   Camera,
 } from '@tamagui/lucide-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-// 自定义 TabBar 背景容器
-const TabBarBackground = styled(YStack, {
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  bottom: 0,
-  height: 80,
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  overflow: 'hidden',
-})
 
 // 中间特殊按钮
 const CenterButton = styled(Circle, {
@@ -45,9 +38,9 @@ const CenterButton = styled(Circle, {
   shadowRadius: 8,
   elevation: 8,
   zIndex: 10,
-  top: -30,
   left: '50%',
-  marginLeft: -30,
+  bottom: 8,
+  transform: [{ translateX: '-50%' }],
   
   pressStyle: {
     scale: 0.95,
@@ -61,7 +54,7 @@ const CenterButton = styled(Circle, {
 // 自定义 Tab 按钮
 const CustomTabButton = ({ 
   focused, 
-  icon: Icon, 
+  icon, 
   label, 
   onPress 
 }: {
@@ -71,28 +64,22 @@ const CustomTabButton = ({
   onPress: () => void
 }) => {
   const theme = useTheme()
+  const { rem } = useResponsiveSize()
   
   return (
     <Pressable onPress={onPress}>
       <YStack
-        alignItems="center"
-        justifyContent="center"
-        paddingVertical="$2"
-        paddingHorizontal="$3"
-        minHeight={50}
+        items="center"
+        justify="flex-end"
         animation="quick"
-        opacity={focused ? 1 : 0.6}
-        scale={focused ? 1.1 : 1}
+        opacity={focused ? 1 : 1}
+        scale={focused ? 1 : 1}
       >
-        <Icon
-          size={24}
-          color={focused ? theme.blue10.val : theme.color.val}
-        />
+        <SvgXml xml={icon} preserveAspectRatio="none" width={rem(30)} height={rem(30)} />
         <Text
-          fontSize={12}
-          fontWeight={focused ? "600" : "400"}
+          fontSize={rem(10)}
+          fontWeight={focused ? "600" : "600"}
           color={focused ? "$blue10" : "$color"}
-          marginTop="$1"
         >
           {label}
         </Text>
@@ -102,78 +89,25 @@ const CustomTabButton = ({
 }
 
 // 自定义 TabBar 组件
-const CustomTabBar = ({ state, descriptors, navigation }: any) => {
-  const insets = useSafeAreaInsets()
-  const theme = useTheme()
+const CustomTabBar = ({ state, }: any) => {
+  const safeAreaInsets = useSafeAreaInsets()
+  const { rem } = useResponsiveSize()
+  const router = useRouter()
   
   return (
-    <YStack>
-      {/* TabBar 背景 */}
-      <TabBarBackground>
-        {/* 渐变背景 */}
-        <LinearGradient
-          colors={[
-            theme.background.val,
-            theme.backgroundHover.val,
-            theme.backgroundPress.val,
-          ]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{ flex: 1 }}
-        />
-        
-        {/* 可选：背景图片 */}
-        {/* <ImageBackground
-          source={{ uri: 'your-background-image-url' }}
-          style={{ flex: 1 }}
-          resizeMode="cover"
-        >
-          <LinearGradient
-            colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.3)']}
-            style={{ flex: 1 }}
-          />
-        </ImageBackground> */}
-      </TabBarBackground>
-
+    <YStack style={{ position: 'absolute', bottom: 0, width: '100%', height: rem(80) }}>
+      <SvgXml xml={SVG.tabbar_background_25} preserveAspectRatio="none" width="100%" height="100%" style={{ position: 'absolute' }} />
       {/* Tab 按钮容器 */}
       <XStack
-        height={80}
-        paddingBottom={insets.bottom}
-        alignItems="center"
-        justifyContent="space-around"
-        paddingHorizontal="$4"
-        zIndex={5}
+        height="100%"
+        items="flex-end"
+        pb={safeAreaInsets.bottom}
       >
         {state.routes.map((route: any, index: number) => {
-          const { options } = descriptors[route.key]
           const isFocused = state.index === index
 
           const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            })
-
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name)
-            }
-          }
-
-          // 根据路由名称选择图标
-          const getTabIcon = (routeName: string) => {
-            switch (routeName) {
-              case 'home':
-                return Home
-              case 'search':
-                return Search
-              case 'profile':
-                return User
-              case 'favorites':
-                return Heart
-              default:
-                return Home
-            }
+            router.push(`/${route.name}`)
           }
 
           // 如果是中间位置，渲染占位符
@@ -182,11 +116,11 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
           }
 
           return (
-            <YStack key={route.key} flex={1} alignItems="center">
+            <YStack key={route.label} flex={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
               <CustomTabButton
                 focused={isFocused}
-                icon={getTabIcon(route.name)}
-                label={options.title || route.name}
+                icon={route.icon}
+                label={route.label}
                 onPress={onPress}
               />
             </YStack>
@@ -197,15 +131,10 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
       {/* 中间特殊按钮 */}
       <CenterButton
         onPress={() => {
-          // 处理中间按钮点击事件
           console.log('Center button pressed')
-          // 可以导航到特殊页面或打开模态框
-          // navigation.navigate('camera') 或 navigation.navigate('add')
         }}
       >
-        <Plus size={28} color="white" />
-        {/* 或者使用相机图标 */}
-        {/* <Camera size={28} color="white" /> */}
+        <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
       </CenterButton>
     </YStack>
   )
@@ -213,37 +142,40 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
 
 export default function TabLayout() {
   return (
-    <Tabs
-      tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: '首页',
+    <>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { height: 0 },
         }}
-      />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: '搜索',
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: '我的',
-        }}
-      />
-      {/* 可以添加更多标签页 */}
-      <Tabs.Screen
-        name="favorites"
-        options={{
-          title: '收藏',
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="home/index"
+        />
+        <Tabs.Screen
+          name="activity/index"
+        />
+        <Tabs.Screen
+          name="search/index"
+        />
+        <Tabs.Screen
+          name="profile/index"
+        />
+        {/* 可以添加更多标签页 */}
+        <Tabs.Screen
+          name="favorites/index"
+        />
+      </Tabs>
+
+      <CustomTabBar state={{ routes, index: 0, routeNames: [] }} />
+    </>
   )
 }
+
+const routes = [
+  { name: 'home', label: 'Home', icon: SVG.tabbar_home_25 },
+  { name: 'activity', label: 'Activity', icon: SVG.tabbar_home_25 },
+  { name: 'search', label: 'Search', icon: SVG.tabbar_home_25 },
+  { name: 'profile', label: 'Profile', icon: SVG.tabbar_home_25 },
+  { name: 'favorites', label: 'Favorites', icon: SVG.tabbar_home_25 },
+]
