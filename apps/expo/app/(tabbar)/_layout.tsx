@@ -1,10 +1,11 @@
-import { Tabs } from 'expo-router'
-import { Pressable, Platform, ImageBackground } from 'react-native'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
-import { LinearGradient } from '@tamagui/linear-gradient'
-import { SvgXml } from 'react-native-svg'
-import { ICONS, SVG } from '@my/assets'
+import { ICONS, SVG, IMAGES } from '@my/assets'
+import { ImageBackground } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from 'solito/navigation'
+import { SvgXml } from 'react-native-svg'
+import { Pressable } from 'react-native'
+import { Tabs } from 'expo-router'
 import {
   YStack,
   XStack,
@@ -13,43 +14,46 @@ import {
   Circle,
   useTheme,
   Image,
-  TamaguiElement,
 } from 'tamagui'
-import {
-  Home,
-  User,
-  Plus,
-  Search,
-  Heart,
-  Camera,
-} from '@tamagui/lucide-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // 中间特殊按钮
-const CenterButton = styled(Circle, {
-  position: 'absolute',
-  size: 60,
-  backgroundColor: '$blue10',
-  borderWidth: 4,
-  borderColor: '$background',
-  shadowColor: '$shadowColor',
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.3,
-  shadowRadius: 8,
-  elevation: 8,
-  zIndex: 10,
-  left: '50%',
-  bottom: 8,
-  transform: [{ translateX: '-50%' }],
+// const CenterButton = styled(Circle, {
+//   position: 'absolute',
+//   size: 60,
+//   backgroundColor: '$blue10',
+//   borderWidth: 4,
+//   borderColor: '$background',
+//   shadowColor: '$shadowColor',
+//   shadowOffset: { width: 0, height: 4 },
+//   shadowOpacity: 0.3,
+//   shadowRadius: 8,
+//   elevation: 8,
+//   zIndex: 10,
+//   left: '50%',
+//   bottom: 8,
+//   transform: [{ translateX: '-50%' }],
   
-  pressStyle: {
-    scale: 0.95,
-  },
+//   pressStyle: {
+//     scale: 0.95,
+//   },
   
-  hoverStyle: {
-    backgroundColor: '$blue11',
-  },
-})
+//   hoverStyle: {
+//     backgroundColor: '$blue11',
+//   },
+// })
+
+const CenterButton = () => {
+  const { rem } = useResponsiveSize()
+  
+  return (
+    <ImageBackground style={{ position: 'absolute', width: rem(100), aspectRatio: 1, alignItems: 'center', justifyContent: 'center' }} source={IMAGES.tabbar_bg_flexible_25} width={rem(60)} height={rem(60)}>
+      <Circle style={{ position: 'absolute', width: rem(40), aspectRatio: 1 }}>
+        <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
+      </Circle>
+    </ImageBackground>
+  )
+}
 
 // 自定义 Tab 按钮
 const CustomTabButton = ({ 
@@ -65,6 +69,7 @@ const CustomTabButton = ({
 }) => {
   const theme = useTheme()
   const { rem } = useResponsiveSize()
+  const { t } = useTranslation()
   
   return (
     <Pressable onPress={onPress}>
@@ -79,9 +84,9 @@ const CustomTabButton = ({
         <Text
           fontSize={rem(10)}
           fontWeight={focused ? "600" : "600"}
-          color={focused ? "$blue10" : "$color"}
+          color={focused ? "$navigationSelected" : "$navigationText"}
         >
-          {label}
+          {t(label)}
         </Text>
       </YStack>
     </Pressable>
@@ -112,14 +117,18 @@ const CustomTabBar = ({ state, }: any) => {
 
           // 如果是中间位置，渲染占位符
           if (index === Math.floor(state.routes.length / 2)) {
-            return <YStack key={route.key} flex={1} />
+            return (
+              <YStack key={route.label} flex={1} style={{ height: '100%', alignItems: 'center', justifyContent: 'flex-start' }}>
+                <CenterButton />
+              </YStack>
+            )
           }
 
           return (
             <YStack key={route.label} flex={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
               <CustomTabButton
                 focused={isFocused}
-                icon={route.icon}
+                icon={isFocused ? route.activeIcon : route.icon}
                 label={route.label}
                 onPress={onPress}
               />
@@ -127,15 +136,6 @@ const CustomTabBar = ({ state, }: any) => {
           )
         })}
       </XStack>
-
-      {/* 中间特殊按钮 */}
-      <CenterButton
-        onPress={() => {
-          console.log('Center button pressed')
-        }}
-      >
-        <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
-      </CenterButton>
     </YStack>
   )
 }
@@ -173,9 +173,9 @@ export default function TabLayout() {
 }
 
 const routes = [
-  { name: 'home', label: 'Home', icon: SVG.tabbar_home_25 },
-  { name: 'activity', label: 'Activity', icon: SVG.tabbar_home_25 },
-  { name: 'search', label: 'Search', icon: SVG.tabbar_home_25 },
-  { name: 'profile', label: 'Profile', icon: SVG.tabbar_home_25 },
-  { name: 'favorites', label: 'Favorites', icon: SVG.tabbar_home_25 },
+  { name: 'home', label: 'home', icon: SVG.tabbar_home_25, activeIcon: SVG.tabbar_home_active_25 },
+  { name: 'activity', label: 'activity', icon: SVG.tabbar_activity_25 },
+  { name: 'search', label: 'search', icon: SVG.tabbar_home_25 },
+  { name: 'profile', label: 'profile', icon: SVG.tabbar_deposit_25 },
+  { name: 'favorites', label: 'favorites', icon: SVG.tabbar_profile_25 },
 ]

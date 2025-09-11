@@ -4,6 +4,8 @@ export const purpleCustomTheme = {
   backgroundHover: '#4B2178',
   backgroundPress: '#3A1760',
   borderColor: '#7C4DFF',
+  navigationText: 'rgba(255, 255, 255, .4)',
+  navigationSelected: '#FFFFFF',
 }
 export const lightCustomTheme = {
   background: '#FFF9E3', // 浅黄色
@@ -11,6 +13,8 @@ export const lightCustomTheme = {
   backgroundHover: '#FFF3C4',
   backgroundPress: '#FFE59A',
   borderColor: '#FFECB3',
+  navigationText: 'rgba(255, 255, 255, .4)',
+  navigationSelected: '#FFFFFF',
 }
 export const darkCustomTheme = {
   background: '#0B2F24', // 深绿色
@@ -18,6 +22,8 @@ export const darkCustomTheme = {
   backgroundHover: '#145A32',
   backgroundPress: '#0E4029',
   borderColor: '#1E5631',
+  navigationText: 'rgba(255, 255, 255, .4)',
+  navigationSelected: '#FFFFFF',
 }
 
 export const themeValues = {
