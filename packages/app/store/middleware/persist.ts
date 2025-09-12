@@ -1,10 +1,11 @@
-import { subscribeWithSelector } from 'zustand/middleware'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { subscribeWithSelector } from 'zustand/middleware'
+import { Platform } from 'react-native';
 import type { StateCreator } from 'zustand'
 import type { PersistConfig } from '../types'
 
 // 平台检测
-const isReactNative = typeof navigator !== 'undefined' && navigator.product === 'ReactNative'
+const isReactNative = Platform.OS !== 'web'
 
 // 获取平台特定的存储
 const getStorage = () => {

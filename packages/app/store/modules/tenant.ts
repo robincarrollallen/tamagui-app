@@ -18,7 +18,14 @@ export const useTenantStore = create<ThemeState>()(
       ...initialState,
       
       setHasHydrated: (hasHydrated: boolean) => set({ _hasHydrated: hasHydrated }),
+
+      /** 设置租户信息 */
+      setTenantInfo: (info: typeof tenantInfo) => {
+        set({ tenantInfo: info })
+        return info
+      },
       
+      /** 获取租户信息 */
       getTenantInfo: () => {
         const state = get()
         return state.tenantInfo

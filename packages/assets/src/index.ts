@@ -4,6 +4,8 @@ import { activity_25 } from './svg/tabbar/activity-25';
 import { deposit_25 } from './svg/tabbar/deposit-25';
 import { profile_25 } from './svg/tabbar/profile-25';
 import { home_25 } from './svg/tabbar/home-25';
+import { earth } from './svg/earth';
+import { menu } from './svg/menu';
 
 // 导出图片路径常量
 export const IMAGES = {
@@ -27,4 +29,7 @@ export const SVG = {
   tabbar_bg_flexible_25: require('./svg/tabbar/bg-flexible-25.svg').default?.src,
   tabbar_ring_inside_25: require('./svg/tabbar/ring-inside-25.svg').default?.src || require('./svg/tabbar/ring-inside-25.svg'),
   tabbar_ring_outside_25: require('./svg/tabbar/ring-outside-25.svg').default?.src || require('./svg/tabbar/ring-outside-25.svg'),
+
+  earth: earth,
+  menu: menu,
 } as const;

@@ -74,8 +74,8 @@ const CustomTabButton = ({
   return (
     <Pressable onPress={onPress}>
       <YStack
-        items="center"
-        justify="flex-end"
+        alignItems="center"
+        justifyContent="flex-end"
         animation="quick"
         opacity={focused ? 1 : 1}
         scale={focused ? 1 : 1}
@@ -105,8 +105,8 @@ const CustomTabBar = ({ state, }: any) => {
       {/* Tab 按钮容器 */}
       <XStack
         height="100%"
-        items="flex-end"
-        pb={safeAreaInsets.bottom}
+        alignItems="flex-end"
+        paddingBottom={safeAreaInsets.bottom}
       >
         {state.routes.map((route: any, index: number) => {
           const isFocused = state.index === index
