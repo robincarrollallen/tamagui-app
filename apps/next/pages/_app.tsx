@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
           }}
         />
       </Head>
-      <NextTamaguiProvider>
+      <NextTamaguiProvider defaultTheme={'dark'}>
         <Component {...pageProps} />
       </NextTamaguiProvider>
     </>

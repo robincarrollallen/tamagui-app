@@ -1,3 +1,5 @@
+import { useStyleStore } from 'app/store/modules/style'
+import { MOBILE_MAX_WIDTH } from 'app/constant'
 import { useState, useEffect } from 'react'
 
 interface ResponsiveSizeOptions {
@@ -38,8 +40,13 @@ export function useResponsiveSize(options: ResponsiveSizeOptions = {}) {
           width: window.innerWidth,
           height: window.innerHeight,
         })
+        if (window.innerWidth > MOBILE_MAX_WIDTH) {
+          useStyleStore.setState({ screenSpace: (window.innerWidth - MOBILE_MAX_WIDTH) / 2 })
+        } else {
+          useStyleStore.setState({ screenSpace: 0 })
+        }
       }
-      
+      handleResize()
       window.addEventListener('resize', handleResize)
       return () => window.removeEventListener('resize', handleResize)
     } else {

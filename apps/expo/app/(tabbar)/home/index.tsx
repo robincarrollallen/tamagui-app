@@ -10,7 +10,7 @@ export default function Screen() {
     <>
       <Stack.Screen
         options={{
-          headerShown: true,
+          headerShown: false,
           header: () => <HomeHeader />,
           headerStyle: {
             backgroundColor: theme.backgroundHover?.get(), // 设置背景色(自定义header失效)

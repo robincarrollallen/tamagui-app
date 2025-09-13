@@ -1,3 +1,4 @@
+import '../styles/globals.css'
 import type { Metadata } from 'next'
 import { initI18nServer } from 'app/i18n/server'
 import { NextTamaguiProvider } from 'app/provider/NextTamaguiProvider'
@@ -17,7 +18,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     // You can use `suppressHydrationWarning` to avoid the warning about mismatched content during hydration in dev mode
     <html lang={i18n.language} suppressHydrationWarning>
-      <body>
+      <body style={{ alignItems: 'center', height: '100vh', overflow: 'hidden' }}>
         <NextTamaguiProvider defaultTheme={defaultTheme}>{children}</NextTamaguiProvider>
       </body>
     </html>
