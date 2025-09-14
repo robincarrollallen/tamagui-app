@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { initI18nServer } from 'app/i18n/server'
 import { NextTamaguiProvider } from 'app/provider/NextTamaguiProvider'
 import { fetchDefaultThemeFromBackend } from 'service/fetchDefaultTheme'
+import { MOBILE_MAX_WIDTH } from 'app/constant'
 
 export const metadata: Metadata = {
   title: 'Tamagui • App Router',
@@ -17,7 +18,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     // You can use `suppressHydrationWarning` to avoid the warning about mismatched content during hydration in dev mode
-    <html lang={i18n.language} suppressHydrationWarning>
+    <html  lang={i18n.language} suppressHydrationWarning style={{ maxWidth: MOBILE_MAX_WIDTH, margin: '0 auto' }}>
       <body style={{ alignItems: 'center', height: '100vh', overflow: 'hidden' }}>
         <NextTamaguiProvider defaultTheme={defaultTheme}>{children}</NextTamaguiProvider>
       </body>

@@ -6,7 +6,7 @@ import { CustomTabBar } from 'app/features/tabbar'
 
 export default function TabLayout({ children }: { children: ReactNode }) {
   return (
-    <YStack flex={1} maxW={486} position='relative'>
+    <YStack flex={1} width="100%" position='relative'>
       {/* 主内容区域 */}
       <YStack flex={1}>
         {children}
