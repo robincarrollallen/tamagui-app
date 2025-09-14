@@ -19,6 +19,7 @@ import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 import { HomeHeader } from './modules/header'
 import { Banner } from './modules/banner'
+import { Marquee } from './modules/marquee'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkTarget = pagesMode ? '/pages-example-user' : '/user'
@@ -31,6 +32,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       <HomeHeader />
       <Banner />
       <ScrollView bg="$bodyDefault" flex={1}>
+      <Marquee />
         <YStack justify="center" items="center" gap="$8" p="$4">
           <XStack
             position="absolute"

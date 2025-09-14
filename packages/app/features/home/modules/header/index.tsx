@@ -5,7 +5,6 @@ import { LinearGradient } from 'tamagui/linear-gradient'
 import { useTenantStore } from '../../../../store'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '@my/assets'
-import { useEffect } from "react";
 
 /** 首页 Header 组件 */
 export const HomeHeader = () => {
