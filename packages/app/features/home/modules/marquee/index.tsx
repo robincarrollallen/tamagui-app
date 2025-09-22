@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Platform } from 'react-native'
 import { Text, ScrollView } from 'tamagui'
 
 export function Marquee(props) {
   const [textX, setTextX] = useState(0)
   const [viewWidth, setViewWidth] = useState(0)
   const [textWidth, setTextWidth] = useState(0)
+  const [textOpacity, setTextOpacity] = useState(0)
   const [currentMessage, setCurrentMessage] = useState(0)
   const intervalRef = useRef<NodeJS.Timeout>(undefined)
   const textXRef = useRef(0)
@@ -34,19 +34,16 @@ export function Marquee(props) {
     if (intervalRef.current) return
 
     if (viewWidth && textWidth) {
-      console.log('viewWidth', viewWidth)
-      console.log('textWidth', textWidth)
-      console.log('currentMessage', currentMessage)
       textXRef.current = viewWidth
       setTextX(textXRef.current)
+      setTextOpacity(1)
 
       intervalRef.current = setInterval(() => {
         textXRef.current -= 1
         setTextX(textXRef.current)
 
         if (textXRef.current <= -textWidth) {
-          clearInterval(intervalRef.current)
-          intervalRef.current = undefined
+          setTextOpacity(0)
           setCurrentMessage((currentMessage + 1) % messages.length)
         }
       }, 15)
@@ -82,6 +79,7 @@ export function Marquee(props) {
         <Text
           onLayout={handleTextLayout}
           x={textX}
+          opacity={textOpacity}
         >
           {messages[currentMessage]}
         </Text>
