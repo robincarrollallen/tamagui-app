@@ -3,6 +3,7 @@
 import { YStack} from 'tamagui'
 import { ReactNode } from 'react'
 import { CustomTabBar } from 'app/features/tabbar'
+import { LoginScreen } from 'app/features/login'
 
 export default function TabLayout({ children }: { children: ReactNode }) {
   return (
@@ -11,7 +12,8 @@ export default function TabLayout({ children }: { children: ReactNode }) {
       <YStack flex={1}>
         {children}
       </YStack>
-      
+      {/* 登录弹窗 */}
+      <LoginScreen />
       {/* TabBar */}
       <CustomTabBar />
     </YStack>

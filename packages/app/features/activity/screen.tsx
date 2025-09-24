@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import type { TabsContentProps } from 'tamagui'
-import { H5, Separator, SizableText, Tabs, YStack, isWeb } from 'tamagui'
+import { H5, SizableText, Tabs, YStack, isWeb } from 'tamagui'
 
 export function ActivityScreen() {
   const [activeTab, setActiveTab] = useState('tab1')
 
   const handleTabChange = (value: string) => {
-    console.log('value', value)
     setActiveTab(value)
   }
 

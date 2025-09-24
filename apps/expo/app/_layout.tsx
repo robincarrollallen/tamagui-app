@@ -6,6 +6,7 @@ import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from 'app/provider'
 import { NativeToast } from '@my/ui/src/NativeToast'
 import { initI18nClient } from 'app/i18n/client'
+import { LoginScreen } from 'app/features/login'
 
 export const unstable_settings = {
   // Ensure that reloading on `/user` keeps a back button present.
@@ -61,6 +62,7 @@ function RootLayoutNav() {
           />
         </Stack>
         <NativeToast />
+        <LoginScreen />
       </ThemeProvider>
     </Provider>
   )

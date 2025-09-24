@@ -9818,6 +9818,7 @@ __metadata:
     babel-plugin-module-resolver: "npm:^5.0.2"
     burnt: "npm:^0.12.2"
     expo: "npm:~53.0.8"
+    expo-blur: "npm:~14.1.5"
     expo-constants: "npm:~17.1.6"
     expo-dev-client: "npm:~5.1.8"
     expo-font: "npm:~13.3.1"
@@ -9852,6 +9853,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/c7851f3cf69ad2d8075908f719baf3a96660f262109374a563418912b7588a126f425225bc2126eca005873aa719c4683b99a467984e244d1931e6f1ba68655a
+  languageName: node
+  linkType: hard
+
+"expo-blur@npm:~14.1.5":
+  version: 14.1.5
+  resolution: "expo-blur@npm:14.1.5"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/2cfb444e7fa8425e4c12a10bee1c0ec58c9fd9137ad5638fb5f57f4308a3a6fb628f1fe5322864c1d32a2d7bfa04c65d08474f91a7ec162bc143ce60a5d4f17b
   languageName: node
   linkType: hard
 
