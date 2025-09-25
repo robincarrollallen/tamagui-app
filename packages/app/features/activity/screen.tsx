@@ -19,49 +19,49 @@ export function ActivityScreen() {
     >
       <Tabs
         flex={1}
+        bg="$background"
+        overflow="hidden"
         defaultValue="tab1"
         orientation="horizontal"
         flexDirection="column"
-        overflow="hidden"
-        bg="$bodyDefault"
         borderTopLeftRadius={0}
         onValueChange={handleTabChange}
       >
         <Tabs.List
           width="100%"
+          bg="$topNavSecondary"
+          borderTopLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomLeftRadius={0}
+          borderBottomRightRadius={0}
           disablePassBorderRadius="bottom"
           aria-label="Manage your account"
         >
           <Tabs.Tab
-            bg="$bodyDefault"
             value="tab1"
             p={0}
-            items="flex-end"
-            justify="flex-end"
           >
-            <YStack height="100%" px={10} items="flex-end" justify="flex-end" bg="$bodyDefault" borderBottomWidth={activeTab === 'tab1' ? 1 : 0} borderBottomColor="$borderColor">
+            <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === 'tab1' ? 1 : 0} borderBottomColor="$borderDefault">
               <SizableText text="center">
                 Profile
               </SizableText>
             </YStack>
           </Tabs.Tab>
           <Tabs.Tab
-            bg="$bodyDefault"
             value="tab2"
             p={0}
           >
-            <YStack height="100%" px={10} items="flex-end" justify="flex-end" bg="$bodyDefault" borderBottomWidth={activeTab === 'tab2' ? 1 : 0} borderBottomColor="$borderColor">
+            <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === 'tab2' ? 1 : 0} borderBottomColor="$borderDefault">
               <SizableText text="center">
               Connections
               </SizableText>
             </YStack>
           </Tabs.Tab>
           <Tabs.Tab
-            bg="$bodyDefault"
             value="tab3"
             p={0}
           >
-            <YStack height="100%" px={10} items="flex-end" justify="flex-end" bg="$bodyDefault" borderBottomWidth={activeTab === 'tab3' ? 1 : 0} borderBottomColor="$borderColor">
+            <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === 'tab3' ? 1 : 0} borderBottomColor="$borderDefault">
               <SizableText text="center">
                 Notifications
               </SizableText>

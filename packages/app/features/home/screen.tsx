@@ -21,19 +21,22 @@ import { HomeHeader } from './modules/header'
 import { Banner } from './modules/banner'
 import { Marquee } from './modules/marquee'
 import { useStatusStore } from '../../store/modules/status'
+import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkTarget = pagesMode ? '/pages-example-user' : '/user'
   const linkProps = useLink({
     href: `${linkTarget}/nate`,
   })
+  
+  const { rem } = useResponsiveSize()
 
   return (
     <YStack flex={1}>
       <HomeHeader />
-      <Banner />
-      <ScrollView bg="$bodyDefault" flex={1}>
-      <Marquee />
+      <ScrollView flex={1} pt={rem(12)}>
+        <Banner />
+        <Marquee />
         <YStack justify="center" items="center" gap="$8" p="$4">
           <XStack
             position="absolute"

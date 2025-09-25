@@ -3,7 +3,8 @@ import { createPersistStore } from '../middleware/persist'
 import type { BaseStore } from '../types'
 
 interface StyleState extends BaseStore {
-  screenSpace: number, // 屏幕与内容间距
+  /** 屏幕与内容间距 */
+  screenSpace: number,
 }
 
 const initialState = {

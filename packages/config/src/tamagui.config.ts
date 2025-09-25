@@ -2,7 +2,7 @@ import { defaultConfig } from '@tamagui/config/v4'
 import { createTamagui } from 'tamagui'
 import { bodyFont, headingFont } from './fonts'
 import { animations } from './animations'
-import { darkCustomTheme, lightCustomTheme, purpleCustomTheme } from './themes'
+import { style_25 } from './themes'
 
 export const config = createTamagui({
   ...defaultConfig,
@@ -16,15 +16,15 @@ export const config = createTamagui({
     ...defaultConfig.themes,
     light: {
       ...defaultConfig.themes.light,
-      ...lightCustomTheme,
+      ...style_25,
     },
     dark: {
       ...defaultConfig.themes.dark,
-      ...darkCustomTheme,
+      ...style_25,
     },
-    purple_base: {
+    "Layout2:SupremeGreen": {
       ...defaultConfig.themes.dark,
-      ...purpleCustomTheme,
+      ...style_25,
     },
   },
 })

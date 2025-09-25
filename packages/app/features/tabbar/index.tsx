@@ -1,7 +1,7 @@
 import { useSafeArea } from '../../../app/provider/safe-area/use-safe-area'
 import { useResponsiveSize } from '../../../app/hooks/ResponsiveSize'
 import { ICONS, SVG, IMAGES } from '@my/assets'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, Platform } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useRouter, usePathname } from 'solito/navigation'
 import { useEffect, useState } from 'react'
@@ -30,14 +30,31 @@ const CenterButton = () => {
   }, [])
   
   return (
-    <ImageBackground style={{ position: 'relative', width: rem(100), aspectRatio: 1, alignItems: 'center', justifyContent: 'center' }} source={IMAGES.tabbar_bg_flexible_25} width={rem(60)} height={rem(60)}>
-      <Circle style={{ position: 'absolute', width: '170%', aspectRatio: 1 }} animation="spin" rotate={`${rotateAngle}deg`}>
+    <ImageBackground
+      width={rem(60)}
+      height={rem(60)}
+      source={IMAGES.tabbar_bg_flexible_25}
+      style={{
+        position: 'relative',
+        width: '100%',
+        aspectRatio: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        transform: [{
+          scale: Platform.select({
+          ios: 1.2,
+          android: 1.2,
+          default: 1.8
+        }) }]
+      }}
+    >
+      <Circle style={{ position: 'absolute', width: '60%', aspectRatio: 1 }} animation="spin" rotate={`${rotateAngle}deg`}>
         <SvgXml xml={SVG.tabbar_ring_inside_25 } style={{ width: '100%', height: '100%' }} />
       </Circle>
-      <Circle style={{ position: 'absolute', width: '200%', aspectRatio: 1 }} animation="spin" rotate={`${-rotateAngle}deg`}>
+      <Circle style={{ position: 'absolute', width: '70%', aspectRatio: 1 }} animation="spin" rotate={`${-rotateAngle}deg`}>
         <SvgXml xml={SVG.tabbar_ring_outside_25 } style={{ width: '100%', height: '100%' }} />
       </Circle>
-      <Circle style={{ position: 'absolute', width: rem(40), aspectRatio: 1 }} pressStyle={{ scale: 0.95 }} hoverStyle={{ bg: '$blue11' }}>
+      <Circle style={{ position: 'absolute', width: '40%', aspectRatio: 1 }} pressStyle={{ scale: 0.95 }}>
         <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
       </Circle>
     </ImageBackground>
@@ -109,7 +126,7 @@ export const CustomTabBar = () => {
           // 如果是中间位置，渲染占位符
           if (index === Math.floor(routes.length / 2)) {
             return (
-              <YStack key={route.label} flex={1} style={{ height: '100%', alignItems: 'center', justifyContent: 'flex-start' }}>
+              <YStack key={route.label} flex={1} style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                 <CenterButton />
               </YStack>
             )

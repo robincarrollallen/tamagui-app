@@ -1,5 +1,7 @@
-import { ScrollView, View, XStack, Circle, Text, useTheme } from 'tamagui'
+import { ScrollView, View, XStack, YStack, Circle, Image } from 'tamagui'
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { useTenantStore } from 'app/store';
 import { Platform } from 'react-native'
 
 interface CarouselProps {
@@ -11,8 +13,6 @@ interface CarouselProps {
 }
 
 export function Banner({
-  data = [],
-  height = 200,
   autoPlay = false,
   autoPlayInterval = 3000,
   showIndicators = true,
@@ -21,36 +21,29 @@ export function Banner({
   const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
   const [realIndex, setRealIndex] = useState(0) // 真实数据索引
   const [isScrolling, setIsScrolling] = useState(false) // 滚动状态
+  const { bannerList } = useTenantStore()
   const scrollViewRef = useRef<ScrollView>(null)
   const scrollTimeout = useRef<NodeJS.Timeout>(null)
-  const theme = useTheme()
-
-  // 原始数据
-  const originalData = [
-    { id: '1', backgroundColor: theme.red10?.get() },
-    { id: '2', backgroundColor: theme.blue10?.get() },
-    { id: '3', backgroundColor: theme.green10?.get() },
-    { id: '4', backgroundColor: theme.blue11?.get() },
-  ]
+  const { rem } = useResponsiveSize()
 
   // 构建循环数据 - 在首尾各添加一个副本
   const buildLoopData = useCallback(() => {
-    if (originalData.length <= 1) return originalData
+    if (bannerList.length <= 1) return bannerList
     
-    const lastItem = { 
-      ...originalData[originalData.length - 1], 
-      id: `${originalData[originalData.length - 1].id}-clone-last` 
+    const lastItem = {
+      ...bannerList[bannerList.length - 1],
+      id: `${bannerList[bannerList.length - 1].id + 1}`
     }
-    const firstItem = { 
-      ...originalData[0], 
-      id: `${originalData[0].id}-clone-first` 
+    const firstItem = {
+      ...bannerList[0],
+      id: `${bannerList[0].id - 1}`
     }
     
-    return [lastItem, ...originalData, firstItem]
-  }, [originalData])
+    return [lastItem, ...bannerList, firstItem]
+  }, [bannerList])
 
   const loopData = buildLoopData()
-  const realDataLength = originalData.length
+  const realDataLength = bannerList.length
 
   // 跨平台获取容器宽度
   const handleLayout = useCallback((event: any) => {
@@ -162,77 +155,70 @@ export function Banner({
   }, [])
 
   return (
-    <View onLayout={handleLayout}>
-      <ScrollView
-        ref={scrollViewRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        onScrollBeginDrag={handleScrollBegin}
-        onMomentumScrollEnd={handleMomentumScrollEnd}
-        scrollEventThrottle={16}
-        decelerationRate="fast"
-        // Web 端额外属性
-        {...(Platform.OS === 'web' && {
-          style: { scrollSnapType: 'x mandatory' } as any
-        })}
-      >
-        <XStack>
-          {loopData.map((item, index) => (
-            <View
-              key={item.id}
-              width={containerWidth || '100%'}
-              height={height}
-              justify="center"
-              items="center"
-              style={{ 
-                backgroundColor: item.backgroundColor,
-                // Web 端滚动对齐
-                ...(Platform.OS === 'web' && { scrollSnapAlign: 'start' })
-              }}
-            >
-              <View
-                p="$3"
-                style={{ borderRadius: '$4', backgroundColor: theme.background?.get() }}
-                opacity={0.9}
-              >
-                <Text fontSize="$6" fontWeight="bold" color="$color">
-                  Page {((index - 1 + realDataLength) % realDataLength) + 1}
-                </Text>
-              </View>
-            </View>
-          ))}
-        </XStack>
-      </ScrollView>
-
-      {/* 指示器 - 基于真实索引 */}
-      {showIndicators && (
-        <XStack
-          justify="center"
-          items="center"
-          gap="$2"
-          my="$3"
+    <YStack px={rem(12)}>
+      <View onLayout={handleLayout}>
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={handleScroll}
+          onScrollBeginDrag={handleScrollBegin}
+          onMomentumScrollEnd={handleMomentumScrollEnd}
+          onTouchEnd={handleMomentumScrollEnd}
+          scrollEventThrottle={16}
+          decelerationRate="fast"
+          // Web 端额外属性
+          {...(Platform.OS === 'web' && {
+            style: { scrollSnapType: 'x mandatory' } as any
+          })}
         >
-          {originalData.map((_, index) => (
-            <Circle
-              key={index}
-              size={10}
-              background={
-                index === realIndex ? '$blue10' : '$gray5'
-              }
-              borderWidth={1}
-              borderColor={index === realIndex ? '$blue10' : '$blue8'}
-              pressStyle={{ scale: 0.9 }}
-              onPress={() => scrollToIndex(index + 1)} // +1 因为真实数据从索引1开始
-              // Web 端鼠标样式
-              {...(Platform.OS === 'web' && {
-                cursor: 'pointer'
-              })}
-            />
-          ))}
-        </XStack>
-      )}
-    </View>
+          <XStack>
+            {loopData.map((item, index) => (
+              <View
+                key={item.id}
+                width={containerWidth || '100%'}
+                justify="center"
+                items="center"
+                style={{
+                  // Web 端滚动对齐
+                  ...(Platform.OS === 'web' && { scrollSnapAlign: 'start' })
+                }}
+              >
+                <Image width="100%" aspectRatio={61 / 38} borderTopLeftRadius={rem(12)} borderTopRightRadius={rem(12)} borderBottomLeftRadius={rem(12)} borderBottomRightRadius={rem(12)} source={{ uri: item.imageUrl }} />
+              </View>
+            ))}
+          </XStack>
+        </ScrollView>
+
+        {/* 指示器 - 基于真实索引 */}
+        {showIndicators && (
+          <XStack
+            justify="center"
+            items="center"
+            gap="$2"
+            my="$3"
+          >
+            {bannerList.map((_, index) => (
+              <Circle
+                key={index}
+                size={10}
+                background={
+                  index === realIndex ? '$blue10' : '$gray5'
+                }
+                borderWidth={1}
+                borderColor={index === realIndex ? '$blue10' : '$blue8'}
+                pressStyle={{ scale: 0.9 }}
+                onPress={() => scrollToIndex(index + 1)} // +1 因为真实数据从索引1开始
+                // Web 端鼠标样式
+                {...(Platform.OS === 'web' && {
+                  cursor: 'pointer'
+                })}
+              />
+            ))}
+          </XStack>
+        )}
+      </View>
+    </YStack>
   )
 }

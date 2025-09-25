@@ -1,39 +1,6 @@
-import { tabbar_background_25 } from './svg/tabbar/tabbar_background_25';
-import { activity_active_25 } from './svg/tabbar/activity-active-25';
-import { deposit_active_25 } from './svg/tabbar/deposit-active-25';
-import { profile_active_25 } from './svg/tabbar/profile-active-25';
-import { ring_outside_25 } from './svg/tabbar/ring-outside-25';
-import { ring_inside_25 } from './svg/tabbar/ring-inside-25';
-import { home_active_25 } from './svg/tabbar/home-active-25';
-import { activity_25 } from './svg/tabbar/activity-25';
-import { deposit_25 } from './svg/tabbar/deposit-25';
-import { profile_25 } from './svg/tabbar/profile-25';
-import { home_25 } from './svg/tabbar/home-25';
-import { earth } from './svg/earth';
-import { menu } from './svg/menu';
+export * from './modules/svg'
+export * from './modules/icons'
+export * from './modules/images'
 
-// 导出图片路径常量
-export const IMAGES = {
-  tabbar_bg_flexible_25: require('./images/tabbar/bg-flexible-25.png').default?.src || require('./images/tabbar/bg-flexible-25.png'),
-} as const;
 
-export const ICONS = {
-  tabbar_flexible_25: require('./icons/tabbar/flexible-25.png').default?.src || require('./icons/tabbar/flexible-25.png'),
-} as const
 
-export const SVG = {
-  tabbar_background_25: tabbar_background_25,
-  tabbar_home_25: home_25,
-  tabbar_home_active_25: home_active_25,
-  tabbar_activity_25: activity_25,
-  tabbar_activity_active_25: activity_active_25,
-  tabbar_deposit_25: deposit_25,
-  tabbar_deposit_active_25: deposit_active_25,
-  tabbar_profile_25: profile_25,
-  tabbar_profile_active_25: profile_active_25,
-  tabbar_ring_inside_25: ring_inside_25,
-  tabbar_ring_outside_25: ring_outside_25,
-
-  earth: earth,
-  menu: menu,
-} as const;

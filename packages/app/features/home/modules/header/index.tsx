@@ -1,6 +1,6 @@
 import { useTheme, Image, Button, XStack, YStack, Dialog} from "tamagui";
-import { usePlatformStore, useStyleStore } from '../../../../store'
 import { useResponsiveSize } from '../../../../hooks/ResponsiveSize'
+import { usePlatformStore, useStyleStore } from '../../../../store'
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { useTenantStore } from '../../../../store'
 import { SvgXml } from 'react-native-svg'
@@ -47,7 +47,7 @@ export const HomeHeader = () => {
           
           <XStack gap={rem(10)}>
             <Button chromeless bg="$surfaceRaisedL2" height={rem(36)} p={rem(5)} variant="outlined" aspectRatio={1} borderColor="$borderDefault" {...({ borderRadius: rem(4) } as any)}>
-              <SvgXml xml={SVG.earth} width={rem(20)} height={rem(20)} color={theme.iconDefault?.get()}/>
+              <SvgXml xml={SVG.earth} width={rem(20)} height={rem(20)} color={theme.iconDefault?.get()} />
             </Button>
             <RightSlideDialog />
           </XStack>
@@ -71,7 +71,7 @@ export function RightSlideDialog() {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay 
+        <Dialog.Overlay
           enterStyle={{ opacity: 0 }}
           exitStyle={{ opacity: 0 }}
           animation="quick" // [slow, lazy, medium, slow, bouncy, tooltip, spin, 100ms]
@@ -85,7 +85,7 @@ export function RightSlideDialog() {
           borderBottomLeftRadius={rem(12)}
           borderTopLeftRadius={rem(12)}
           position="absolute"
-          animation="medium"
+          animation="sheet"
           key="content"
           bg="$color2"
           width={rem(300)}

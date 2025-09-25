@@ -64,6 +64,7 @@ export const Field = forwardRef<
       <XStack
         gap="$2"
         p={rem(12)}
+        width="100%"
         items="center"
         bg="$surfaceLowered"
         borderColor="$borderDefault"
@@ -76,9 +77,9 @@ export const Field = forwardRef<
           flex={1}
           height={rem(22)}
           bg="transparent"
-          borderColor="transparent"
+          borderWidth={0}
           secureTextEntry={secureTextEntry}
-          focusStyle={{ borderColor: "transparent" }}
+          focusStyle={{ outlineWidth: 0 }}
           placeholderTextColor={emptyError ? "$danger" : "$textWeaker"}
           onBlur={onBlur}
           {...props}
@@ -90,8 +91,8 @@ export const Field = forwardRef<
         { type === 'password'
           ? <YStack onPress={() => setShowPassword(!showPassword)}>{
               showPassword
-              ? <Eye size={rem(20)} color="$color" />
-              : <EyeClosed size={rem(20)} color="$color" />
+              ? <Eye size={rem(20)} />
+              : <EyeClosed size={rem(20)} />
             }</YStack>
           : null
         }
@@ -111,7 +112,7 @@ const ClearButton = ({ onClear }: { onClear: () => void | undefined }) => {
 
   return (
     <YStack aspectRatio={1} p={rem(5)} bg="$textWeakest" style={{ borderRadius: "50%" }} onPress={onClear}>
-      <X size={rem(12)} color="$color" />
+      <X size={rem(12)} />
     </YStack>
   )
 }

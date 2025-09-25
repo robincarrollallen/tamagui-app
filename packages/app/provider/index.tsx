@@ -12,7 +12,7 @@ import {
 
 export function Provider({
   children,
-  defaultTheme = 'purple_base', // 默认主题
+  defaultTheme = 'Layout2:SupremeGreen', // 默认主题
   ...rest
 }: Omit<TamaguiProviderProps, 'config'> & { defaultTheme?: string }) {
   const colorScheme = useColorScheme()

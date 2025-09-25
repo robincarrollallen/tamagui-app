@@ -1,28 +1,28 @@
 'use client'
 
+import { useState } from 'react'
 import { BlurView } from 'expo-blur'
-import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
 import { useTenantStore } from 'app/store'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
 import { statusSelectors, useStatusStore } from '../../store/modules/status'
-import { useToastController, Image, Sheet, XStack, YStack, Anchor, SizableText, Field } from '@my/ui'
-import { useState } from 'react'
+import { useToastController, Image, Sheet, XStack, YStack, Anchor, SizableText, Field, ShimmerButton, Stack } from '@my/ui'
 
 export function LoginScreen() {
-  const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore()
-  const { tenantInfo } = useTenantStore()
   const { rem } = useResponsiveSize()
-  const toast = useToastController()
-  const isLogin = statusSelectors.isLogin(useStatusStore.getState())
+  const { tenantInfo } = useTenantStore()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
+  const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore()
+  const isLogin = statusSelectors.isLogin(useStatusStore.getState())
+  const toast = useToastController()
 
   return (
     <>
       <Sheet
         modal={false} // 是否模态框(全屏)
         snapPoints={[100]} // 弹窗高度(%)
-        animation="medium" // 动画效果
+        animation="sheet" // 动画效果
         disableDrag={true} // 禁止拖拽手势
         open={loginScreenVisible} // 登录弹窗是否显示
         dismissOnSnapToBottom={false} // 禁止向下滑动关闭
@@ -47,15 +47,18 @@ export function LoginScreen() {
           <XStack width="100%" justify="space-between" items="flex-start" p={rem(10)}>
             <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height={rem(30)} width={rem(130)} />
             <YStack height={rem(30)} bg="$textWeakest" p={rem(5)} style={{ borderRadius: rem(15) }}>
-              <X
-                color="$iconDefault"
-                onPress={() => {
-                  hideLoginPopup()
-                  toast.show('Sheet closed!', {
-                    message: 'Just showing how toast works...',
-                  })
-                }}
-              />
+            <Stack
+              pressStyle={{ opacity: 0.6 }}
+              cursor="pointer"
+              onPress={() => {
+                hideLoginPopup()
+                toast.show('Sheet closed!', {
+                  message: 'Just showing how toast works...',
+                })
+              }}
+            >
+              <X color="$iconDefault"/>
+            </Stack>
             </YStack>
           </XStack>
         </Sheet.Handle>
@@ -79,6 +82,7 @@ export function LoginScreen() {
             </YStack>
             <Field value={account} onChangeText={setAccount} placeholder="Username" type="account" error required label={<SquareUser color="$textWeaker" />} />
             <Field value={password} onChangeText={setPassword} placeholder="Password" type="password" error required label={<KeyRound color="$textWeaker" />} />
+            <ShimmerButton enableShimmer>Login</ShimmerButton>
           </YStack>
         </Sheet.Frame>
       </Sheet>

@@ -14,7 +14,7 @@ export async function fetchDefaultThemeFromBackend(): Promise<string> {
   // 这里替换为你的真实后端请求
   // const res = await fetch('https://your-backend/api/theme')
   // const theme = (await res.json()).theme
-  const theme = 'purple_base' // 示例
+  const theme = 'Layout2:SupremeGreen' // 示例
 
   themeCache.set(cacheKey, theme)
   return theme

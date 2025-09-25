@@ -1,4 +1,5 @@
 import { createAnimations } from '@tamagui/animations-react-native'
+import { Easing } from 'react-native'
 
 export const animations = createAnimations({
   '100ms': {
@@ -6,9 +7,23 @@ export const animations = createAnimations({
     duration: 100,
   },
   spin: {
-    type: 'timing',
-    duration: 2000,
-    loop: true,
+    type: 'timing', // 线性动画(默认 spring)
+    easing: Easing.ease, // 动画缓动函数
+    duration: 2000, // 动画持续时间
+    loop: true, // 是否循环
+  },
+  shimmer: {
+    type: 'spring', // 弹簧动画
+    damping: 100, // 阻尼: 控制振荡衰减（越大越快停止）
+    stiffness: 1, // 弹性: 控制振荡的幅度（越大越慢停止）
+    mass: 0.1, // 质量: 影响弹簧的惯性（越大动画越慢）
+    velocity: 0, // 初始速度: 影响弹簧的初始运动速度
+  },
+  sheet: {
+    damping: 100,
+    stiffness: 120,
+    mass: 0.3,
+    velocity: 0,
   },
   bouncy: {
     damping: 9,
@@ -20,9 +35,9 @@ export const animations = createAnimations({
     stiffness: 50,
   },
   medium: {
-    damping: 100,
+    damping: 15,
     stiffness: 120,
-    mass: 0.3,
+    mass: 1,
   },
   slow: {
     damping: 15,
