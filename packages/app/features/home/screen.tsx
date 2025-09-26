@@ -1,27 +1,13 @@
-import {
-  Anchor,
-  Button,
-  H1,
-  Paragraph,
-  Separator,
-  Sheet,
-  SwitchRouterButton,
-  SwitchThemeButton,
-  useToastController,
-  XStack,
-  YStack,
-  ScrollView,
-} from '@my/ui'
-import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
-import { HomeHeader } from './modules/header'
-import { Banner } from './modules/banner'
-import { Marquee } from './modules/marquee'
 import { useStatusStore } from '../../store/modules/status'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { Sign, Banner, Marquee, HomeHeader } from './modules'
+import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
+import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
+import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, } from 'tamagui'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkTarget = pagesMode ? '/pages-example-user' : '/user'
@@ -37,6 +23,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       <ScrollView flex={1} pt={rem(12)}>
         <Banner />
         <Marquee />
+        <Sign />
         <YStack justify="center" items="center" gap="$8" p="$4">
           <XStack
             position="absolute"

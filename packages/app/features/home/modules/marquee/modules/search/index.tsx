@@ -1,4 +1,4 @@
-import { Square } from '@my/ui'
+import { Square } from 'tamagui'
 import { Search } from '@tamagui/lucide-icons'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 

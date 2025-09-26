@@ -5,5 +5,10 @@
   "search": "Search",
   "add": "Add",
   "favorites": "Favorites",
-  "profile": "Profile"
+  "profile": "Profile",
+
+  "hint": {
+    "invalidUsername": "Please enter a valid username",
+    "invalidPassword": "Please enter a valid password"
+  }
 }

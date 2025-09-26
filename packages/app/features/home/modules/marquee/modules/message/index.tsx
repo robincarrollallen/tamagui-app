@@ -1,6 +1,7 @@
 import { ICONS } from '@my/assets'
+import { XStack, Image } from 'tamagui'
+import { MarqueeComponent } from '@my/ui'
 import { useTenantStore } from 'app/store';
-import { MarqueeComponent, XStack, Image, YStack } from '@my/ui'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize';
 
 export function MarqueeMessage() {

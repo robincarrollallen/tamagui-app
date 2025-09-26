@@ -5,14 +5,14 @@ import '@tamagui/font-inter/css/400.css'
 import '@tamagui/font-inter/css/700.css'
 import '@tamagui/polyfill-dev'
 
-import { useEffect, useState, type ReactNode } from 'react'
-import { useServerInsertedHTML } from 'next/navigation'
-import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
 import { config } from '@my/ui'
 import { Provider } from 'app/provider'
+import { initI18nClient } from 'app/i18n/client'
 import { StyleSheet, Platform } from 'react-native'
 import { themeValues } from '@my/config/src/themes'
-import { initI18nClient } from 'app/i18n/client'
+import { useServerInsertedHTML } from 'next/navigation'
+import { useEffect, useState, type ReactNode } from 'react'
+import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
 
 export const NextTamaguiProvider = ({
   defaultTheme,

@@ -1,10 +1,10 @@
 import { useSafeArea } from '../../../app/provider/safe-area/use-safe-area'
 import { useResponsiveSize } from '../../../app/hooks/ResponsiveSize'
 import { ICONS, SVG, IMAGES } from '@my/assets'
-import { ImageBackground, Platform } from 'react-native'
+import { ImageBackground, LayoutChangeEvent, Platform } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useRouter, usePathname } from 'solito/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { Pressable } from 'react-native'
 import {
@@ -14,6 +14,7 @@ import {
   Circle,
   Image,
 } from 'tamagui'
+import { useStyleStore } from 'app/store'
 
 /** 中间特殊按钮 */
 const CenterButton = () => {
@@ -100,19 +101,24 @@ const CustomTabButton = ({
 
 /** 自定义 TabBar 组件 */
 export const CustomTabBar = () => {
-  const safeAreaInsets = useSafeArea()
   const { rem } = useResponsiveSize()
+  const { setTabbarHeight } = useStyleStore()
   const [currentRoute, setCurrentRoute] = useState('home')
+  const safeAreaInsets = useSafeArea()
   const router = useRouter()
-  
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    setTabbarHeight(event.nativeEvent.layout.height)
+  }
+
   return (
-    <YStack style={{ position: 'absolute', bottom: 0, width: '100%', height: rem(80) }}>
+    <YStack onLayout={onLayout} style={{ position: 'absolute', bottom: 0, width: '100%', height: rem(80) }}>
       <SvgXml xml={SVG.tabbar_background_25} preserveAspectRatio="none" width="100%" height="100%" style={{ position: 'absolute' }} />
       {/* Tab 按钮容器 */}
       <XStack
         height="100%"
         items="flex-end"
-        pb={safeAreaInsets.bottom}
+        pb={safeAreaInsets.bottom + rem(4)}
       >
         {routes.map((route: any, index: number) => {
           const isFocused = currentRoute === route.name

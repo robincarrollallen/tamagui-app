@@ -5,5 +5,10 @@
   "search": "搜索",
   "add": "发布",
   "favorites": "收藏",
-  "profile": "我的"
+  "profile": "我的",
+
+  "hint": {
+    "invalidUsername": "请输入正确的用户名",
+    "invalidPassword": "请输入正确的密码"
+  }
 }

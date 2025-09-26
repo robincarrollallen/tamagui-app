@@ -1,6 +1,8 @@
 import { useStyleStore } from 'app/store/modules/style'
 import { MOBILE_MAX_WIDTH } from 'app/constant'
+import { throttle } from 'app/utils/library'
 import { useState, useEffect } from 'react'
+import { isWeb } from '@my/ui'
 
 interface ResponsiveSizeOptions {
   baseWidth?: number
@@ -8,11 +10,8 @@ interface ResponsiveSizeOptions {
   maxScale?: number
 }
 
-// 更安全的平台检测
-const isWeb = typeof window !== 'undefined' && typeof window.document !== 'undefined'
-
 export function useResponsiveSize(options: ResponsiveSizeOptions = {}) {
-  const { baseWidth = 375, minScale = 0.8, maxScale = 1.2 } = options
+  const { baseWidth = 390, minScale = 0.8, maxScale = 1.2 } = options
   
   const getInitialDimensions = () => {
     if (isWeb) {
@@ -46,9 +45,12 @@ export function useResponsiveSize(options: ResponsiveSizeOptions = {}) {
           useStyleStore.setState({ screenSpace: 0 })
         }
       }
+
+      const throttledResize = throttle(handleResize, 100)
+
       handleResize()
-      window.addEventListener('resize', handleResize)
-      return () => window.removeEventListener('resize', handleResize)
+      window.addEventListener('resize', throttledResize)
+      return () => window.removeEventListener('resize', throttledResize)
     } else {
       try {
         const { Dimensions } = require('react-native')

@@ -5,6 +5,7 @@ export interface PersistConfig<T> {
   version?: number
   migrate?: (persistedState: unknown, version: number) => T | Promise<T>
   onRehydrateStorage?: (state: T) => ((state?: T, error?: Error) => void) | void
+  partialize?: (state: T) => Partial<T>
 }
 
 // Store 状态类型

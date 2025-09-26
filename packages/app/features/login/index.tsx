@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { BlurView } from 'expo-blur'
 import { useTenantStore } from 'app/store'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { statusSelectors, useStatusStore } from '../../store'
 import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
-import { statusSelectors, useStatusStore } from '../../store/modules/status'
-import { useToastController, Image, Sheet, XStack, YStack, Anchor, SizableText, Field, ShimmerButton, Stack } from '@my/ui'
+import { useToastController, Field, ShimmerButton } from '@my/ui'
+import { Image, Sheet, XStack, YStack, Anchor, SizableText, Stack } from 'tamagui'
 
 export function LoginScreen() {
   const { rem } = useResponsiveSize()

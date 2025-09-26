@@ -10,3 +10,7 @@ declare module '*.json' {
   const value: any
   export default value
 }
+
+declare global {
+  type Recordable<T = any> = Record<string, T>;
+}

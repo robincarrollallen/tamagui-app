@@ -45,6 +45,9 @@ export const useStatusStore = create<StatusState>()(
     }),
     {
       name: 'status-store',
+      partialize: (state) => ({
+        loginScreenVisible: state.loginScreenVisible,
+      }),
       onRehydrateStorage: (state) => {
         return (state, error) => {
           if (!error && state) {

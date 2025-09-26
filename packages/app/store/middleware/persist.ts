@@ -1,6 +1,5 @@
-import { persist, createJSONStorage } from 'zustand/middleware'
-import { subscribeWithSelector } from 'zustand/middleware'
 import { Platform } from 'react-native';
+import { persist, createJSONStorage, subscribeWithSelector } from 'zustand/middleware'
 import type { StateCreator } from 'zustand'
 import type { PersistConfig } from '../types'
 
@@ -32,6 +31,7 @@ export const createPersistStore = <T>(
       version: config.version || 1,
       migrate: config.migrate,
       onRehydrateStorage: config.onRehydrateStorage,
+      partialize: config.partialize || (() => {}),
     }
   )
 }
