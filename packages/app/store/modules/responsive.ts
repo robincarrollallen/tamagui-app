@@ -18,7 +18,6 @@ interface ResponsiveState extends BaseStore {
     xl: number
   }
   rem: (size: number) => number
-  updateScreenSpace: () => void
 }
 
 const initialState = {
@@ -45,18 +44,14 @@ export const useResponsiveStore = create<ResponsiveState>()(
 
       rem: (size: number) => {
         const windowInnerWidth = get().screenWidth
-        const scale = windowInnerWidth / MOBILE_DESIGN_WIDTH
-        return Math.round(size * scale)
-      },
-
-      updateScreenSpace: () => {
-        const windowInnerWidth = get().screenWidth
         if (windowInnerWidth > MOBILE_MAX_WIDTH) {
           useStyleStore.setState({ screenSpace: (windowInnerWidth - MOBILE_MAX_WIDTH) / 2 })
         } else {
           useStyleStore.setState({ screenSpace: 0 })
         }
-      }
+        const scale = windowInnerWidth / MOBILE_DESIGN_WIDTH
+        return Math.round(size * scale)
+      },
     }),
     {
       name: 'responsive-store',
@@ -64,7 +59,7 @@ export const useResponsiveStore = create<ResponsiveState>()(
         return (state, error) => {
           if (!error && state) {
             if (!state._hasHydrated) {
-              responsiveSize()
+              initResponsive()
             }
             state.setHasHydrated(true)
           }
@@ -74,16 +69,13 @@ export const useResponsiveStore = create<ResponsiveState>()(
   )
 )
 
-function responsiveSize() {
-  setTimeout(() => {
+/** 初始化响应式 */
+function initResponsive() {
+  /** 延迟执行，避免执行时获取不到Store (比 Promise.resolve().then() 更直接, 比 setTimeout(0) 更快) */
+  queueMicrotask(() => {
     if (isWeb) {
       const handleResize = throttle(() => {
         useResponsiveStore.setState({ screenWidth: window.innerWidth, screenHeight: window.innerHeight })
-          if (window.innerWidth > MOBILE_MAX_WIDTH) {
-            useStyleStore.setState({ screenSpace: (window.innerWidth - MOBILE_MAX_WIDTH) / 2 })
-          } else {
-            useStyleStore.setState({ screenSpace: 0 })
-          }
       }, 100)
       handleResize()
       window.addEventListener('resize', handleResize)
@@ -98,5 +90,5 @@ function responsiveSize() {
         // 静默处理错误
       }
     }
-  }, 0)
+  })
 }

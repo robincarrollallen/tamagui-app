@@ -1,14 +1,13 @@
 import { Svg } from "@my/ui"
-import { XStack, Text, YStack, Square } from "tamagui"
+import { XStack, Text, Square, XStackProps } from "tamagui"
 import { LinearGradient } from "tamagui/linear-gradient"
 import { useResponsiveSize } from "app/hooks/ResponsiveSize"
 
-
-export function Sign() {
+export function Sign(props: XStackProps) {
   const { rem } = useResponsiveSize()
 
   return (
-    <YStack pl={rem(38)} pr={rem(18)} position='relative' flexDirection='row' justify='flex-start'>
+    <XStack pl={rem(38)} pr={rem(18)} mt={rem(12)} mb={rem(24)} position='relative' {...props}>
       <XStack flex={1} items='center' justify='space-between' height={rem(60)}>
         <Svg.SkewBorder position='absolute' z={-1}/>
         <XStack gap={rem(12)} items='center' m={-rem(16)}>
@@ -33,6 +32,6 @@ export function Sign() {
           </Svg.SkewButton>
         </XStack>
       </XStack>
-    </YStack>
+    </XStack>
   )
 }

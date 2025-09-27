@@ -10,8 +10,10 @@ export const style_25 = {
   surfaceRaisedL1: 'rgb(23, 33, 23)', // #172117
   surfaceRaisedL2: 'rgb(23, 33, 23)', // #172117
 
+  textBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
   textSuccess: 'rgb(25, 204, 16)', // #19CC10
   textHighlight: 'rgb(245, 200, 76)', // #F5C84C
+  textWeak: 'rgba(255, 255, 255, .6)', // #FFFFFF 60% 透明度
   textWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
   textWeakest: 'rgba(255, 255, 255, .2)', // #FFFFFF 20% 透明度
   danger: 'rgb(255, 0, 0)', // #FF0000

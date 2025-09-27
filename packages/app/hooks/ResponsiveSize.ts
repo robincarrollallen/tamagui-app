@@ -1,8 +1,9 @@
 import { useStyleStore } from 'app/store/modules/style'
-import { MOBILE_MAX_WIDTH } from 'app/constant'
+import { MOBILE_DESIGN_WIDTH, MOBILE_MAX_WIDTH } from 'app/constant'
 import { throttle } from 'app/utils/library'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { isWeb } from '@my/ui'
+import { useResponsiveStore } from 'app/store'
 
 interface ResponsiveSizeOptions {
   baseWidth?: number
@@ -89,4 +90,15 @@ export function useResponsiveSize(options: ResponsiveSizeOptions = {}) {
       xl: rem(32),
     }
   }
+}
+
+/** 获取响应式计算函数 */
+export const useRem = () => {
+  const screenWidth = useResponsiveStore(state => state.screenWidth)
+  
+  return useCallback((size: number) => {
+    const resultWidth = screenWidth > MOBILE_MAX_WIDTH ? MOBILE_MAX_WIDTH : screenWidth
+    const scale = resultWidth / MOBILE_DESIGN_WIDTH
+    return Math.round(size * scale)
+  }, [screenWidth])
 }

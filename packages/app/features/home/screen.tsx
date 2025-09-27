@@ -3,27 +3,28 @@ import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 import { useStatusStore } from '../../store/modules/status'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
-import { Sign, Banner, Marquee, HomeHeader } from './modules'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { Sign, Banner, Marquee, HomeHeader, Bonus } from './modules'
 import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
 import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
-import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, } from 'tamagui'
+import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, isWeb, } from 'tamagui'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
-  const linkTarget = pagesMode ? '/pages-example-user' : '/user'
+  const linkTarget = pagesMode ? '/pages-example-activity' : '/activity'
   const linkProps = useLink({
     href: `${linkTarget}/nate`,
   })
-  
+
   const { rem } = useResponsiveSize()
 
   return (
-    <YStack flex={1}>
+    <YStack flex={1} bg="$background">
       <HomeHeader />
       <ScrollView flex={1} pt={rem(12)}>
+        <Sign />
         <Banner />
         <Marquee />
-        <Sign />
+        <Bonus />
         <YStack justify="center" items="center" gap="$8" p="$4">
           <XStack
             position="absolute"
@@ -34,7 +35,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
             flexWrap="wrap"
             $sm={{ position: 'relative', t: 0 }}
           >
-            {Platform.OS === 'web' && (
+            {isWeb && (
               <>
                 <SwitchRouterButton pagesMode={pagesMode} />
                 <SwitchThemeButton />
@@ -108,7 +109,6 @@ function SheetDemo() {
   const { showLoginPopup } = useStatusStore()
 
   const [open, setOpen] = useState(false)
-
 
   const openLoginPopup = () => {
     setOpen(true)

@@ -16,7 +16,7 @@ export const SwitchLanguageButton = () => {
 
   return (
     <Button onPress={() => changeLang(clientLanguage === 'en-US' ? 'zh-CN' : 'en-US')}>
-      Change language: {clientLanguage}
+      Change language: {i18next.language}
           {t('greeting')}
     </Button>
   )

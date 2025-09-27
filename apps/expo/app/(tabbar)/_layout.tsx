@@ -20,10 +20,10 @@ export default function TabLayout() {
           name="search/index"
         />
         <Tabs.Screen
-          name="profile/index"
+          name="deposit/index"
         />
         <Tabs.Screen
-          name="favorites/index"
+          name="profile/index"
         />
       </Tabs>
 

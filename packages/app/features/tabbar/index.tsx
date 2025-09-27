@@ -1,80 +1,71 @@
+import { ImageBackground, LayoutChangeEvent, useWindowDimensions } from 'react-native'
 import { useSafeArea } from '../../../app/provider/safe-area/use-safe-area'
-import { useResponsiveSize } from '../../../app/hooks/ResponsiveSize'
+import { YStack, XStack, Text, Circle, Image, View } from 'tamagui'
+import { useRem } from '../../../app/hooks/ResponsiveSize'
+import { usePathname } from 'app/hooks/usePathname'
 import { ICONS, SVG, IMAGES } from '@my/assets'
-import { ImageBackground, LayoutChangeEvent, Platform } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { useRouter, usePathname } from 'solito/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'solito/navigation'
+import { useEffect, useState } from 'react'
+import { useStyleStore } from 'app/store'
 import { SvgXml } from 'react-native-svg'
 import { Pressable } from 'react-native'
-import {
-  YStack,
-  XStack,
-  Text,
-  Circle,
-  Image,
-} from 'tamagui'
-import { useStyleStore } from 'app/store'
 
 /** 中间特殊按钮 */
 const CenterButton = () => {
-  const { rem } = useResponsiveSize()
   const [rotateAngle, setRotateAngle] = useState(0)
+  const { tabbarLayout } = useStyleStore()
   
   useEffect(() => {
     setRotateAngle(360)
     const interval = setInterval(() => {
       setRotateAngle(prev => prev + 360) // 累加角度
     }, 2000) // 每2秒增加360度
-    
     return () => clearInterval(interval)
   }, [])
   
   return (
-    <ImageBackground
-      width={rem(60)}
-      height={rem(60)}
-      source={IMAGES.tabbar_bg_flexible_25}
-      style={{
-        position: 'relative',
-        width: '100%',
-        aspectRatio: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        transform: [{
-          scale: Platform.select({
-          ios: 1.2,
-          android: 1.2,
-          default: 1.8
-        }) }]
-      }}
-    >
-      <Circle style={{ position: 'absolute', width: '60%', aspectRatio: 1 }} animation="spin" rotate={`${rotateAngle}deg`}>
-        <SvgXml xml={SVG.tabbar_ring_inside_25 } style={{ width: '100%', height: '100%' }} />
-      </Circle>
-      <Circle style={{ position: 'absolute', width: '70%', aspectRatio: 1 }} animation="spin" rotate={`${-rotateAngle}deg`}>
-        <SvgXml xml={SVG.tabbar_ring_outside_25 } style={{ width: '100%', height: '100%' }} />
-      </Circle>
-      <Circle style={{ position: 'absolute', width: '40%', aspectRatio: 1 }} pressStyle={{ scale: 0.95 }}>
-        <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
-      </Circle>
-    </ImageBackground>
+    <View width="100%">
+      <ImageBackground
+        source={IMAGES.tabbar_bg_flexible_25}
+        style={{
+          position: 'relative',
+          width: '100%',
+          aspectRatio: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: [{
+            scale: 1.2
+          }]
+        }}
+      >
+        <Circle position="absolute" aspectRatio={1} animation="spin" rotate={`${rotateAngle}deg`}>
+          <SvgXml xml={SVG.tabbar_ring_inside_25 } width={tabbarLayout.width * 0.1} height={tabbarLayout.width * 0.1} />
+        </Circle>
+        <Circle position="absolute" aspectRatio={1} animation="spin" rotate={`${-rotateAngle}deg`}>
+          <SvgXml xml={SVG.tabbar_ring_outside_25 } width={tabbarLayout.width * 0.12} height={tabbarLayout.width * 0.12} />
+        </Circle>
+        <Circle position="absolute" width="40%" aspectRatio={1} pressStyle={{ scale: 0.95 }}>
+          <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
+        </Circle>
+      </ImageBackground>
+    </View>
   )
 }
 
 /** 自定义 Tab 按钮 */
-const CustomTabButton = ({ 
-  focused, 
-  icon, 
-  label, 
-  onPress 
+const CustomTabButton = ({
+  focused,
+  icon,
+  label,
+  onPress
 }: {
   focused: boolean
   icon: any
   label: string
   onPress: () => void
 }) => {
-  const { rem } = useResponsiveSize()
+  const rem = useRem()
   const { t } = useTranslation()
   
   return (
@@ -101,14 +92,14 @@ const CustomTabButton = ({
 
 /** 自定义 TabBar 组件 */
 export const CustomTabBar = () => {
-  const { rem } = useResponsiveSize()
-  const { setTabbarHeight } = useStyleStore()
-  const [currentRoute, setCurrentRoute] = useState('home')
-  const safeAreaInsets = useSafeArea()
   const router = useRouter()
+  const pathname = usePathname()
+  const safeAreaInsets = useSafeArea()
+  const { setTabbarLayout } = useStyleStore()
+  const rem = useRem()
 
   const onLayout = (event: LayoutChangeEvent) => {
-    setTabbarHeight(event.nativeEvent.layout.height)
+    setTabbarLayout(event.nativeEvent.layout)
   }
 
   return (
@@ -121,25 +112,24 @@ export const CustomTabBar = () => {
         pb={safeAreaInsets.bottom + rem(4)}
       >
         {routes.map((route: any, index: number) => {
-          const isFocused = currentRoute === route.name
+          const isFocused = pathname === route.name
           const onPress = () => {
-            setCurrentRoute(route.name)
-            if (currentRoute !== route.name) {
-              router.push(`/${route.name}`)
+            if (pathname !== route.name) {
+              router.push(route.name)
             }
           }
 
           // 如果是中间位置，渲染占位符
           if (index === Math.floor(routes.length / 2)) {
             return (
-              <YStack key={route.label} flex={1} style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+              <YStack key={route.label} width="20%" items="center" justify="center" position="relative" z={1}>
                 <CenterButton />
               </YStack>
             )
           }
 
           return (
-            <YStack key={route.label} flex={1} style={{ alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
+            <YStack key={route.label} width="20%" items="center" justify="center" position="relative" z={1}>
               <CustomTabButton
                 focused={isFocused}
                 icon={isFocused ? route.activeIcon : route.icon}
@@ -155,9 +145,9 @@ export const CustomTabBar = () => {
 }
 
 const routes = [
-  { name: 'home', label: 'home', icon: SVG.tabbar_home_25, activeIcon: SVG.tabbar_home_active_25 },
-  { name: 'activity', label: 'activity', icon: SVG.tabbar_activity_25, activeIcon: SVG.tabbar_activity_active_25 },
-  { name: 'search', label: 'search' },
-  { name: 'profile', label: 'profile', icon: SVG.tabbar_deposit_25, activeIcon: SVG.tabbar_deposit_active_25 },
-  { name: 'favorites', label: 'favorites', icon: SVG.tabbar_profile_25, activeIcon: SVG.tabbar_profile_active_25 },
+  { name: '/home', label: 'home', icon: SVG.tabbar_home_25, activeIcon: SVG.tabbar_home_active_25 },
+  { name: '/activity', label: 'activity', icon: SVG.tabbar_activity_25, activeIcon: SVG.tabbar_activity_active_25 },
+  { name: '/search', label: 'search' },
+  { name: '/deposit', label: 'deposit', icon: SVG.tabbar_deposit_25, activeIcon: SVG.tabbar_deposit_active_25 },
+  { name: '/profile', label: 'profile', icon: SVG.tabbar_profile_25, activeIcon: SVG.tabbar_profile_active_25 },
 ]
