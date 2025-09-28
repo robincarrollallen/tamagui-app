@@ -4,20 +4,22 @@ import { Text, TextProps } from 'tamagui'
 import { useState, useEffect, useRef } from 'react'
 
 interface AnimatedNumberProps extends TextProps {
-  targetValue?: number
+  value?: number
   duration?: number
+  decimal?: number
+  format?: boolean
 }
 
-export function AnimatedNumber({ targetValue = 0, duration = 2000, ...props }: AnimatedNumberProps) {
-  const [displayValue, setDisplayValue] = useState(targetValue)
+export function AnimatedNumber({ value = 0, duration = 2000, decimal = 0, format = true, ...props }: AnimatedNumberProps) {
+  const [displayValue, setDisplayValue] = useState(value)
   const frameRef = useRef<number>(0)
-  const startValueRef = useRef(targetValue)
+  const startValueRef = useRef(value)
 
   useEffect(() => {
     const startValue = startValueRef.current
-    const endValue = targetValue
+    const targetValue = value
 
-    if (startValue === endValue) return // 如果目标值没有变化，不需要动画
+    if (startValue === targetValue) return // 如果目标值没有变化，不需要动画
 
     const startTime = Date.now()
 
@@ -27,15 +29,16 @@ export function AnimatedNumber({ targetValue = 0, duration = 2000, ...props }: A
       
       const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress) // 缓动函数 - easeOutExpo
       
-      const currentValue = startValue + (endValue - startValue) * easeOutExpo
-      const roundedValue = Math.floor(currentValue)
+      const currentValue = startValue + (targetValue - startValue) * easeOutExpo
+
+      const roundedValue = decimal > 0 ? Number(currentValue.toFixed(decimal)) : Math.floor(currentValue)
       
       setDisplayValue(roundedValue)
       
       if (progress < 1) {
         frameRef.current = requestAnimationFrame(animate)
       } else {
-        startValueRef.current = endValue // 动画结束时更新起始值引用
+        startValueRef.current = targetValue // 动画结束时更新起始值引用
       }
     }
     
@@ -46,11 +49,11 @@ export function AnimatedNumber({ targetValue = 0, duration = 2000, ...props }: A
         cancelAnimationFrame(frameRef.current)
       }
     }
-  }, [targetValue, duration])
+  }, [value, duration])
 
   return (
     <Text {...props}>
-      {displayValue}
+      {format ? displayValue.toLocaleString() : displayValue}
     </Text>
   )
 }

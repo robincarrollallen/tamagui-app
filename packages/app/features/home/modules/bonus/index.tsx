@@ -1,9 +1,26 @@
 import { XStack, Text, XStackProps, View, Image, YStack } from "tamagui"
+import { useState, useRef, useEffect } from "react"
 import { useRem } from "app/hooks/ResponsiveSize"
+import { AnimatedNumber } from "@my/ui"
 import { ICONS } from "@my/assets"
 
 export function Bonus(props: XStackProps) {
   const rem = useRem()
+  const [targetCount, setTargetCount] = useState(0)
+  const amountInterval = useRef<NodeJS.Timeout>(null)
+
+  useEffect(() => {
+    amountInterval.current = setInterval(() => {
+      setTargetCount(parseInt(Date.now().toString().slice(-9)) / 100)
+    }, 3000)
+
+    return () => {
+      if (amountInterval.current) {
+        clearInterval(amountInterval.current)
+        amountInterval.current = null
+      }
+    }
+  }, [])
 
   return (
     <YStack p={rem(12)} position="relative" {...props}>
@@ -12,6 +29,7 @@ export function Bonus(props: XStackProps) {
         <Image source={ICONS.bonus_jackpot_25} width={rem(88)} height={rem(88)} />
         <YStack flex={1} justify="center">
           <Text color="$textWeak" fontSize={rem(14)}>Jackpot</Text>
+          <AnimatedNumber value={targetCount} decimal={2} fontSize={rem(38)} fontWeight="600" lineHeight={rem(58)} color="$textBrandPrimary" />
         </YStack>
       </XStack>
     </YStack>

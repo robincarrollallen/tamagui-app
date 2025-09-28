@@ -9,6 +9,15 @@ import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
 import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
 import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, isWeb, } from 'tamagui'
 
+const tabs = [
+  { label: 'Profile', value: 'tab1' },
+  { label: 'Connections', value: 'tab2' },
+  { label: 'Notifications', value: 'tab3' },
+  // { label: 'Settings', value: 'tab4' },
+  // { label: 'Help', value: 'tab5' },
+  // { label: 'Logout', value: 'tab6' },
+]
+
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkTarget = pagesMode ? '/pages-example-activity' : '/activity'
   const linkProps = useLink({

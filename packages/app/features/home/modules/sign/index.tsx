@@ -1,10 +1,12 @@
 import { Svg } from "@my/ui"
 import { XStack, Text, Square, XStackProps } from "tamagui"
 import { LinearGradient } from "tamagui/linear-gradient"
-import { useResponsiveSize } from "app/hooks/ResponsiveSize"
+import { useRem } from "app/hooks/ResponsiveSize"
+import { useStatusStore } from "app/store"
 
 export function Sign(props: XStackProps) {
-  const { rem } = useResponsiveSize()
+  const rem = useRem()
+  const { showLoginPopup, showRegisterPopup } = useStatusStore()
 
   return (
     <XStack pl={rem(38)} pr={rem(18)} mt={rem(12)} mb={rem(24)} position='relative' {...props}>
@@ -24,10 +26,17 @@ export function Sign(props: XStackProps) {
           <Text fontSize={rem(16)}>Welcome</Text>
         </XStack>
         <XStack gap={4} pr={rem(12)}>
-          <Svg.SkewButton height={rem(30)} minW={rem(74)}>
+          <Svg.SkewButton height={rem(30)} minW={rem(74)} onPress={showLoginPopup}>
             <Text fontSize={rem(12)}>Login</Text>
           </Svg.SkewButton>
-          <Svg.SkewButton height={rem(30)} minW={rem(74)} primaryColor="$inverse600" secondaryColor="$inverse500" strokeColor="$btnBorderLevel3">
+          <Svg.SkewButton
+            minW={rem(74)}
+            height={rem(30)}
+            primaryColor="$inverse600"
+            secondaryColor="$inverse500"
+            strokeColor="$btnBorderLevel3"
+            onPress={showRegisterPopup}
+          >
             <Text fontSize={rem(12)}>Register</Text>
           </Svg.SkewButton>
         </XStack>

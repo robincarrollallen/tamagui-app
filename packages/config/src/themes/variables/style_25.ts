@@ -6,8 +6,8 @@ export const style_25 = {
   navigationText: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
   navigationSelected: 'rgb(255, 255, 255)', // #FFFFFF
 
-  surfaceLowered: 'rgb(0, 33, 33)', // #002121
-  surfaceRaisedL1: 'rgb(23, 33, 23)', // #172117
+  surfaceLowered: 'rgb(10, 13, 10)', // #0A0D0A
+  surfaceRaisedL1: 'rgb(18, 23, 19)', // #121713
   surfaceRaisedL2: 'rgb(23, 33, 23)', // #172117
 
   textBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
@@ -22,6 +22,7 @@ export const style_25 = {
   activeActive: 'rgb(3, 97, 95)', // #03615F
 
   borderDefault: 'rgb(29, 41, 30)', // #1D291E
+  borderSelected: 'rgb(25, 204, 16)', // #19CC10
 
   iconDefault: 'rgb(25, 204, 16)', // #19CC10
   iconBrandPrimary: 'rgb(25, 204, 16)', // #19CC10

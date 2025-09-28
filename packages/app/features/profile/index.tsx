@@ -1,42 +1,54 @@
-import { View, ViewProps } from 'tamagui';
-import { Svg, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { useState } from 'react'
+import { Segment } from '@my/ui'
+import { YStack, isWeb, Text } from 'tamagui'
+import { useRem } from 'app/hooks/ResponsiveSize'
 
-interface GradientBadgeProps extends ViewProps {
-  primaryColor?: string;
-  secondaryColor?: string;
-  strokeColor?: string;
-  strokeWidth?: number;
+const tabs = [
+  { label: 'Profile', value: 'tab1' },
+  { label: 'Connections', value: 'tab2' },
+  { label: 'Notifications', value: 'tab3' },
+  // { label: 'Settings', value: 'tab4' },
+  // { label: 'Help', value: 'tab5' },
+  // { label: 'Logout', value: 'tab6' },
+]
+
+export function ProfileScreen() {
+  const rem = useRem()
+  const [activeTab, setActiveTab] = useState('tab1')
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value)
+  }
+
+  return (
+    <YStack
+      flex={1}
+      bg="$blue10"
+      {...(isWeb && {
+        position: 'unset' as any,
+      })} 
+    >
+      <YStack bg="$green10" height={80}>
+
+      </YStack>
+      <Segment
+        block
+        // shrink
+        tabs={tabs}
+        active={activeTab}
+        borderTopLeftRadius={rem(6)}
+        borderTopRightRadius={rem(6)}
+        borderBottomLeftRadius={rem(6)}
+        borderBottomRightRadius={rem(6)}
+        onValueChange={handleTabChange}
+      >
+      </Segment>
+    </YStack>
+  )
 }
 
-export const ProfileScreen = ({
-  primaryColor = "#12910B",
-  secondaryColor = "#19CC10", 
-  strokeColor = "#19CC10",
-  ...props
-}: GradientBadgeProps) => {
+const TabComponent = ({tab, isActive}: {tab: Recordable, isActive: boolean}) => {
   return (
-    <View width="100%" height="100%" {...props}>
-      <Svg width="100%" height="100%" viewBox="0 0 73 30" fill="none" preserveAspectRatio="none">
-      <Defs>
-        <LinearGradient
-          id="gradientBadge"
-          x1="-20.2125"
-          y1="15"
-          x2="93.7125"
-          y2="15"
-          gradientUnits="userSpaceOnUse"
-        >
-          <Stop stopColor={primaryColor} />
-          <Stop offset="1" stopColor={secondaryColor} />
-        </LinearGradient>
-      </Defs>
-      <Path 
-        d="M9.2793 1H69.8408C71.1028 1.00014 72.0493 2.15507 71.8018 3.39258L67.1621 26.5879C66.8817 27.9902 65.6507 29 64.2207 29H3.65918C2.3972 28.9999 1.45074 27.8449 1.69824 26.6074L6.33789 3.41211C6.61835 2.00984 7.84925 1 9.2793 1Z" 
-        fill="url(#gradientBadge)" 
-        stroke={strokeColor} 
-        strokeWidth={2}
-      />
-    </Svg>
-    </View>
-  );
-};
+    <Text>{tab.label}</Text>
+  )
+}

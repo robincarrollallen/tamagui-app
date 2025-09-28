@@ -3,20 +3,31 @@
 import { useState } from 'react'
 import { BlurView } from 'expo-blur'
 import { useTenantStore } from 'app/store'
-import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { useRem } from 'app/hooks/ResponsiveSize'
 import { statusSelectors, useStatusStore } from '../../store'
 import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
-import { useToastController, Field, ShimmerButton } from '@my/ui'
+import { useToastController, Field, ShimmerButton, Segment } from '@my/ui'
 import { Image, Sheet, XStack, YStack, Anchor, SizableText, Stack } from 'tamagui'
 
+const tabs = [
+  { label: 'Account', value: 0 },
+  { label: 'Phone', value: 1 },
+]
+
 export function LoginScreen() {
-  const { rem } = useResponsiveSize()
-  const { tenantInfo } = useTenantStore()
-  const [account, setAccount] = useState('')
-  const [password, setPassword] = useState('')
+  const rem = useRem() // 响应式尺寸
+  const { tenantInfo } = useTenantStore() // 租户信息
+  const [account, setAccount] = useState('') // 账号
+  const [password, setPassword] = useState('') // 密码
+  const [activeTab, setActiveTab] = useState(0) // 账号类型
   const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore()
   const isLogin = statusSelectors.isLogin(useStatusStore.getState())
   const toast = useToastController()
+
+  /** 账号类型切换 */
+  const handleTabChange = (value: number) => {
+    setActiveTab(value)
+  }
 
   return (
     <>
@@ -44,6 +55,7 @@ export function LoginScreen() {
             }}
           />
         </Sheet.Overlay>
+        {/* 头部/关闭按钮 */}
         <Sheet.Handle bg="transparent" margin={0} width="100%" height={rem(100)}>
           <XStack width="100%" justify="space-between" items="flex-start" p={rem(10)}>
             <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height={rem(30)} width={rem(130)} />
@@ -63,8 +75,11 @@ export function LoginScreen() {
             </YStack>
           </XStack>
         </Sheet.Handle>
+        {/* 内容背景(顶部边框) */}
         <Sheet.Frame pt={rem(2)} borderTopLeftRadius={rem(20)} borderTopRightRadius={rem(20)} bg="$iconDefault">
+          {/* 内容 */}
           <YStack height="100%" width="100%" items="flex-start" px={rem(16)} bg="$surfaceRaisedL1" borderTopLeftRadius={rem(19)} borderTopRightRadius={rem(19)}>
+            {/* 标题 */}
             <YStack pt={rem(40)} pb={rem(32)}>
               { isLogin
                 ? <SizableText text="center" fontSize={rem(24)} fontWeight="bold">Log in to your account</SizableText>
@@ -81,8 +96,26 @@ export function LoginScreen() {
                 }
               </XStack>
             </YStack>
+            {/* 账号类型切换 */}
+            <XStack width="100%" pb={rem(20)} justify="center">
+              <Segment
+                block
+                shrink
+                tabs={tabs}
+                active={activeTab}
+                bg="$surfaceLowered"
+                borderTopLeftRadius={rem(6)}
+                borderTopRightRadius={rem(6)}
+                activeColor="$surfaceRaisedL2"
+                borderBottomLeftRadius={rem(6)}
+                borderBottomRightRadius={rem(6)}
+                onValueChange={handleTabChange}
+              />
+            </XStack>
+            {/* 表单 */}
             <Field value={account} onChangeText={setAccount} placeholder="Username" type="account" error required label={<SquareUser color="$textWeaker" />} />
             <Field value={password} onChangeText={setPassword} placeholder="Password" type="password" error required label={<KeyRound color="$textWeaker" />} />
+            {/* 按钮 */}
             <ShimmerButton enableShimmer>Login</ShimmerButton>
           </YStack>
         </Sheet.Frame>

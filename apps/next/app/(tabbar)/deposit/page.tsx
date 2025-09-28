@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { AnimatedNumber } from '@my/ui'
 import { YStack, H2, Text, Button, XStack } from 'tamagui'
 
-// 数字动画 Hook
 export default function DepositPage() {
   const [targetCount, setTargetCount] = useState(0)
   const [step, setStep] = useState(100) // 每次增减的步长
@@ -30,37 +29,37 @@ export default function DepositPage() {
   }
 
   return (
-    <YStack flex={1} justifyContent="center" alignItems="center" padding="$4" space="$4">
+    <YStack flex={1} justify="center" items="center" p="$4" space="$4">
       <H2>存款页面</H2>
       
       {/* 显示动画数字 */}
-      <YStack alignItems="center" space="$2">
-        <AnimatedNumber targetValue={targetCount} duration={1500} />
-        <Text fontSize="$3" color="$gray10">
+      <YStack items="center" space="$2">
+        <AnimatedNumber value={targetCount} duration={1500} />
+        <Text fontSize="$3" color="$color10">
           目标金额: ¥ {formatNumber(targetCount)}
         </Text>
       </YStack>
 
       {/* 步长控制 */}
-      <XStack space="$2" alignItems="center">
+      <XStack space="$2" items="center">
         <Text>步长:</Text>
         <Button 
           size="$2" 
-          variant={step === 10 ? 'outlined' : 'ghost'}
+          variant={step === 10 ? 'outlined' : 'outlined'}
           onPress={() => setStep(10)}
         >
           10
         </Button>
         <Button 
           size="$2" 
-          variant={step === 100 ? 'outlined' : 'ghost'}
+          variant={step === 100 ? 'outlined' : 'outlined'}
           onPress={() => setStep(100)}
         >
           100
         </Button>
         <Button 
           size="$2" 
-          variant={step === 1000 ? 'outlined' : 'ghost'}
+          variant={step === 1000 ? 'outlined' : 'outlined'}
           onPress={() => setStep(1000)}
         >
           1000
@@ -96,14 +95,14 @@ export default function DepositPage() {
       </XStack>
 
       {/* 快捷金额按钮 */}
-      <YStack space="$2" alignItems="center">
-        <Text fontSize="$3" color="$gray10">快捷金额</Text>
-        <XStack space="$2" flexWrap="wrap" justifyContent="center">
+      <YStack space="$2" items="center">
+        <Text fontSize="$3" color="$color10">快捷金额</Text>
+        <XStack space="$2" flexWrap="wrap" justify="center">
           {[1000, 5000, 10000, 50000, 100000].map(amount => (
             <Button 
               key={amount}
               size="$3"
-              variant="ghost"
+              variant="outlined"
               onPress={() => setTargetCount(amount)}
             >
               ¥{amount.toLocaleString('zh-CN')}
