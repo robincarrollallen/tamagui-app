@@ -4,8 +4,8 @@ import { useLink } from 'solito/navigation'
 import { useStatusStore } from '../../store/modules/status'
 import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import { Sign, Banner, Marquee, HomeHeader, Bonus } from './modules'
 import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
+import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky } from './modules'
 import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
 import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, isWeb, } from 'tamagui'
 
@@ -34,6 +34,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
         <Banner />
         <Marquee />
         <Bonus />
+        <Sticky />
         <YStack justify="center" items="center" gap="$8" p="$4">
           <XStack
             position="absolute"

@@ -1,3 +1,4 @@
+export * from './modules/game'
 export * from './modules/theme'
 export * from './modules/style'
 export * from './modules/tenant'

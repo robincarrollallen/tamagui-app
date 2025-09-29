@@ -5,7 +5,7 @@ import bannerList from 'app/data/bannerList.json'
 import tenantInfo from 'app/data/tenant.json'
 import type { BaseStore } from '../types'
 
-interface ThemeState extends BaseStore {
+interface TenantState extends BaseStore {
   tenantInfo: typeof tenantInfo
   bannerList: typeof bannerList
   marqueeList: typeof marqueeList
@@ -18,7 +18,7 @@ const initialState = {
   _hasHydrated: false,
 }
 
-export const useTenantStore = create<ThemeState>()(
+export const useTenantStore = create<TenantState>()(
   createPersistStore(
     (set, get) => ({
       ...initialState,

@@ -1,6 +1,6 @@
-import { ImageBackground, LayoutChangeEvent, useWindowDimensions } from 'react-native'
 import { useSafeArea } from '../../../app/provider/safe-area/use-safe-area'
 import { YStack, XStack, Text, Circle, Image, View } from 'tamagui'
+import { ImageBackground, LayoutChangeEvent } from 'react-native'
 import { useRem } from '../../../app/hooks/ResponsiveSize'
 import { usePathname } from 'app/hooks/usePathname'
 import { ICONS, SVG, IMAGES } from '@my/assets'

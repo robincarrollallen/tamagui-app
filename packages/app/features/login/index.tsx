@@ -7,7 +7,7 @@ import { useRem } from 'app/hooks/ResponsiveSize'
 import { statusSelectors, useStatusStore } from '../../store'
 import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
 import { useToastController, Field, ShimmerButton, Segment } from '@my/ui'
-import { Image, Sheet, XStack, YStack, Anchor, SizableText, Stack } from 'tamagui'
+import { Image, Sheet, XStack, YStack, Anchor, SizableText, Stack, useTheme } from 'tamagui'
 
 const tabs = [
   { label: 'Account', value: 0 },
@@ -15,14 +15,15 @@ const tabs = [
 ]
 
 export function LoginScreen() {
-  const rem = useRem() // 响应式尺寸
   const { tenantInfo } = useTenantStore() // 租户信息
   const [account, setAccount] = useState('') // 账号
   const [password, setPassword] = useState('') // 密码
   const [activeTab, setActiveTab] = useState(0) // 账号类型
-  const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore()
-  const isLogin = statusSelectors.isLogin(useStatusStore.getState())
-  const toast = useToastController()
+  const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore() // 状态管理
+  const isLogin = statusSelectors.isLogin(useStatusStore.getState()) // 是否登录
+  const toast = useToastController() // 提示框
+  const theme = useTheme() // 主题
+  const rem = useRem() // 响应式尺寸
 
   /** 账号类型切换 */
   const handleTabChange = (value: number) => {
@@ -33,8 +34,8 @@ export function LoginScreen() {
     <>
       <Sheet
         modal={false} // 是否模态框(全屏)
-        snapPoints={[100]} // 弹窗高度(%)
         animation="sheet" // 动画效果
+        snapPoints={[100]} // 弹窗高度(%)
         disableDrag={true} // 禁止拖拽手势
         open={loginScreenVisible} // 登录弹窗是否显示
         dismissOnSnapToBottom={false} // 禁止向下滑动关闭
@@ -75,10 +76,8 @@ export function LoginScreen() {
             </YStack>
           </XStack>
         </Sheet.Handle>
-        {/* 内容背景(顶部边框) */}
-        <Sheet.Frame pt={rem(2)} borderTopLeftRadius={rem(20)} borderTopRightRadius={rem(20)} bg="$iconDefault">
-          {/* 内容 */}
-          <YStack height="100%" width="100%" items="flex-start" px={rem(16)} bg="$surfaceRaisedL1" borderTopLeftRadius={rem(19)} borderTopRightRadius={rem(19)}>
+        {/* 内容 */}
+        <Sheet.Frame pt={rem(2)} borderTopLeftRadius={rem(20)} borderTopRightRadius={rem(20)} bg="$surfaceRaisedL1" style={{ boxShadow: `0 ${rem(-3)}px 0 0 ${theme.iconDefault.get()}` }}>
             {/* 标题 */}
             <YStack pt={rem(40)} pb={rem(32)}>
               { isLogin
@@ -102,14 +101,18 @@ export function LoginScreen() {
                 block
                 shrink
                 tabs={tabs}
+                height={rem(32)}
+                fontSize={rem(12)}
                 active={activeTab}
                 bg="$surfaceLowered"
                 borderTopLeftRadius={rem(6)}
                 borderTopRightRadius={rem(6)}
                 activeColor="$surfaceRaisedL2"
+                onValueChange={handleTabChange}
                 borderBottomLeftRadius={rem(6)}
                 borderBottomRightRadius={rem(6)}
-                onValueChange={handleTabChange}
+                activeTextColor="$borderSelected"
+                activeTextWeight="700"
               />
             </XStack>
             {/* 表单 */}
@@ -117,7 +120,6 @@ export function LoginScreen() {
             <Field value={password} onChangeText={setPassword} placeholder="Password" type="password" error required label={<KeyRound color="$textWeaker" />} />
             {/* 按钮 */}
             <ShimmerButton enableShimmer>Login</ShimmerButton>
-          </YStack>
         </Sheet.Frame>
       </Sheet>
     </>

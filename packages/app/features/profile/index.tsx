@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Segment } from '@my/ui'
-import { YStack, isWeb, Text } from 'tamagui'
+import { YStack, isWeb } from 'tamagui'
 import { useRem } from 'app/hooks/ResponsiveSize'
 
 const tabs = [
@@ -33,8 +33,9 @@ export function ProfileScreen() {
       </YStack>
       <Segment
         block
-        // shrink
+        shrink
         tabs={tabs}
+        height={rem(50)}
         active={activeTab}
         borderTopLeftRadius={rem(6)}
         borderTopRightRadius={rem(6)}
@@ -44,11 +45,5 @@ export function ProfileScreen() {
       >
       </Segment>
     </YStack>
-  )
-}
-
-const TabComponent = ({tab, isActive}: {tab: Recordable, isActive: boolean}) => {
-  return (
-    <Text>{tab.label}</Text>
   )
 }

@@ -1,16 +1,8 @@
-import { HomeScreen } from 'app/features/home/screen'
+import { ProfileScreen } from 'app/features/profile'
 import { Stack } from 'expo-router'
 
 export default function Screen() {
   return (
-    <>
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          title: 'Profile',
-        }}
-      />
-      <HomeScreen />
-    </>
+    <ProfileScreen />
   )
 }
