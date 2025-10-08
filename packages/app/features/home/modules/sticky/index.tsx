@@ -9,7 +9,7 @@ const TabComponent = ({ tab, onPress }: { tab: { label: string, value: string },
   const rem = useRem()
 
   return (
-    <View onPress={onPress}>
+    <View onPress={onPress} height="100%">
       <ImageBackground
         imageStyle={{ borderRadius: rem(8) }}
         source={IMAGES.category_game_bg_25[tab.value]}
@@ -37,7 +37,8 @@ export function Sticky(props: XStackProps) {
         shrink
         bg="$background"
         height={rem(80)}
-        tabs={homeList.map((item) => ({ label: item.name, value: item.code }))} TabComponent={TabComponent}
+        tabs={homeList.map((item) => ({ label: item.name, value: item.code }))}
+        TabComponent={TabComponent}
         onValueChange={handleTabChange}
       />
     </YStack>

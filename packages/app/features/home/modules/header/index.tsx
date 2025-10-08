@@ -2,6 +2,8 @@ import { useTheme, Image, Button, XStack, YStack, Dialog} from "tamagui";
 import { useResponsiveSize } from '../../../../hooks/ResponsiveSize'
 import { usePlatformStore, useStyleStore } from '../../../../store'
 import { LinearGradient } from 'tamagui/linear-gradient'
+import { RippleButton } from '@my/ui/src/RippleButton'
+import { SidebarWidget } from 'app/widgets/sidebar'
 import { useTenantStore } from '../../../../store'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '@my/assets'
@@ -46,9 +48,9 @@ export const HomeHeader = () => {
           <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height='100%' width={rem(140)} />
           
           <XStack gap={rem(10)}>
-            <Button chromeless bg="$surfaceRaisedL2" height={rem(36)} p={rem(5)} variant="outlined" aspectRatio={1} borderColor="$borderDefault" {...({ borderRadius: rem(4) } as any)}>
+            <RippleButton onPress={() => console.log('Clicked!')} bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
               <SvgXml xml={SVG.earth} width={rem(20)} height={rem(20)} color={theme.iconDefault?.get()} />
-            </Button>
+             </RippleButton>
             <RightSlideDialog />
           </XStack>
         </XStack>
@@ -65,9 +67,9 @@ export function RightSlideDialog() {
   return (
     <Dialog>
       <Dialog.Trigger asChild>
-      <Button chromeless bg="$surfaceRaisedL2" height={rem(36)} p={rem(5)} variant="outlined" aspectRatio={1} borderColor="$borderDefault" {...({ borderRadius: rem(4) } as any)}>
-        <SvgXml xml={SVG.menu} width={rem(16)} height={rem(16)} color={theme.iconDefault?.get()} />
-      </Button>
+        <RippleButton onPress={() => console.log('Clicked!')} bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
+          <SvgXml xml={SVG.menu} width={rem(16)} height={rem(16)} color={theme.iconDefault?.get()} />
+        </RippleButton>
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -79,6 +81,7 @@ export function RightSlideDialog() {
           opacity={0.5}
         />
         <Dialog.Content
+          p={rem(10)}
           animateOnly={screenSpace ? ['opacity'] : ['transform', 'opacity']}
           enterStyle={{ x: '100%', opacity: 0 }} // 从右边进入
           exitStyle={{ x: '100%', opacity: 0 }} // 向右边退出
@@ -99,14 +102,7 @@ export function RightSlideDialog() {
           y={0}
         >
           {/* 对话框内容 */}
-          <Dialog.Title>标题</Dialog.Title>
-          <Dialog.Description>描述内容</Dialog.Description>
-          <XStack gap="$3" justify="flex-end">
-            <Dialog.Close asChild>
-              <Button variant="outlined">取消</Button>
-            </Dialog.Close>
-            <Button>确认</Button>
-          </XStack>
+          <SidebarWidget />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>

@@ -1,4 +1,4 @@
-import { HomeScreen } from 'app/features/home/screen'
+import { DepositScreen } from 'app/features/deposit'
 import { Stack } from 'expo-router'
 
 export default function Screen() {
@@ -7,10 +7,10 @@ export default function Screen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: 'Favorites',
+          title: 'Deposit',
         }}
       />
-      <HomeScreen />
+      <DepositScreen />
     </>
   )
 }
