@@ -6820,6 +6820,7 @@ __metadata:
     i18next: "npm:^25.3.1"
     js-cookie: "npm:^3.0.5"
     react-i18next: "npm:^15.6.0"
+    react-native-big-list: "npm:^1.6.4"
     react-native-safe-area-context: "npm:5.4.0"
     solito: "npm:^4.2.2"
     zustand: "npm:^5.0.8"
@@ -14932,6 +14933,20 @@ __metadata:
   version: 19.1.1
   resolution: "react-is@npm:19.1.1"
   checksum: 10/44e0937da1f0da1d5dbd4f01972870768ef207f8a49717f4491f5022454f34c956cb66be560aee5286387169853b0283a81e1f419b51dc62654c8710dc98065a
+  languageName: node
+  linkType: hard
+
+"react-native-big-list@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "react-native-big-list@npm:1.6.4"
+  dependencies:
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/471a402d4eab5199838c807d59c2e84450ebc18cf45c241ce01a3a82f5e70861533a66429b80025a8e75f0f7e0f74a0338c864c05a6224a037284874da57941b
   languageName: node
   linkType: hard
 

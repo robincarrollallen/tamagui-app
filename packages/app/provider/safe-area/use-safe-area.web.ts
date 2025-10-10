@@ -26,6 +26,23 @@ const area = {
   // left: `env(safe-area-inset-left)`,
 }
 
+const getSafeAreaInset = (side: 'top' | 'bottom' | 'left' | 'right'): number => {
+  if (typeof window === 'undefined') return 0
+  
+  const div = document.createElement('div') // 创建临时元素，应用 env()
+  div.style.paddingTop = `env(safe-area-inset-${side}, 0px)`
+  document.body.appendChild(div)
+  
+  const value = parseFloat(getComputedStyle(div).paddingTop) || 0 // 读取计算后的值
+  
+  document.body.removeChild(div)
+  return value
+}
+
 export function useSafeArea(): ReturnType<typeof nativeHook> {
+  area.top = getSafeAreaInset('top')
+  area.bottom = getSafeAreaInset('bottom')
+  area.left = getSafeAreaInset('left')
+  area.right = getSafeAreaInset('right')
   return area
 }

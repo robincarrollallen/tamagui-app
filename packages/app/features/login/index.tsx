@@ -8,6 +8,7 @@ import { statusSelectors, useStatusStore } from '../../store'
 import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
 import { useToastController, Field, ShimmerButton, Segment } from '@my/ui'
 import { Image, Sheet, XStack, YStack, Anchor, SizableText, Stack, useTheme } from 'tamagui'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const tabs = [
   { label: 'Account', value: 0 },
@@ -22,6 +23,7 @@ export function LoginScreen() {
   const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore() // 状态管理
   const isLogin = statusSelectors.isLogin(useStatusStore.getState()) // 是否登录
   const toast = useToastController() // 提示框
+  const safeArea = useSafeArea() // 安全区域
   const theme = useTheme() // 主题
   const rem = useRem() // 响应式尺寸
 
@@ -57,7 +59,7 @@ export function LoginScreen() {
           />
         </Sheet.Overlay>
         {/* 头部/关闭按钮 */}
-        <Sheet.Handle bg="transparent" margin={0} width="100%" height={rem(100)}>
+        <Sheet.Handle bg="transparent" margin={0} width="100%" height={rem(100)} pt={safeArea.top}>
           <XStack width="100%" justify="space-between" items="flex-start" p={rem(10)}>
             <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height={rem(30)} width={rem(130)} />
             <YStack height={rem(30)} bg="$textWeakest" p={rem(5)} style={{ borderRadius: rem(15) }}>

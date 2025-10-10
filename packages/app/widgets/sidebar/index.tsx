@@ -4,6 +4,7 @@ import { useRem } from '../../hooks/ResponsiveSize'
 import { useTenantStore } from '../../store'
 import { X } from '@tamagui/lucide-icons'
 import { useRef, useState } from 'react'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const tabs = [
   { id: 0, label: '推荐', key: 'recommend' },
@@ -14,10 +15,11 @@ const tabs = [
 ]
 
 export const SidebarWidget = () => {
-  const scrollRef = useRef<ScrollView>(null)
+  const { tenantInfo } = useTenantStore()
   const [activeTab, setActiveTab] = useState(0)
   const [tabBarHeight, setTabBarHeight] = useState(0)
-  const { tenantInfo } = useTenantStore()
+  const scrollRef = useRef<ScrollView>(null)
+  const safeArea = useSafeArea()
   const rem = useRem()
   
   // 存储每个内容区域的Y位置
@@ -61,7 +63,7 @@ export const SidebarWidget = () => {
   return (
     <>
       {/* 头部(Logo/关闭按钮) */}
-      <XStack items="center" justify="space-between" height={rem(50)} py={rem(10)} px={rem(5)}>
+      <XStack mt={safeArea.top - rem(10)} items="center" justify="space-between" height={rem(50)} py={rem(10)} px={rem(5)}>
         <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height='100%' width={rem(140)} />
         <Dialog.Close asChild>
           <Button 

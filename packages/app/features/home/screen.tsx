@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
 import { useStatusStore } from '../../store/modules/status'
-import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { useRem, useResponsiveSize } from 'app/hooks/ResponsiveSize'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
 import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky } from './modules'
 import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
 import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, isWeb, } from 'tamagui'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const tabs = [
   { label: 'Profile', value: 'tab1' },
@@ -24,12 +25,14 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
     href: `${linkTarget}/nate`,
   })
 
-  const { rem } = useResponsiveSize()
+
+  const rem = useRem()
+  const safeArea = useSafeArea()
 
   return (
-    <YStack flex={1} bg="$background">
+    <YStack flex={1} bg="$background" pt={safeArea.top}>
       <HomeHeader />
-      <ScrollView flex={1} pt={rem(12)}>
+      <ScrollView flex={1} pt={rem(12)} showsVerticalScrollIndicator={false}>
         <Sign />
         <Banner />
         <Marquee />

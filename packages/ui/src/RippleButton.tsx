@@ -5,9 +5,9 @@ import type { View } from 'react-native'
 
 // 单个波纹效果
 interface Ripple {
-  id: number
   x: number
   y: number
+  id: number
   animated: Animated.Value
   scale: Animated.AnimatedInterpolation<number>    // ✅ 预创建
   opacity: Animated.AnimatedInterpolation<number>  // ✅ 预创建
@@ -140,25 +140,25 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
     return (
       <Pressable
         ref={ref} // ✅ 将 ref 转发到 Pressable
-        onPressIn={handlePressIn}
         onPress={handlePress}
+        onPressIn={handlePressIn}
         disabled={disabled as boolean}
         style={{ position: 'relative' }}
       >
         <StyledButton
           onLayout={handleLayout}
+          pointerEvents="none"
           disabled={disabled as boolean}
           {...props}
         >
           {/* 波纹容器 */}
           <Stack
-            position="absolute"
             t={0}
             l={0}
             r={0}
             b={0}
-            pointerEvents="none"
             overflow="hidden"
+            position="absolute"
           >
             {ripples.map((ripple) => {
               return (

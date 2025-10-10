@@ -99,52 +99,6 @@ export function Segment({
           </YStack>
         ))}
       </ScrollView>
-      {/* <Tabs.List
-        bg={bg}
-        width={fitContent ? 'unset' : '100%'}
-        borderTopLeftRadius={block ? borderTopLeftRadius : 0}
-        borderTopRightRadius={block ? borderTopRightRadius : 0}
-        borderBottomLeftRadius={block ? borderBottomLeftRadius : 0}
-        borderBottomRightRadius={block ? borderBottomRightRadius : 0}
-        aria-label="Manage your account"
-        disablePassBorderRadius="bottom"
-        overflow={shrink ? 'scroll' : 'visible'}
-      >
-        {tabs.map((tab) => (
-          <Tabs.Tab
-            p={0}
-            key={tab.value}
-            height={height}
-            bg='transparent'
-            value={tab.value}
-            flex={shrink ? 'unset' : 1}
-            padding={block ? borderWidth : 0}
-            focusStyle={{ backgroundColor: 'transparent' }}
-            hoverStyle={{ backgroundColor: 'transparent' }}
-          >
-            {tabComponent ? tabComponent({tab, isActive: activeTab === tab.value}) : (
-              <YStack
-                height="100%"
-                items="flex-end"
-                width={block ? tabWidth : '100%'}
-                justify={block ? 'center' : 'flex-end'}
-                borderTopLeftRadius={block ? borderTopLeftRadius : 0}
-                borderTopRightRadius={block ? borderTopRightRadius : 0}
-                borderBottomLeftRadius={block ? borderBottomLeftRadius : 0}
-                borderBottomRightRadius={block ? borderBottomRightRadius : 0}
-                bg={block && activeTab === tab.value ? activeColor : 'transparent'}
-                borderBottomWidth={activeTab === tab.value && !block ? underlineWidth : 0}
-                borderBottomColor={activeTab === tab.value && !block ? activeColor: 'transparent'}
-              >
-                <SizableText px={block ? 0 : 10} text="center" width="100%">
-                  {tab.label}
-                </SizableText>
-              </YStack>
-            )}
-          </Tabs.Tab>
-        ))}
-      </Tabs.List> */}
-      {props.children}
     </Tabs>
   )
 }

@@ -2,7 +2,7 @@ import { useStyleStore } from 'app/store/modules/style'
 import { MOBILE_DESIGN_WIDTH, MOBILE_MAX_WIDTH } from 'app/constant'
 import { throttle } from 'app/utils/library'
 import { useState, useEffect, useCallback } from 'react'
-import { isWeb } from '@my/ui'
+import { isWeb } from 'tamagui'
 import { useResponsiveStore } from 'app/store'
 
 interface ResponsiveSizeOptions {

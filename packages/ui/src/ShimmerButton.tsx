@@ -57,11 +57,11 @@ export const ShimmerButton = ({
               opacity: 1,
             }}
             exitStyle={{
-              scale: 4,
+              scale: 5,
               opacity: 0
             }}
             animation="shimmer"
-            x={"-110%"}
+            x={"-120%"}
           />
         </AnimatePresence>
       )}

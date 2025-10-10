@@ -21,6 +21,7 @@
     "i18next": "^25.3.1",
     "js-cookie": "^3.0.5",
     "react-i18next": "^15.6.0",
+    "react-native-big-list": "^1.6.4",
     "react-native-safe-area-context": "5.4.0",
     "solito": "^4.2.2",
     "zustand": "^5.0.8"

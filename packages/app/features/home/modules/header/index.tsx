@@ -67,7 +67,7 @@ export function RightSlideDialog() {
   return (
     <Dialog>
       <Dialog.Trigger asChild>
-        <RippleButton onPress={() => console.log('Clicked!')} bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
+        <RippleButton bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
           <SvgXml xml={SVG.menu} width={rem(16)} height={rem(16)} color={theme.iconDefault?.get()} />
         </RippleButton>
       </Dialog.Trigger>

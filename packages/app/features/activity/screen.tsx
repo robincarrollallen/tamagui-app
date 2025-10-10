@@ -1,18 +1,33 @@
-import { useState } from 'react'
-import type { TabsContentProps } from 'tamagui'
+import { ActivityList } from './segments/list'
+import { useTranslation } from 'react-i18next'
+import { Unclaimed } from './segments/unclaimed'
+import { useCallback, useMemo, useState } from 'react'
 import { H5, SizableText, Tabs, YStack, isWeb } from 'tamagui'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import type { TabsContentProps } from 'tamagui'
+import React from 'react'
 
 export function ActivityScreen() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('tab1')
+  const safeArea = useSafeArea()
 
-  const handleTabChange = (value: string) => {
+  const activityTabs = useMemo(() => [
+    { label: t('activity.events'), value: 'tab1', component: ActivityList },
+    { label: t('activity.unclaimed'), value: 'tab2', component: Unclaimed },
+  ], [])
+
+  /** 切换回调事件 tab */
+  const handleTabChange = useCallback((value: string) => {
     setActiveTab(value)
-  }
-
+  }, [])
+  
   return (
     // web only fix for position relative
     <YStack
       flex={1}
+      bg="$background"
+      pt={safeArea.top}
       {...(isWeb && {
         position: 'unset' as any,
       })}
@@ -37,48 +52,34 @@ export function ActivityScreen() {
           disablePassBorderRadius="bottom"
           aria-label="Manage your account"
         >
-          <Tabs.Tab
-            value="tab1"
-            p={0}
-          >
-            <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === 'tab1' ? 1 : 0} borderBottomColor="$borderDefault">
-              <SizableText text="center">
-                Profile
-              </SizableText>
-            </YStack>
-          </Tabs.Tab>
-          <Tabs.Tab
-            value="tab2"
-            p={0}
-          >
-            <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === 'tab2' ? 1 : 0} borderBottomColor="$borderDefault">
-              <SizableText text="center">
-              Connections
-              </SizableText>
-            </YStack>
-          </Tabs.Tab>
-          <Tabs.Tab
-            value="tab3"
-            p={0}
-          >
-            <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === 'tab3' ? 1 : 0} borderBottomColor="$borderDefault">
-              <SizableText text="center">
-                Notifications
-              </SizableText>
-            </YStack>
-          </Tabs.Tab>
+          {activityTabs.map((tab) => (
+            <Tabs.Tab
+              key={tab.value}
+              value={tab.value}
+              focusStyle={{
+                bg: '$topNavSecondary',
+              }}
+              p={0}
+            >
+              <YStack bg="$topNavSecondary" height="100%" px={10} items="flex-end" justify="flex-end" borderBottomWidth={activeTab === tab.value ? 1 : 0} borderBottomColor="$borderDefault">
+                <SizableText text="center">
+                  {tab.label}
+                </SizableText>
+              </YStack>
+            </Tabs.Tab>
+          ))}
         </Tabs.List>
-        <TabsContent value="tab1">
-          <H5>Profile</H5>
-        </TabsContent>
-
-        <TabsContent value="tab2">
-          <H5>Connections</H5>
-        </TabsContent>
-
-        <TabsContent value="tab3">
-          <H5>Notifications</H5>
-        </TabsContent>
+        {activityTabs.map((tab) => (
+          <Tabs.Content
+            key={tab.value}
+            value={tab.value}
+            items="center"
+            justify="center"
+            flex={1}
+          >
+            {React.createElement(tab.component)}
+          </Tabs.Content>
+        ))}
       </Tabs>
     </YStack>
   )
