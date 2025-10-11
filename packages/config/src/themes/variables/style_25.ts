@@ -12,6 +12,7 @@ export const style_25 = {
 
   textBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
   textSuccess: 'rgb(25, 204, 16)', // #19CC10
+  textWarning: 'rgb(252, 151, 76)', // #FFC754
   textHighlight: 'rgb(245, 200, 76)', // #F5C84C
   textWeak: 'rgba(255, 255, 255, .6)', // #FFFFFF 60% 透明度
   textWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度

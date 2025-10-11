@@ -9,6 +9,7 @@ import { activity_25 } from '../src/svg/tabbar/activity-25';
 import { deposit_25 } from '../src/svg/tabbar/deposit-25';
 import { profile_25 } from '../src/svg/tabbar/profile-25';
 import { home_25 } from '../src/svg/tabbar/home-25';
+import { empty } from '../src/svg/empty';
 import { earth } from '../src/svg/earth';
 import { menu } from '../src/svg/menu';
 
@@ -25,6 +26,7 @@ export const SVG = {
   tabbar_ring_inside_25: ring_inside_25,
   tabbar_ring_outside_25: ring_outside_25,
 
+  empty: empty,
   earth: earth,
   menu: menu,
 } as const;

@@ -1,3 +1,4 @@
+import { LoadingProvider } from './LoadingProvider'
 import { ToastViewport } from './ToastViewport'
 import { StoreProvider } from './StoreProvider'
 import { useColorScheme } from 'react-native'
@@ -21,11 +22,13 @@ export function Provider({
   return (
     <TamaguiProvider config={config} defaultTheme={theme} {...rest}>
       <StoreProvider>
-        <ToastProvider swipeDirection="horizontal" duration={6000} native={isWeb ? [] : ['mobile']}>
-          {children}
-          <CustomToast />
-          <ToastViewport />
-        </ToastProvider>
+        <LoadingProvider>
+          <ToastProvider swipeDirection="horizontal" duration={6000} native={isWeb ? [] : ['mobile']}>
+            {children}
+            <CustomToast />
+            <ToastViewport />
+          </ToastProvider>
+        </LoadingProvider>
       </StoreProvider>
     </TamaguiProvider>
   )

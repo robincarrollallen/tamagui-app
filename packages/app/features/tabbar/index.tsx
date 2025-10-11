@@ -103,7 +103,7 @@ export const CustomTabBar = () => {
   }
 
   return (
-    <YStack onLayout={onLayout} style={{ position: 'absolute', bottom: 0, width: '100%', height: rem(80) }}>
+    <YStack onLayout={onLayout} style={{ position: 'absolute', bottom: 0, width: '100%', height: rem(80) + safeAreaInsets.bottom }}>
       <SvgXml xml={SVG.tabbar_background_25} preserveAspectRatio="none" width="100%" height="100%" style={{ position: 'absolute' }} />
       {/* Tab 按钮容器 */}
       <XStack

@@ -1,58 +1,50 @@
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react'
-import { YStack, isWeb, Spinner } from 'tamagui'
+import { SVG } from '@my/assets'
+import { SvgXml } from 'react-native-svg'
 import { RefreshControl } from 'react-native'
-import BigList, { BigListProps } from 'react-native-big-list'
 import { Loader2 } from '@tamagui/lucide-icons'
+import { YStack, isWeb, Spinner, Text } from 'tamagui'
+import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
+import BigList, { BigListProps } from 'react-native-big-list'
 
-type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'renderFooter' | 'itemHeight'> & {
+type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'onRefresh' > & {
   itemHeight?: number
+  refreshing?: boolean
+  onEndReached?: () => void
+  onRefresh?: () => Promise<void>
   renderHeader?: BigListProps<T>['renderHeader']
   renderFooter?: BigListProps<T>['renderFooter']
 }
 
 export const List = ({
-  data,
+  data = [],
   renderItem,
   itemHeight = 100,
+  refreshing = false,
   renderHeader = () => null,
   renderFooter = () => null,
+  onEndReached = () => null,
+  onRefresh = () => Promise.resolve(),
   ...props
 }: ListProps<any>) => {
-  const [refreshing, setRefreshing] = useState(false)
   const [scrollOffset, setScrollOffset] = useState(0)
   const pullToRefreshRef = useRef<WebPullToRefreshRef>(null)
 
   /** 滚动事件 */
   const onScroll = useCallback((event: any) => {
-      const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent // 滚动信息(滚动偏移,内容高度,可视区域高度)
-      setScrollOffset(contentOffset.y)
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent // 滚动信息(滚动偏移,内容高度,可视区域高度)
+    setScrollOffset(contentOffset.y)
   }, [])
 
-  /** 下拉刷新 */
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true)
+  /** 下拉刷新事件回调 */
+  const onRefreshHandler = useCallback(async () => {
     try {
-      // 模拟网络请求
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // 更新数据
-      const newData = Array.from({ length: 200 }, (_, i) => ({
-        id: i,
-        title: `活动 ${i + 1} (刷新于 ${new Date().toLocaleTimeString()})`,
-        status: i % 3 === 0 ? '进行中' : i % 3 === 1 ? '已结束' : '未开始',
-        description: `活动描述信息 ${i + 1}`,
-      }))
+      await onRefresh()
     } finally {
-      console.log('下拉刷新完成')
-      setRefreshing(false)
       pullToRefreshRef.current?.reset()
     }
   }, [])
-
-  const onEndReached = useCallback(() => {
-    console.log('即将到达底部，可以加载更多')
-  }, [])
   
+  /** 长列表组件 */
   const ListComponent = (
     <BigList
       data={data}
@@ -67,47 +59,62 @@ export const List = ({
       renderFooter={renderFooter}
       onEndReached={onEndReached} // 滚动到底部事件
       keyExtractor={(item) => item.id}
+      renderEmpty={() => EmptyComponent}
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl
+          onRefresh={onRefreshHandler}
           refreshing={refreshing}
-          onRefresh={onRefresh}
-          // 自定义颜色
           colors={['#facc15', '#ef4444', '#3b82f6']} // Android 多色
+          progressBackgroundColor="#1f2937" // 自定义背景（Android）
           tintColor="#facc15" // iOS 单色
+          size={100} // 自定义大小（Android）
           // 自定义文本（仅 iOS）
-          title=""
           titleColor="#facc15"
-          // 自定义背景（Android）
-          progressBackgroundColor="#1f2937"
-          // 自定义大小（Android）
-          size={100}
+          title=""
         />
       }
       {...props}
     />
   )
 
+  /** 空组件 */
+  const EmptyComponent = (
+    <YStack flex={1} items="center" pb={props.footerHeight as number || 0} pt={150}>
+      <SvgXml xml={SVG.empty} />
+      <Text color="$textWeakest">No Record</Text>
+    </YStack>
+  )
+
   if (isWeb) {
-    return <WebPullToRefresh ref={pullToRefreshRef} onRefresh={onRefresh} refreshing={refreshing} scrollOffset={scrollOffset}>{ListComponent}</WebPullToRefresh>
+    return (
+      <WebPullToRefresh ref={pullToRefreshRef} onRefresh={onRefreshHandler} refreshing={refreshing} scrollOffset={scrollOffset}>
+        {ListComponent}
+      </WebPullToRefresh>
+    )
   }
 
-  return <YStack flex={1} width="100%">{ListComponent}</YStack>
+  return (
+    <YStack flex={1}>
+      {ListComponent}
+    </YStack>
+  )
 }
 
+/** Web 端的下拉刷新引用(暴露给父组件属性) */
 interface WebPullToRefreshRef {
   setPullDistance: (distance: number) => void
   getPullDistance: () => number
   reset: () => void
 }
 
+/** Web 端的下拉刷新属性 */
 interface WebPullToRefreshProps {
   children: any
   refreshing: boolean
   scrollOffset: number
   onRefresh: () => void
 }
-
 
 /** Web 端的下拉刷新包装器 */
 const WebPullToRefresh = forwardRef<WebPullToRefreshRef, WebPullToRefreshProps>(({ children, onRefresh, refreshing, scrollOffset }, ref) => {

@@ -2,4 +2,6 @@
 export * from './activity'
 export * from './language'
 export * from './regular'
+export * from './time'
+export * from './options'
 

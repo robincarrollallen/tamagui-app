@@ -84,17 +84,3 @@ export function ActivityScreen() {
     </YStack>
   )
 }
-
-const TabsContent = (props: TabsContentProps) => {
-  return (
-    <Tabs.Content
-      key="tab3"
-      items="center"
-      justify="center"
-      flex={1}
-      {...props}
-    >
-      {props.children}
-    </Tabs.Content>
-  )
-}
