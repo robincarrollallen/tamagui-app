@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from 'react'
 import { ShimmerButton } from '@my/ui'
 import { List } from 'app/widgets/List'
 import { LanguageType } from 'app/enums'
@@ -8,12 +7,11 @@ import { YStack, Text, Image } from 'tamagui'
 import { useTranslation } from 'react-i18next'
 import { ImageBackground } from 'react-native'
 import { useRem } from 'app/hooks/ResponsiveSize'
+import { useCallback, useEffect, useState } from 'react'
 import { useActivityStore } from 'app/store/modules/activity'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 export const ActivityList = () => {
   const rem = useRem()
-  const safeArea = useSafeArea() // 安全区域
   const activityStore = useActivityStore()
   const tabbarLayout = useStyleStore(state => state.tabbarLayout) // TabBar 布局
   const activityList = useActivityStore(state => state.activityList)
@@ -36,15 +34,20 @@ export const ActivityList = () => {
     }
   }, [])
 
+   /** 到达底部回调事件 */
+   const onEndReached = useCallback(() => {
+    console.log('list 即将到达底部，可以加载更多')
+  }, [])
+
   return (
     <YStack flex={1} width="100%" px={rem(12)} pt={rem(12)}>
       <List
         refreshing={refreshing}
         onRefresh={onRefresh}
+        onEndReached={onEndReached}
         data={activityList}
         itemHeight={rem(130)}
-        renderFooter={() => <Text />}
-        footerHeight={tabbarLayout.height - safeArea.bottom}
+        footerHeight={tabbarLayout.height}
         renderItem={
           ({ item, index }) => <RenderItem item={item} index={index} />
         }

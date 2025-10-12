@@ -1,4 +1,4 @@
-import { toCamelCase } from "app/utils/format";
+import { toCamelCase } from "app/utils/format/string";
 import { useTranslation } from "react-i18next"
 
 /**

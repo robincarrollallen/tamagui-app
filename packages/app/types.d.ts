@@ -6,7 +6,8 @@ declare module '@my/ui' {
   interface TamaguiCustomConfig extends Conf {}
 }
 
-declare module '*.json' {
+declare module '*.json'
+declare module '*.jsonc' {
   const value: any
   export default value
 }

@@ -1,5 +1,5 @@
 import type { LanguageType, ResetType, RechargeType, ActivityType } from "app/enums"
-import { formatMoney } from "./format"
+import { formatMoney } from "./format/number"
 
 /** Preview text first */
 const previewText_First: Recordable<Recordable<string>> = {

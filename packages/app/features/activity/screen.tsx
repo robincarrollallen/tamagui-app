@@ -2,9 +2,8 @@ import { ActivityList } from './segments/list'
 import { useTranslation } from 'react-i18next'
 import { Unclaimed } from './segments/unclaimed'
 import { useCallback, useMemo, useState } from 'react'
-import { H5, SizableText, Tabs, YStack, isWeb } from 'tamagui'
+import { SizableText, Tabs, YStack, isWeb } from 'tamagui'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import type { TabsContentProps } from 'tamagui'
 import React from 'react'
 
 export function ActivityScreen() {

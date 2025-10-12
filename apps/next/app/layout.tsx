@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     // You can use `suppressHydrationWarning` to avoid the warning about mismatched content during hydration in dev mode
-    <html  lang={i18n.language} suppressHydrationWarning style={{ maxWidth: MOBILE_MAX_WIDTH, margin: '0 auto' }}>
+    <html lang={i18n.language} suppressHydrationWarning style={{ maxWidth: MOBILE_MAX_WIDTH, margin: '0 auto' }}>
       <body style={{ alignItems: 'center', height: '100vh', overflow: 'hidden' }}>
         <NextTamaguiProvider defaultTheme={defaultTheme}>
           {children}

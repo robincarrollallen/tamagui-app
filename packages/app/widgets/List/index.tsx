@@ -2,14 +2,19 @@ import { SVG } from '@my/assets'
 import { SvgXml } from 'react-native-svg'
 import { RefreshControl } from 'react-native'
 import { Loader2 } from '@tamagui/lucide-icons'
+import { useRem } from 'app/hooks/ResponsiveSize'
 import { YStack, isWeb, Spinner, Text } from 'tamagui'
+import { LoadMoreType, LOAD_MORE_STATUS } from 'app/enums'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
 import BigList, { BigListProps } from 'react-native-big-list'
 
-type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'onRefresh' > & {
+type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'renderFooter' | 'onRefresh' > & {
   itemHeight?: number
   refreshing?: boolean
+  footerHeight?: number
   onEndReached?: () => void
+  loadingMore?: LoadMoreType
   onRefresh?: () => Promise<void>
   renderHeader?: BigListProps<T>['renderHeader']
   renderFooter?: BigListProps<T>['renderFooter']
@@ -19,15 +24,19 @@ export const List = ({
   data = [],
   renderItem,
   itemHeight = 100,
+  footerHeight = 0,
   refreshing = false,
-  renderHeader = () => null,
-  renderFooter = () => null,
+  renderHeader = null,
+  renderFooter = null,
+  loadingMore = undefined,
   onEndReached = () => null,
   onRefresh = () => Promise.resolve(),
   ...props
 }: ListProps<any>) => {
   const [scrollOffset, setScrollOffset] = useState(0)
   const pullToRefreshRef = useRef<WebPullToRefreshRef>(null)
+  const safeArea = useSafeArea() // 安全区域
+  const rem = useRem()
 
   /** 滚动事件 */
   const onScroll = useCallback((event: any) => {
@@ -51,13 +60,10 @@ export const List = ({
       insetTop={0}
       insetBottom={0}
       headerHeight={0}
-      footerHeight={0}
       onScroll={onScroll} // 滚动事件监听
       renderItem={renderItem} // 渲染单个列表项
       itemHeight={itemHeight}
       renderHeader={renderHeader}
-      renderFooter={renderFooter}
-      onEndReached={onEndReached} // 滚动到底部事件
       keyExtractor={(item) => item.id}
       renderEmpty={() => EmptyComponent}
       showsVerticalScrollIndicator={false}
@@ -74,13 +80,28 @@ export const List = ({
           title=""
         />
       }
+      footerHeight={
+        loadingMore
+        ? footerHeight - safeArea.bottom + rem(30)
+        : footerHeight - safeArea.bottom
+      }
+      renderFooter={
+        loadingMore === LOAD_MORE_STATUS.LOADING
+        ? () => <Spinner size="small" color="$color"/>
+        : loadingMore === LOAD_MORE_STATUS.NO_MORE
+        ? () => <Text py={rem(5)} width="100%" text="center">没有更多了</Text>
+        : () => loadingMore === LOAD_MORE_STATUS.MORE && data.length > 0
+        ? <Text py={rem(5)} width="100%" text="center">加载更多</Text>
+        : <Text />
+      }
+      {...(data && data.length > 0 && !refreshing && loadingMore === LOAD_MORE_STATUS.MORE ? { onEndReached } : {})}
       {...props}
     />
   )
 
   /** 空组件 */
   const EmptyComponent = (
-    <YStack flex={1} items="center" pb={props.footerHeight as number || 0} pt={150}>
+    <YStack flex={1} items="center" pb={footerHeight as number || 0} pt={150}>
       <SvgXml xml={SVG.empty} />
       <Text color="$textWeakest">No Record</Text>
     </YStack>

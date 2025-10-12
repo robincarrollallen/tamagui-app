@@ -1,54 +1,92 @@
-import { initialDate, initialRecordList, setInitialDate, setInitialRecordList } from './data'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { useGlobalLoading } from 'app/provider/LoadingProvider'
-import { useRem } from 'app/hooks/ResponsiveSize'
-import { useCallback, useState } from 'react'
-import { useStyleStore } from 'app/store'
 import { delay } from 'app/utils/time'
+import { useStyleStore } from 'app/store'
+import { useUnclaimedState } from './state'
+import { useRem } from 'app/hooks/ResponsiveSize'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useGlobalLoading } from 'app/provider/LoadingProvider'
+import { LOAD_MORE_STATUS, RANGE_TIME, LoadMoreType } from 'app/enums'
+import activityRecordHistory from 'app/data/activityRecordHistory.json'
 
 export const useUnclaimedLogic = () => {
-  const [date, updateDate] = useState(initialDate) // 日期
-  const [recordList, updateRecordList] = useState(initialRecordList) // 记录列表
+  const [refreshing, setRefreshing] = useState(false) // 下拉刷新状态
+  const { setPage, setRecordList, setLoadingMore, setDate } = useUnclaimedState()
   const tabbarLayout = useStyleStore(state => state.tabbarLayout) // TabBar 布局
+  const recordList = useUnclaimedState(state => state.recordList) // 记录列表缓存状态
+  const loadingMore = useUnclaimedState(state => state.loadingMore) // 加载更多状态
+  const date = useUnclaimedState(state => state.date) // 日期缓存状态
   const loading = useGlobalLoading() // 全局加载状态
-  const safeArea = useSafeArea() // 安全区域
+  const initialized = useRef(false) // 是否初始化
   const rem = useRem() // 响应式尺寸
 
-  /** 设置日期(缓存) */
-  const setDate = (value: number) => {
-    setInitialDate(value)
-    updateDate(value)
-  }
-
-  /** 设置记录列表(缓存) */
-  const setRecordList = (list: any[]) => {
-    setInitialRecordList(list)
-    updateRecordList(list)
-  }
 
   /** 选择回调事件 */
   const onChange = useCallback(async (value: number) => {
     loading.show()
     setDate(value)
-    await delay(1500)
-    loading.hide()
+    try {
+      await mockRecordList()
+    } finally {
+      loading.hide()
+    }
   }, [])
 
   /** 到达底部回调事件 */
   const onEndReached = useCallback(() => {
-    console.log('即将到达底部，可以加载更多')
+    console.log('unclaimed 即将到达底部，可以加载更多')
+    setLoadingMore(LOAD_MORE_STATUS.LOADING)
+    mockRecordList()
+  }, [])
+
+  /** 下拉刷新 */
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true)
+    try {
+      setPage(1)
+      await mockRecordList()
+    } finally {
+      console.log('下拉刷新完成')
+      setRefreshing(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (initialized.current || recordList.length) return
+    initialized.current = true
+    onChange(RANGE_TIME.TODAY)
+  }, [])
+
+  // TODO: 模拟网络请求
+  const mockRecordList = useCallback(async () => {
+    await delay(1500)
+    const result = activityRecordHistory
+    const currentPage = useUnclaimedState.getState().page // 获取最新值
+    const currentRecordList = useUnclaimedState.getState().recordList // 获取最新值
+    const nextPage = currentPage + 1
+    if (currentPage === 1) {
+      setPage(nextPage)
+      setRecordList(result.recordList)
+      setLoadingMore(LOAD_MORE_STATUS.MORE)
+    } else if (currentPage < 3) {
+      setPage(nextPage)
+      setRecordList(currentRecordList.concat(result.recordList))
+      setLoadingMore(LOAD_MORE_STATUS.MORE)
+    } else {
+      const list = result.recordList.slice(0, 5)
+      setRecordList(currentRecordList.concat(list))
+      setLoadingMore(LOAD_MORE_STATUS.NO_MORE)
+    }
   }, [])
 
   return {
     date,
     loading,
-    safeArea,
     recordList,
+    refreshing,
+    loadingMore,
     tabbarLayout,
-    setRecordList,
     onEndReached,
+    onRefresh,
     onChange,
-    setDate,
     rem
   }
 }
