@@ -89,11 +89,11 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
               <>
                 <SwitchRouterButton pagesMode={pagesMode} />
                 <SwitchThemeButton />
-                <SwitchLanguageButton />
               </>
             )}
           </XStack>
 
+          <SwitchLanguageButton />
           <YStack gap="$4">
             <H1 text="center" color="$color12">
               Welcome to Tamagui.

@@ -20,6 +20,7 @@ export type RippleButtonProps = Omit<ComponentProps<typeof StyledButton>, 'child
   rippleDuration?: number
   rippleOpacity?: number
   onPress?: () => void
+  asChild?: boolean
   disabled?: boolean
   maxRipples?: number
 }
@@ -63,6 +64,7 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
       onPress,
       disabled,
       maxRipples = 1,
+      asChild= false,
       ...props
     },
     ref // 接收转发的 ref
@@ -144,6 +146,7 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
         onPressIn={handlePressIn}
         disabled={disabled as boolean}
         style={{ position: 'relative' }}
+        pointerEvents={asChild ? 'none' : 'auto'}
       >
         <StyledButton
           onLayout={handleLayout}
@@ -186,7 +189,6 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
     )
   }
 )
-
 
 /** 波纹样式 */
 const rippleStyles = StyleSheet.create({

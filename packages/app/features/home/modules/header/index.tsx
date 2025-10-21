@@ -1,4 +1,4 @@
-import { useTheme, Image, Button, XStack, YStack, Dialog} from "tamagui";
+import { useTheme, Image, XStack, YStack, Dialog} from "tamagui";
 import { useResponsiveSize } from '../../../../hooks/ResponsiveSize'
 import { usePlatformStore, useStyleStore } from '../../../../store'
 import { LinearGradient } from 'tamagui/linear-gradient'
@@ -6,6 +6,9 @@ import { RippleButton } from '@my/ui/src/RippleButton'
 import { SidebarWidget } from 'app/widgets/sidebar'
 import { useTenantStore } from '../../../../store'
 import { SvgXml } from 'react-native-svg'
+import { useAppStore } from 'app/store'
+import { useCallback } from "react";
+import { Selection } from '@my/ui'
 import { SVG } from '@my/assets'
 
 /** 首页 Header 组件 */
@@ -14,6 +17,19 @@ export const HomeHeader = () => {
   const { rem } = useResponsiveSize()
   const { tenantInfo } = useTenantStore()
   const { isReactNative } = usePlatformStore()
+  const items = [
+    { label: 'English', value: 'en-US' },
+    { label: 'Chinese', value: 'zh-CN' },
+  ]
+
+  const language = useAppStore((state) => state.language)
+  const setLanguage = useAppStore.getState().setLanguage
+
+  /** 选择回调事件 */
+  const onChange = useCallback((value: string) => {
+    console.log(value, '<<<<<<<<<<<<')
+    setLanguage(value)
+  }, [])
 
   return (
     <YStack style={{ backgroundColor: '#121713' }}>
@@ -48,9 +64,11 @@ export const HomeHeader = () => {
           <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height='100%' width={rem(140)} />
           
           <XStack gap={rem(10)}>
-            <RippleButton onPress={() => console.log('Clicked!')} bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
-              <SvgXml xml={SVG.earth} width={rem(20)} height={rem(20)} color={theme.iconDefault?.get()} />
-             </RippleButton>
+            <Selection value={language} items={items} onChange={onChange}>
+              <RippleButton asChild bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
+                <SvgXml xml={SVG.earth} width={rem(20)} height={rem(20)} color={theme.iconDefault?.get()} />
+              </RippleButton>
+            </Selection>
             <RightSlideDialog />
           </XStack>
         </XStack>

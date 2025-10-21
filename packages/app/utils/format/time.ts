@@ -8,6 +8,8 @@ dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+
+/** 格式化时间为日期 */
 export function formatTimeByDay(time: string | number | Date | Dayjs, format = TIME_FORMATS.DATE_TIME) {
   const date = dayjs(time);
   
