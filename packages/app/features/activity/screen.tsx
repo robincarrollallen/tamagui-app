@@ -1,3 +1,4 @@
+import { useActivityState } from './state'
 import { ActivityList } from './segments/list'
 import { useTranslation } from 'react-i18next'
 import { Unclaimed } from './segments/unclaimed'
@@ -8,8 +9,9 @@ import React from 'react'
 
 export function ActivityScreen() {
   const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState('tab1')
-  const safeArea = useSafeArea()
+  const setActiveTab = useActivityState.getState().setActiveTab // 设置活动标签
+  const activeTab = useActivityState(state => state.activeTab) // 日期缓存状态
+  const safeArea = useSafeArea() // 安全区域
 
   const activityTabs = useMemo(() => [
     { label: t('activity.events'), value: 'tab1', component: ActivityList },
@@ -35,7 +37,7 @@ export function ActivityScreen() {
         flex={1}
         bg="$background"
         overflow="hidden"
-        defaultValue="tab1"
+        defaultValue={activeTab}
         orientation="horizontal"
         flexDirection="column"
         borderTopLeftRadius={0}

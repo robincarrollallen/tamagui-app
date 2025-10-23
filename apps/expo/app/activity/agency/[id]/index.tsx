@@ -1,18 +1,16 @@
-import { UserDetailScreen } from 'app/features/user/detail-screen'
 import { Stack } from 'expo-router'
 import { useParams } from 'solito/navigation'
+import { UserDetailScreen } from 'app/features/user/detail-screen'
 
 export default function Screen() {
   const { id } = useParams()
+  
   return (
     <>
       <Stack.Screen
+        name="ActivityAgency"
         options={{
-          title: 'User',
-          presentation: 'modal',
-          animation: 'slide_from_right',
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
+          headerShown: false,
         }}
       />
       <UserDetailScreen id={id as string} />

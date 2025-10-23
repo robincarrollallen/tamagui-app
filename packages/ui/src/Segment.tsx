@@ -9,6 +9,7 @@ interface SegmentProps extends Omit<TabsProps, 'shrink'> {
   tabs?: Recordable[]
   active?: string | number
   color?: GetThemeValueForKey<"color">
+  orientation?: 'horizontal' | 'vertical'
   activeColor?: GetThemeValueForKey<"color">
   underlineWidth?: GetThemeValueForKey<"width">
   activeTextColor?: GetThemeValueForKey<"color">
@@ -32,6 +33,7 @@ export function Segment({
   borderTopLeftRadius = 0,
   borderTopRightRadius = 0,
   activeTextWeight = '400',
+  orientation = 'horizontal',
   borderBottomLeftRadius = 0,
   borderBottomRightRadius = 0,
   activeColor = '$borderSelected',
@@ -49,12 +51,12 @@ export function Segment({
 
   return (
     // XStack 中使用宽度内容由撑开, YStack 中使用宽度充满父级
-    <Tabs {...props}>
+    <Tabs orientation={orientation} {...props}>
       <ScrollView
         bg={bg}
-        horizontal
         height={height}
         showsHorizontalScrollIndicator={false}
+        horizontal={orientation === 'horizontal'}
         borderTopLeftRadius={block ? borderTopLeftRadius : 0}
         contentContainerStyle={{ flex:  shrink ? 'unset' : 1}}
         borderTopRightRadius={block ? borderTopRightRadius : 0}

@@ -1,5 +1,6 @@
 import { Segment, Sprite } from "@my/ui"
 import { useStickyLogic } from "./logic"
+import { useRouter } from "solito/navigation"
 import { ImageBackground } from "react-native"
 import { SPRITE_NAME, IMAGES } from "@my/assets"
 import { useRem } from "app/hooks/ResponsiveSize"
@@ -24,11 +25,12 @@ const TabComponent = ({ tab, onPress }: { tab: { label: string, value: string },
 
 export function Sticky(props: XStackProps) {
   const rem = useRem()
+  const router = useRouter()
   const homeList = useStickyLogic()
 
   /** 切换 tab */
   const handleTabChange = (value: string) => {
-    console.log(value, '<<<<<<<<<<<<')
+    router.push(`/game/category/${value}/0`)
   }
 
   return (
@@ -37,9 +39,9 @@ export function Sticky(props: XStackProps) {
         shrink
         bg="$background"
         height={rem(80)}
-        tabs={homeList.map((item) => ({ label: item.name, value: item.code }))}
         TabComponent={TabComponent}
         onValueChange={handleTabChange}
+        tabs={homeList.map((item) => ({ label: item.name, value: item.code }))}
       />
     </YStack>
   )

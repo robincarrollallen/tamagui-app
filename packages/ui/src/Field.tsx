@@ -103,7 +103,7 @@ export const Field = forwardRef<
       </XStack>
     </>
   )
-  })
+})
 
 Field.displayName = 'Field'
 

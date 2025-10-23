@@ -25,7 +25,6 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
     href: `${linkTarget}/nate`,
   })
 
-
   const rem = useRem()
   const safeArea = useSafeArea()
 

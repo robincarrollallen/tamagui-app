@@ -15,6 +15,7 @@ import { Pressable } from 'react-native'
 const CenterButton = () => {
   const [rotateAngle, setRotateAngle] = useState(0)
   const { tabbarLayout } = useStyleStore()
+  const router = useRouter()
   
   useEffect(() => {
     setRotateAngle(360)
@@ -25,7 +26,7 @@ const CenterButton = () => {
   }, [])
   
   return (
-    <View width="100%">
+    <View width="100%" onPress={() => { console.log('click'); router.push('/activity/agency/1') }}>
       <ImageBackground
         source={IMAGES.tabbar_bg_flexible_25}
         style={{
@@ -45,7 +46,7 @@ const CenterButton = () => {
         <Circle position="absolute" aspectRatio={1} animation="spin" rotate={`${-rotateAngle}deg`}>
           <SvgXml xml={SVG.tabbar_ring_outside_25 } width={tabbarLayout.width * 0.12} height={tabbarLayout.width * 0.12} />
         </Circle>
-        <Circle position="absolute" width="40%" aspectRatio={1} pressStyle={{ scale: 0.95 }}>
+        <Circle position="absolute" width="40%" aspectRatio={1} pressStyle={{ scale: 0.95 }} pointerEvents='none'>
           <Image source={ICONS.tabbar_flexible_25} style={{ width: '100%', height: '100%' }} />
         </Circle>
       </ImageBackground>
