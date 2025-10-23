@@ -16,11 +16,12 @@ type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'renderFooter' | 'onR
   onEndReached?: () => void
   loadingMore?: LoadMoreType
   onRefresh?: () => Promise<void>
+  onScroll?: (event: any) => void
   renderHeader?: BigListProps<T>['renderHeader']
   renderFooter?: BigListProps<T>['renderFooter']
 }
 
-export const List = ({
+export const List = forwardRef<BigList<any>, ListProps<any>>(({
   data = [],
   renderItem,
   itemHeight = 100,
@@ -30,18 +31,20 @@ export const List = ({
   renderFooter = null,
   loadingMore = undefined,
   onEndReached = () => null,
+  onScroll = () => null,
   onRefresh = () => Promise.resolve(),
   ...props
-}: ListProps<any>) => {
+}: ListProps<any>, ref) => {
   const [scrollOffset, setScrollOffset] = useState(0)
   const pullToRefreshRef = useRef<WebPullToRefreshRef>(null)
   const safeArea = useSafeArea() // 安全区域
   const rem = useRem()
 
   /** 滚动事件 */
-  const onScroll = useCallback((event: any) => {
+  const onScrollHandler = useCallback((event: any) => {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent // 滚动信息(滚动偏移,内容高度,可视区域高度)
     setScrollOffset(contentOffset.y)
+    onScroll?.(event)
   }, [])
 
   /** 下拉刷新事件回调 */
@@ -56,11 +59,12 @@ export const List = ({
   /** 长列表组件 */
   const ListComponent = (
     <BigList
+      ref={ref}
       data={data}
       insetTop={0}
       insetBottom={0}
       headerHeight={0}
-      onScroll={onScroll} // 滚动事件监听
+      onScroll={onScrollHandler} // 滚动事件监听
       renderItem={renderItem} // 渲染单个列表项
       itemHeight={itemHeight}
       renderHeader={renderHeader}
@@ -120,7 +124,7 @@ export const List = ({
       {ListComponent}
     </YStack>
   )
-}
+})
 
 /** Web 端的下拉刷新引用(暴露给父组件属性) */
 interface WebPullToRefreshRef {

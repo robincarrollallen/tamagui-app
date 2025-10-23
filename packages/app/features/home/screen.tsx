@@ -31,7 +31,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   return (
     <YStack flex={1} bg="$background" pt={safeArea.top}>
       <HomeHeader />
-      <ScrollView flex={1} pt={rem(12)} showsVerticalScrollIndicator={false}>
+      <ScrollView flex={1} pt={rem(12)} showsVerticalScrollIndicator={false} stickyHeaderIndices={[4]}>
         <Sign />
         <Banner />
         <Marquee />

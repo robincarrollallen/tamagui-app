@@ -7,8 +7,9 @@ import { YStack, Text, Image } from 'tamagui'
 import { useTranslation } from 'react-i18next'
 import { ImageBackground } from 'react-native'
 import { useRem } from 'app/hooks/ResponsiveSize'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useActivityStore } from 'app/store/modules/activity'
+import BigList from 'react-native-big-list'
 
 export const ActivityList = () => {
   const rem = useRem()
@@ -17,6 +18,7 @@ export const ActivityList = () => {
   const activityList = useActivityStore(state => state.activityList)
   const [refreshing, setRefreshing] = useState(false)
   const { i18n } = useTranslation()
+  const listRef = useRef<BigList<any>>(null)
   
   useEffect(() => {
     activityStore.setActivityList(ActivityListData.activityList, i18n.language as LanguageType) // 设置活动列表
@@ -32,25 +34,27 @@ export const ActivityList = () => {
       console.log('下拉刷新完成')
       setRefreshing(false)
     }
+    listRef.current?.scrollToOffset({ offset: 132, animated: true })
   }, [])
 
-   /** 到达底部回调事件 */
-   const onEndReached = useCallback(() => {
-    console.log('list 即将到达底部，可以加载更多')
+  const onScroll = useCallback((event: any) => {
+    console.log('onScroll', event.nativeEvent.contentOffset.y)
   }, [])
 
   return (
-    <YStack flex={1} width="100%" px={rem(12)} pt={rem(12)}>
+    <YStack flex={1} width="100%" px={rem(12)}>
       <List
+        ref={listRef}
         refreshing={refreshing}
         onRefresh={onRefresh}
-        onEndReached={onEndReached}
+        onScroll={onScroll}
         data={activityList}
         itemHeight={rem(130)}
         footerHeight={tabbarLayout.height}
         renderItem={
           ({ item, index }) => <RenderItem item={item} index={index} />
         }
+        contentContainerStyle={{ paddingTop: rem(12) }}
       />
     </YStack>
   )

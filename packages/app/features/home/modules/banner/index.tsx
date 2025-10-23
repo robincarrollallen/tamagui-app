@@ -1,6 +1,6 @@
 import { ScrollView, View, XStack, YStack, Circle, Image } from 'tamagui'
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { useRem } from 'app/hooks/ResponsiveSize'
 import { useTenantStore } from 'app/store';
 import { Platform } from 'react-native'
 
@@ -17,14 +17,14 @@ export function Banner({
   autoPlayInterval = 3000,
   showIndicators = true,
 }: CarouselProps) {
-  const [containerWidth, setContainerWidth] = useState(0)
-  const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
   const [realIndex, setRealIndex] = useState(0) // 真实数据索引
+  const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
   const [isScrolling, setIsScrolling] = useState(false) // 滚动状态
-  const { bannerList } = useTenantStore()
-  const scrollViewRef = useRef<ScrollView>(null)
+  const [containerWidth, setContainerWidth] = useState(0)
+  const bannerList = useTenantStore(state => state.bannerList)
   const scrollTimeout = useRef<NodeJS.Timeout>(null)
-  const { rem } = useResponsiveSize()
+  const scrollViewRef = useRef<ScrollView>(null)
+  const rem = useRem()
 
   // 构建循环数据 - 在首尾各添加一个副本
   const buildLoopData = useCallback(() => {
@@ -182,7 +182,7 @@ export function Banner({
                 items="center"
                 style={{
                   // Web 端滚动对齐
-                  ...(Platform.OS === 'web' && { scrollSnapAlign: 'start' })
+                  ...(Platform.OS === 'web' && { scrollSnapAlign: 'center' })
                 }}
               >
                 <Image width="100%" aspectRatio={61 / 38} borderTopLeftRadius={rem(12)} borderTopRightRadius={rem(12)} borderBottomLeftRadius={rem(12)} borderBottomRightRadius={rem(12)} source={{ uri: item.imageUrl }} />

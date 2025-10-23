@@ -1,6 +1,6 @@
 import { ScrollView, View, XStack, YStack, Circle, Image } from 'tamagui'
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { useRem } from 'app/hooks/ResponsiveSize'
 import { useTenantStore } from 'app/store'
 import { Platform } from 'react-native'
 
@@ -17,14 +17,14 @@ export function ProfileScreen({
   autoPlayInterval = 3000,
   showIndicators = true,
 }: CarouselProps) {
-  const [containerWidth, setContainerWidth] = useState(0)
-  const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
   const [realIndex, setRealIndex] = useState(0) // 真实数据索引
+  const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
   const [isScrolling, setIsScrolling] = useState(false) // 滚动状态
-  const { bannerList } = useTenantStore()
-  const scrollViewRef = useRef<ScrollView>(null)
+  const [containerWidth, setContainerWidth] = useState(0)
+  const bannerList = useTenantStore(state => state.bannerList)
   const scrollTimeout = useRef<NodeJS.Timeout>(null)
-  const { rem } = useResponsiveSize()
+  const scrollViewRef = useRef<ScrollView>(null)
+  const rem = useRem()
 
   // 配置常量
   const ITEM_WIDTH_PERCENTAGE = 0.8 // 卡片占容器宽度的 80%
@@ -222,7 +222,7 @@ export function ProfileScreen({
                 items="center"
                 style={{
                   // Web 端滚动对齐
-                  ...(Platform.OS === 'web' && { scrollSnapAlign: 'center' })
+                  ...(Platform.OS === 'web' && { scrollSnapAlign: 'start' })
                 }}
               >
                 <Image 
