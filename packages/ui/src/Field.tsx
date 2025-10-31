@@ -1,9 +1,9 @@
-import { YStack, Text, XStack, Input, InputProps } from 'tamagui'
-import { forwardRef, useMemo, useState } from 'react'
-import { X, EyeClosed, Eye, CircleAlert} from '@tamagui/lucide-icons'
-import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
+import { useRem } from 'app/store'
 import { validateInput } from 'app/utils/validate'
+import { forwardRef, useMemo, useState } from 'react'
 import { useInputErrorMessage } from "app/hooks/message"
+import { YStack, Text, XStack, Input, InputProps } from 'tamagui'
+import { X, EyeClosed, Eye, CircleAlert} from '@tamagui/lucide-icons'
 
 export interface FormInputProps extends InputProps {
   type?: string
@@ -20,7 +20,7 @@ export const Field = forwardRef<
   React.ComponentRef<typeof Input>,
   FormInputProps
 >(({ label, errorMessage, required, error = false, suffix, border = true, clear = true, type = 'text', ...props }, ref) => {
-  const { rem } = useResponsiveSize()
+  const rem = useRem()
   const [showPassword, setShowPassword] = useState(false)
   const [emptyError, setEmptyError] = useState(false)
   const [errorText, setErrorText] = useState(errorMessage)
@@ -108,7 +108,7 @@ export const Field = forwardRef<
 Field.displayName = 'Field'
 
 const ClearButton = ({ onClear }: { onClear: () => void | undefined }) => {
-  const { rem } = useResponsiveSize()
+  const rem = useRem()
 
   return (
     <YStack aspectRatio={1} p={rem(5)} bg="$textWeakest" style={{ borderRadius: "50%" }} onPress={onClear}>

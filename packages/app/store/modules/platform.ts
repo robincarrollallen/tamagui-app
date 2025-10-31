@@ -4,11 +4,11 @@ import { createPersistStore } from '../middleware/persist'
 import type { BaseStore } from '../types'
 
 interface PlatformState extends BaseStore {
-  isReactNative: boolean
+  isNative: boolean
 }
 
 const initialState = {
-  isReactNative: Platform.OS !== 'web',
+  isNative: Platform.OS !== 'web',
   _hasHydrated: false,
 }
 

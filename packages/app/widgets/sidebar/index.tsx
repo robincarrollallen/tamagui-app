@@ -1,10 +1,10 @@
 // 核心结构
 import { ScrollView, YStack, XStack, Text, Button, Image, Dialog } from 'tamagui'
-import { useRem } from '../../hooks/ResponsiveSize'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useTenantStore } from '../../store'
 import { X } from '@tamagui/lucide-icons'
 import { useRef, useState } from 'react'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { useRem } from 'app/store'
 
 const tabs = [
   { id: 0, label: '推荐', key: 'recommend' },
@@ -15,11 +15,11 @@ const tabs = [
 ]
 
 export const SidebarWidget = () => {
-  const { tenantInfo } = useTenantStore()
-  const [activeTab, setActiveTab] = useState(0)
-  const [tabBarHeight, setTabBarHeight] = useState(0)
-  const scrollRef = useRef<ScrollView>(null)
   const safeArea = useSafeArea()
+  const scrollRef = useRef<ScrollView>(null)
+  const [tabBarHeight, setTabBarHeight] = useState(0)
+  const [activeTab, setActiveTab] = useState(0)
+  const { tenantInfo } = useTenantStore()
   const rem = useRem()
   
   // 存储每个内容区域的Y位置

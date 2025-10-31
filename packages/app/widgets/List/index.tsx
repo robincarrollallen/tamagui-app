@@ -1,8 +1,8 @@
 import { SVG } from '@my/assets'
+import { useRem } from 'app/store'
 import { SvgXml } from 'react-native-svg'
 import { RefreshControl } from 'react-native'
 import { Loader2 } from '@tamagui/lucide-icons'
-import { useRem } from 'app/hooks/ResponsiveSize'
 import { YStack, isWeb, Spinner, Text } from 'tamagui'
 import { LoadMoreType, LOAD_MORE_STATUS } from 'app/enums'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -35,9 +35,9 @@ export const List = forwardRef<BigList<any>, ListProps<any>>(({
   onRefresh = () => Promise.resolve(),
   ...props
 }: ListProps<any>, ref) => {
-  const [scrollOffset, setScrollOffset] = useState(0)
-  const pullToRefreshRef = useRef<WebPullToRefreshRef>(null)
   const safeArea = useSafeArea() // 安全区域
+  const pullToRefreshRef = useRef<WebPullToRefreshRef>(null)
+  const [scrollOffset, setScrollOffset] = useState(0)
   const rem = useRem()
 
   /** 滚动事件 */
@@ -64,9 +64,10 @@ export const List = forwardRef<BigList<any>, ListProps<any>>(({
       insetTop={0}
       insetBottom={0}
       headerHeight={0}
-      onScroll={onScrollHandler} // 滚动事件监听
       renderItem={renderItem} // 渲染单个列表项
       itemHeight={itemHeight}
+      scrollEventThrottle={16} // 滚动事件节流
+      onScroll={onScrollHandler} // 滚动事件监听
       renderHeader={renderHeader}
       keyExtractor={(item) => item.id}
       renderEmpty={() => EmptyComponent}

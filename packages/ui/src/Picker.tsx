@@ -1,7 +1,7 @@
 import { Popover, PopoverProps, YStack, Text, ScrollView } from "tamagui"
 import { Pressable, useWindowDimensions } from "react-native"
-import { useRem } from "app/hooks/ResponsiveSize"
 import { useRef, useState } from "react"
+import { useRem } from 'app/store'
 
 interface CustomPopoverProps {
   open?: boolean
@@ -25,11 +25,11 @@ export function Picker({
   onOpenChange: controlledOnOpenChange,
   ...props
 }: CustomPopoverProps) {
-  const rem = useRem()
   const triggerRef = useRef<any>(null) // 触发器引用
-  const [maxHeight, setMaxHeight] = useState(300) // 最大高度
-  const { height: screenHeight } = useWindowDimensions() // 屏幕高度
+  const rem = useRem()
   const [internalOpen, setInternalOpen] = useState(false) // 内部打开状态
+  const { height: screenHeight } = useWindowDimensions() // 屏幕高度
+  const [maxHeight, setMaxHeight] = useState(300) // 最大高度
   
   const open = controlledOpen ?? internalOpen // 打开状态
 

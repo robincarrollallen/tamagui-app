@@ -1,6 +1,6 @@
-import { Button, ButtonProps, Stack, AnimatePresence } from "tamagui"
+import { useRem } from 'app/store'
 import { useState, useEffect } from "react"
-import { useResponsiveSize } from "app/hooks/ResponsiveSize"
+import { Button, ButtonProps, Stack, AnimatePresence } from "tamagui"
 
 interface ShimmerButtonProps extends ButtonProps {
   enableShimmer?: boolean
@@ -13,7 +13,7 @@ export const ShimmerButton = ({
   shimmerInterval = 3000,
   ...props 
 }: ShimmerButtonProps) => {
-  const { rem } = useResponsiveSize()
+  const rem = useRem()
   const [shimmerKey, setShimmerKey] = useState(0)
 
   useEffect(() => {

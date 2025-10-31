@@ -1,12 +1,12 @@
+import { memo } from "react"
 import { Segment, Sprite } from "@my/ui"
-import { useStickyLogic } from "./logic"
 import { useRouter } from "solito/navigation"
 import { ImageBackground } from "react-native"
 import { SPRITE_NAME, IMAGES } from "@my/assets"
-import { useRem } from "app/hooks/ResponsiveSize"
+import { useGameStore, useRem } from "app/store"
 import { XStackProps, YStack, View, Text } from "tamagui"
 
-const TabComponent = ({ tab, onPress }: { tab: { label: string, value: string }, isActive: boolean, onPress: () => void }) => {
+const TabComponent = memo<{ tab: { label: string, value: string }, isActive: boolean, onPress: () => void }>(({ tab, onPress }) => {
   const rem = useRem()
 
   return (
@@ -21,12 +21,12 @@ const TabComponent = ({ tab, onPress }: { tab: { label: string, value: string },
       </ImageBackground>
     </View>
   )
-}
+})
 
 export function Sticky(props: XStackProps) {
   const rem = useRem()
   const router = useRouter()
-  const homeList = useStickyLogic()
+  const homeList = useGameStore(state => state.homeList)
 
   /** 切换 tab */
   const handleTabChange = (value: string) => {
@@ -34,7 +34,7 @@ export function Sticky(props: XStackProps) {
   }
 
   return (
-    <YStack py={rem(12)} position="relative" {...props}>
+    <YStack pb={rem(12)} position="relative" {...props}>
       <Segment
         shrink
         bg="$background"

@@ -10,6 +10,7 @@ export const style_25 = {
   surfaceRaisedL1: 'rgb(18, 23, 19)', // #121713
   surfaceRaisedL2: 'rgb(23, 33, 23)', // #172117
 
+  textSelected: 'rgb(25, 204, 16)', // #19CC10
   textBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
   textSuccess: 'rgb(25, 204, 16)', // #19CC10
   textWarning: 'rgb(252, 151, 76)', // #FFC754
@@ -27,6 +28,7 @@ export const style_25 = {
 
   iconDefault: 'rgb(25, 204, 16)', // #19CC10
   iconBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
+  iconBrandSecondary: 'rgb(255, 171, 0)', // #FFFFFF
 
   btnBorderLevel3: 'rgb(255, 199, 84)', // #FFC754
 

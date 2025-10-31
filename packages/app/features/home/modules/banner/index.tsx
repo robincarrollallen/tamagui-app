@@ -1,7 +1,6 @@
 import { ScrollView, View, XStack, YStack, Circle, Image } from 'tamagui'
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { useRem } from 'app/hooks/ResponsiveSize'
-import { useTenantStore } from 'app/store';
+import { useRem, useTenantStore } from 'app/store';
 import { Platform } from 'react-native'
 
 interface CarouselProps {
@@ -24,7 +23,7 @@ export function Banner({
   const bannerList = useTenantStore(state => state.bannerList)
   const scrollTimeout = useRef<NodeJS.Timeout>(null)
   const scrollViewRef = useRef<ScrollView>(null)
-  const rem = useRem()
+  const rem = useRem() // 响应式尺寸
 
   // 构建循环数据 - 在首尾各添加一个副本
   const buildLoopData = useCallback(() => {

@@ -4,8 +4,6 @@ import { createPersistStore } from '../middleware/persist'
 import type { BaseStore } from '../types'
 
 interface StyleState extends BaseStore {
-  /** 屏幕与内容间距 */
-  screenSpace: number,
   /** TabBar 宽高 */
   tabbarLayout: LayoutRectangle,
   /** 设置 TabBar 高度 */
@@ -13,7 +11,6 @@ interface StyleState extends BaseStore {
 }
 
 const initialState = {
-  screenSpace: 0,
   tabbarLayout: { height: 0, width: 0, x: 0, y: 0 },
   _hasHydrated: false,
 }

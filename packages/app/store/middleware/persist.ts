@@ -1,20 +1,15 @@
-import { Platform } from 'react-native';
+import { isWeb } from 'tamagui'
 import { persist, createJSONStorage, subscribeWithSelector } from 'zustand/middleware'
 import type { StateCreator } from 'zustand'
 import type { PersistConfig } from '../types'
 
-// 平台检测
-const isReactNative = Platform.OS !== 'web'
-
 // 获取平台特定的存储
 const getStorage = () => {
-  if (isReactNative) {
-    // React Native / Expo
-    const AsyncStorage = require('@react-native-async-storage/async-storage').default
-    return createJSONStorage(() => AsyncStorage)
+  if (isWeb) {
+    return createJSONStorage(() => localStorage) // React Native / Expo
   } else {
-    // Web / Next.js
-    return createJSONStorage(() => localStorage)
+    const AsyncStorage = require('@react-native-async-storage/async-storage').default
+    return createJSONStorage(() => AsyncStorage) // Web / Next.js
   }
 }
 

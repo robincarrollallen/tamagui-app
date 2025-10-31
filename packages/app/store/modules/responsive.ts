@@ -1,11 +1,10 @@
 import { isWeb } from 'tamagui'
 import { create } from 'zustand'
-import { useStyleStore } from './style'
 import { Dimensions } from 'react-native'
-import type { BaseStore } from '../types'
-import { MOBILE_DESIGN_WIDTH, MOBILE_MAX_WIDTH } from 'app/constant'
-import { createPersistStore } from '../middleware/persist'
 import { throttle } from 'app/utils/library'
+import { createPersistStore } from '../middleware/persist'
+import { MOBILE_DESIGN_WIDTH, MOBILE_MAX_WIDTH } from 'app/constant'
+import type { BaseStore } from '../types'
 
 interface ResponsiveState extends BaseStore {
   screenWidth: number
@@ -17,7 +16,6 @@ interface ResponsiveState extends BaseStore {
     lg: number
     xl: number
   }
-  rem: (size: number) => number
 }
 
 const initialState = {
@@ -41,17 +39,6 @@ export const useResponsiveStore = create<ResponsiveState>()(
       setHasHydrated: (hasHydrated: boolean) =>  set({ _hasHydrated: hasHydrated }),
 
       reset: () => set(initialState),
-
-      rem: (size: number) => {
-        const windowInnerWidth = get().screenWidth
-        if (windowInnerWidth > MOBILE_MAX_WIDTH) {
-          useStyleStore.setState({ screenSpace: (windowInnerWidth - MOBILE_MAX_WIDTH) / 2 })
-        } else {
-          useStyleStore.setState({ screenSpace: 0 })
-        }
-        const scale = windowInnerWidth / MOBILE_DESIGN_WIDTH
-        return Math.round(size * scale)
-      },
     }),
     {
       name: 'responsive-store',
@@ -90,5 +77,27 @@ function initResponsive() {
         // 静默处理错误
       }
     }
+  })
+}
+
+/** 响应式大小计算器 */
+const remCalculator = (size: number) => {
+  const screenWidth = useResponsiveStore.getState().screenWidth
+  const resultWidth = screenWidth > MOBILE_MAX_WIDTH ? MOBILE_MAX_WIDTH : screenWidth
+  const scale = resultWidth / MOBILE_DESIGN_WIDTH
+  return Math.round(size * scale)
+}
+
+/** 响应式大小 */
+export const useRem = () => {
+  useResponsiveStore(state => state.screenWidth)
+  return remCalculator
+}
+
+/** 屏幕与内容间距 */
+export const useScreenSpace = () => {
+  return useResponsiveStore((state) => {
+    const width = state.screenWidth
+    return width > MOBILE_MAX_WIDTH ? (width - MOBILE_MAX_WIDTH) / 2 : 0
   })
 }

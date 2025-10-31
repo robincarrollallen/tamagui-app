@@ -1,18 +1,18 @@
+import { useRem } from 'app/store'
 import { forwardRef } from "react";
 import { Pressable } from "react-native";
 import { useRouter } from 'solito/navigation'
-import { useRem } from 'app/hooks/ResponsiveSize'
 import { ChevronLeft } from '@tamagui/lucide-icons'
+import { YStack, YStackProps, XStack, Text } from "tamagui";
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { YStack, YStackProps, XStack, Text, useTheme } from "tamagui";
 
 export const NavigationBar = forwardRef<
   React.ComponentRef<typeof YStack>,
   YStackProps & { title?: string }
 >(({ title = "", ...props }, ref) => {
-  const rem = useRem()
   const router = useRouter()
   const safeArea = useSafeArea()
+  const rem = useRem()
 
   return (
     <YStack ref={ref} width="100%" {...props} pt={safeArea.top} bg="$topNavSecondary">

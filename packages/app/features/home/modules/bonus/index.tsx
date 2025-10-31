@@ -1,13 +1,13 @@
 import { XStack, Text, XStackProps, View, Image, YStack } from "tamagui"
 import { useState, useRef, useEffect } from "react"
-import { useRem } from "app/hooks/ResponsiveSize"
 import { AnimatedNumber } from "@my/ui"
+import { useRem } from "app/store"
 import { ICONS } from "@my/assets"
 
 export function Bonus(props: XStackProps) {
-  const rem = useRem()
   const [targetCount, setTargetCount] = useState(0)
   const amountInterval = useRef<NodeJS.Timeout>(null)
+  const rem = useRem()
 
   useEffect(() => {
     amountInterval.current = setInterval(() => {

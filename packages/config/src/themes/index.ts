@@ -1,2 +1,2 @@
-export * from './variables/style_25'
+export * from './variables'
 export * from './values'

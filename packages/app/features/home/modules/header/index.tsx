@@ -1,45 +1,43 @@
-import { useTheme, Image, XStack, YStack, Dialog} from "tamagui";
-import { useResponsiveSize } from '../../../../hooks/ResponsiveSize'
-import { usePlatformStore, useStyleStore } from '../../../../store'
+import { useTenantStore, usePlatformStore, useScreenSpace, useRem  } from 'app/store'
+import { useTheme, Image, XStack, YStack, Dialog, VisuallyHidden} from "tamagui";
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { RippleButton } from '@my/ui/src/RippleButton'
-import { SidebarWidget } from 'app/widgets/sidebar'
-import { useTenantStore } from '../../../../store'
+import { SidebarWidget } from 'app/widgets/Sidebar'
+import { useTranslation } from 'react-i18next'
+import { setLanguage } from 'app/i18n/client'
 import { SvgXml } from 'react-native-svg'
-import { useAppStore } from 'app/store'
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Selection } from '@my/ui'
 import { SVG } from '@my/assets'
 
 /** 首页 Header 组件 */
 export const HomeHeader = () => {
   const theme = useTheme()
-  const { rem } = useResponsiveSize()
-  const { tenantInfo } = useTenantStore()
-  const { isReactNative } = usePlatformStore()
+  const isNative = usePlatformStore(state => state.isNative)
+  const tenantInfo = useTenantStore(state => state.tenantInfo)
+  const rem = useRem()
+  
   const items = [
     { label: 'English', value: 'en-US' },
     { label: 'Chinese', value: 'zh-CN' },
   ]
 
-  const language = useAppStore((state) => state.language)
-  const setLanguage = useAppStore.getState().setLanguage
+  const { i18n } = useTranslation()
+  const language = i18n.language
 
   /** 选择回调事件 */
   const onChange = useCallback((value: string) => {
-    console.log(value, '<<<<<<<<<<<<')
     setLanguage(value)
   }, [])
 
   return (
-    <YStack style={{ backgroundColor: '#121713' }}>
+    <YStack bg="$topNavSecondary">
       <LinearGradient
         start={[0, 0]}
-        end={isReactNative ? [0.45, 1] : [0.1, 0.5]} // 近似125度角
+        end={isNative ? [.8, 4] : [.1, .5]} // 近似125度角
         width="100%"
         colors={[
-          '#121713',                  // 0%
-          '#121713',                  // 8%
+          'transparent',              // 8%
           'rgba(255,255,255,0.06)', // 8%
           'rgba(255,255,255,0)',    // 20%
           'rgba(255,255,255,0.05)', // 20%
@@ -52,13 +50,8 @@ export const HomeHeader = () => {
           'rgba(255,255,255,0)',    // 68%
           'rgba(255,255,255,0.01)', // 68%
           'rgba(255,255,255,0)',    // 80%
-          '#121713'                   // 100%
         ]}
-        locations={
-          isReactNative
-          ? [0, 0.08, 0.08, 0.3, 0.3, 0.52, 0.52, 0.74, 0.74, 0.96, 0.96, 1.18, 1.18, 1.38, 1.6]
-          : [0, 0.08, 0.08, 0.2, 0.2, 0.32, 0.32, 0.44, 0.44, 0.56, 0.56, 0.68, 0.68, 0.80, 0.80, 1.00]
-        }
+        locations={[0.08, 0.08, 0.2, 0.2, 0.32, 0.32, 0.44, 0.44, 0.56, 0.56, 0.68, 0.68, 0.80]}
       >
         <XStack items="center" justify="space-between" height={rem(50)} py={rem(10)} px={rem(5)}>
           <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height='100%' width={rem(140)} />
@@ -79,11 +72,12 @@ export const HomeHeader = () => {
 
 export function RightSlideDialog() {
   const theme = useTheme()
-  const { rem } = useResponsiveSize()
-  const { screenSpace } = useStyleStore()
-
+  const screenSpace = useScreenSpace()
+  const [open, setOpen] = useState(false)
+  const rem = useRem()
+  
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
         <RippleButton bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
           <SvgXml xml={SVG.menu} width={rem(16)} height={rem(16)} color={theme.iconDefault?.get()} />
@@ -92,10 +86,10 @@ export function RightSlideDialog() {
 
       <Dialog.Portal>
         <Dialog.Overlay
+          animation="100ms" // [slow, lazy, medium, slow, bouncy, tooltip, spin, 100ms]
+          key="RightSlideOverlay"
           enterStyle={{ opacity: 0 }}
           exitStyle={{ opacity: 0 }}
-          animation="quick" // [slow, lazy, medium, slow, bouncy, tooltip, spin, 100ms]
-          key="overlay"
           opacity={0.5}
         />
         <Dialog.Content
@@ -106,8 +100,8 @@ export function RightSlideDialog() {
           borderBottomLeftRadius={rem(12)}
           borderTopLeftRadius={rem(12)}
           position="absolute"
-          animation="sheet"
-          key="content"
+          animation="100ms"
+          key="RightSlideContent"
           bg="$color2"
           width={rem(300)}
           opacity={1}
@@ -119,6 +113,9 @@ export function RightSlideDialog() {
           x={0}
           y={0}
         >
+          <VisuallyHidden>
+            <Dialog.Title>title</Dialog.Title>
+          </VisuallyHidden>
           {/* 对话框内容 */}
           <SidebarWidget />
         </Dialog.Content>

@@ -1,9 +1,9 @@
 import { Square } from 'tamagui'
+import { useRem } from 'app/store'
 import { Search } from '@tamagui/lucide-icons'
-import { useResponsiveSize } from 'app/hooks/ResponsiveSize'
 
 export function MarqueeSearch() {
-  const { rem } = useResponsiveSize()
+  const rem = useRem()
 
   return (
     <Square size={rem(38)} bg="$surfaceRaisedL2" borderWidth={rem(1)} borderColor="$borderDefault" style={{ borderRadius: rem(6) }}>

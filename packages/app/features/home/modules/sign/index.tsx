@@ -1,8 +1,7 @@
 import { Svg } from "@my/ui"
-import { XStack, Text, Square, XStackProps } from "tamagui"
+import { useStatusStore, useRem } from "app/store"
 import { LinearGradient } from "tamagui/linear-gradient"
-import { useRem } from "app/hooks/ResponsiveSize"
-import { useStatusStore } from "app/store"
+import { XStack, Text, Square, XStackProps } from "tamagui"
 
 export function Sign(props: XStackProps) {
   const rem = useRem()

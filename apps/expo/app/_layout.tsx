@@ -1,12 +1,13 @@
+
+import { useFonts } from 'expo-font'
+import { Provider } from 'app/provider'
 import { useEffect, useState } from 'react'
 import { useColorScheme } from 'react-native'
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
-import { useFonts } from 'expo-font'
-import { SplashScreen, Stack } from 'expo-router'
-import { Provider } from 'app/provider'
-import { NativeToast } from '@my/ui/src/NativeToast'
-import { initI18nClient } from 'app/i18n/client'
 import { LoginScreen } from 'app/features/login'
+import { initI18nClient } from 'app/i18n/client'
+import { SplashScreen, Stack } from 'expo-router'
+import { NativeToast } from '@my/ui/src/NativeToast'
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 
 export const unstable_settings = {
   // Ensure that reloading on `/user` keeps a back button present.

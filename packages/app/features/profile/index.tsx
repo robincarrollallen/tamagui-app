@@ -1,7 +1,6 @@
 import { ScrollView, View, XStack, YStack, Circle, Image } from 'tamagui'
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { useRem } from 'app/hooks/ResponsiveSize'
-import { useTenantStore } from 'app/store'
+import { useRem, useTenantStore } from 'app/store'
 import { Platform } from 'react-native'
 
 interface CarouselProps {

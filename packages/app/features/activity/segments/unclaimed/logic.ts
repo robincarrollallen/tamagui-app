@@ -1,10 +1,9 @@
 import { delay } from 'app/utils/time'
-import { useStyleStore } from 'app/store'
 import { useUnclaimedState } from './state'
-import { useRem } from 'app/hooks/ResponsiveSize'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRem, useStyleStore } from 'app/store'
+import { LOAD_MORE_STATUS, RANGE_TIME } from 'app/enums'
 import { useGlobalLoading } from 'app/provider/LoadingProvider'
-import { LOAD_MORE_STATUS, RANGE_TIME, LoadMoreType } from 'app/enums'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import activityRecordHistory from 'app/data/activityRecordHistory.json'
 
 export const useUnclaimedLogic = () => {

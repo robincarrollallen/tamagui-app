@@ -2721,6 +2721,7 @@ __metadata:
     "@my/config": "npm:0.0.1"
     "@tamagui/build": "npm:^1.130.8"
     "@tamagui/toast": "npm:^1.130.8"
+    react-native-intersection-observer: "npm:^0.2.1"
     tamagui: "npm:^1.130.8"
   languageName: unknown
   linkType: soft
@@ -12420,7 +12421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:^4.0.0, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10/c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
@@ -14979,6 +14980,15 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/e8e97fde1a1a4e776d448870c5a89e53df64836a7a131ba8348712038c4b6ff0a99e59be5702b98d5687a35ba57d260a02a50da9d7702427b62bc7abea2fe687
+  languageName: node
+  linkType: hard
+
+"react-native-intersection-observer@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "react-native-intersection-observer@npm:0.2.1"
+  dependencies:
+    lodash: "npm:^4.0.0"
+  checksum: 10/d8bd25252289b5a8ebd5472ea0d87d324ffcae9705807912faa1387d478f02fb8b37000d81032eb5d979032917e91d18486598c33eb2333e8a2c09331b405752
   languageName: node
   linkType: hard
 

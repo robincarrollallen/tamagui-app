@@ -1,23 +1,17 @@
-import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
-import { useRem } from 'app/hooks/ResponsiveSize'
-import { useStatusStore } from '../../store/modules/status'
+import { useEffect, useState } from 'react'
+import { GameList } from './modules/gameList'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
-import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky } from './modules'
-import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
-import { Button, H1, Paragraph, Separator, XStack, YStack, ScrollView, isWeb, } from 'tamagui'
+import { IOScrollView } from 'react-native-intersection-observer'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-
-const tabs = [
-  { label: 'Profile', value: 'tab1' },
-  { label: 'Connections', value: 'tab2' },
-  { label: 'Notifications', value: 'tab3' },
-  // { label: 'Settings', value: 'tab4' },
-  // { label: 'Help', value: 'tab5' },
-  // { label: 'Logout', value: 'tab6' },
-]
+import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
+import { useGameStore, useStatusStore, useResponsiveStore } from 'app/store'
+import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky } from './modules'
+import { Button, H1, Paragraph, Separator, XStack, YStack, isWeb } from 'tamagui'
+import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
+import homeListData from 'app/data/homeList.json'
+import gameListData from 'app/data/gameList.json'
 
 export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkTarget = pagesMode ? '/pages-example-activity' : '/activity'
@@ -25,93 +19,109 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
     href: `${linkTarget}/nate`,
   })
 
-  const rem = useRem()
   const safeArea = useSafeArea()
+  const setHomeList = useGameStore.getState().setHomeList
+  const setGameList = useGameStore.getState().setGameList
+  const screenWidth = useResponsiveStore(state => state.screenWidth)
+  const screenHeight = useResponsiveStore(state => state.screenHeight)
+
+  useEffect(() => {
+    setHomeList(homeListData)
+    setGameList(gameListData)
+  }, [])
 
   return (
     <YStack flex={1} bg="$background" pt={safeArea.top}>
       <HomeHeader />
-      <ScrollView flex={1} pt={rem(12)} showsVerticalScrollIndicator={false} stickyHeaderIndices={[4]}>
-        <Sign />
-        <Banner />
-        <Marquee />
-        <Bonus />
-        <Sticky />
-        <YStack justify="center" items="center" gap="$8" p="$4">
-          <XStack
-            position="absolute"
-            width="100%"
-            t="$6"
-            gap="$6"
-            justify="center"
-            flexWrap="wrap"
-            $sm={{ position: 'relative', t: 0 }}
-          >
-            {isWeb && (
-              <>
-                <SwitchRouterButton pagesMode={pagesMode} />
-                <SwitchThemeButton />
-                <SwitchLanguageButton />
-              </>
-            )}
-          </XStack>
+      <YStack flex={1}>
+        <IOScrollView
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[4]}
+          scrollEventThrottle={16}
+          rootMargin={{ top: screenHeight, bottom: screenHeight, left: screenWidth, right: screenWidth }}
+        >
+          <Sign />
+          <Banner />
+          <Marquee />
+          <Bonus />
+          <Sticky />
+          <GameList />
+          <YStack justify="center" items="center" gap="$8" p="$4">
+            <XStack
+              position="absolute"
+              width="100%"
+              t="$6"
+              gap="$6"
+              justify="center"
+              flexWrap="wrap"
+              $sm={{ position: 'relative', t: 0 }}
+            >
+              {isWeb && (
+                <>
+                  <SwitchRouterButton pagesMode={pagesMode} />
+                  <SwitchThemeButton />
+                  <SwitchLanguageButton />
+                </>
+              )}
+            </XStack>
 
-          <YStack gap="$4">
-            <H1 text="center" color="$color12">
-              Welcome to Tamagui.
-            </H1>
-            <Paragraph color="$color10" text="center">
-              Here's a basic starter to show navigating from one screen to another.
-            </Paragraph>
-            <Separator />
-            <Paragraph text="center">
-              This screen uses the same code on Next.js and React Native.
-            </Paragraph>
-            <Separator />
+            <YStack gap="$4">
+              <H1 text="center" color="$color12">
+                Welcome to Tamagui.
+              </H1>
+              <Paragraph color="$color10" text="center">
+                Here's a basic starter to show navigating from one screen to another.
+              </Paragraph>
+              <Separator />
+              <Paragraph text="center">
+                This screen uses the same code on Next.js and React Native.
+              </Paragraph>
+              <Separator />
+            </YStack>
+
+            <Button {...linkProps}>Link to user</Button>
+
+            <SheetDemo />
           </YStack>
+          <YStack justify="center" items="center" gap="$8" p="$4">
+            <XStack
+              position="absolute"
+              width="100%"
+              t="$6"
+              gap="$6"
+              justify="center"
+              flexWrap="wrap"
+              $sm={{ position: 'relative', t: 0 }}
+            >
+              {Platform.OS === 'web' && (
+                <>
+                  <SwitchRouterButton pagesMode={pagesMode} />
+                  <SwitchThemeButton />
+                </>
+              )}
+            </XStack>
 
-          <Button {...linkProps}>Link to user</Button>
+            <SwitchLanguageButton />
+            <YStack gap="$4">
+              <H1 text="center" color="$color12">
+                Welcome to Tamagui.
+              </H1>
+              <Paragraph color="$color10" text="center">
+                Here's a basic starter to show navigating from one screen to another.
+              </Paragraph>
+              <Separator />
+              <Paragraph text="center">
+                This screen uses the same code on Next.js and React Native.
+              </Paragraph>
+              <Separator />
+            </YStack>
 
-          <SheetDemo />
-        </YStack>
-        <YStack justify="center" items="center" gap="$8" p="$4">
-          <XStack
-            position="absolute"
-            width="100%"
-            t="$6"
-            gap="$6"
-            justify="center"
-            flexWrap="wrap"
-            $sm={{ position: 'relative', t: 0 }}
-          >
-            {Platform.OS === 'web' && (
-              <>
-                <SwitchRouterButton pagesMode={pagesMode} />
-                <SwitchThemeButton />
-              </>
-            )}
-          </XStack>
+            <Button {...linkProps}>Link to user</Button>
 
-          <SwitchLanguageButton />
-          <YStack gap="$4">
-            <H1 text="center" color="$color12">
-              Welcome to Tamagui.
-            </H1>
-            <Paragraph color="$color10" text="center">
-              Here's a basic starter to show navigating from one screen to another.
-            </Paragraph>
-            <Separator />
-            <Paragraph text="center">
-              This screen uses the same code on Next.js and React Native.
-            </Paragraph>
-            <Separator />
+            <SheetDemo />
           </YStack>
-
-          <Button {...linkProps}>Link to user</Button>
-
-          <SheetDemo />
-        </YStack>
-      </ScrollView>
+        </IOScrollView>
+      </YStack>
     </YStack>
   )
 }

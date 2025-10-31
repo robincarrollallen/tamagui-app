@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { BlurView } from 'expo-blur'
-import { useTenantStore } from 'app/store'
-import { useRem } from 'app/hooks/ResponsiveSize'
+import { useRem, useTenantStore } from 'app/store'
 import { statusSelectors, useStatusStore } from '../../store'
 import { X, SquareUser, KeyRound} from '@tamagui/lucide-icons'
 import { useToastController, Field, ShimmerButton, Segment } from '@my/ui'
@@ -22,11 +21,11 @@ export function LoginScreen() {
   const [activeTab, setActiveTab] = useState(0) // 账号类型
   const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore() // 状态管理
   const isLogin = statusSelectors.isLogin(useStatusStore.getState()) // 是否登录
+  const rem = useRem() // 响应式尺寸
   const toast = useToastController() // 提示框
   const safeArea = useSafeArea() // 安全区域
   const theme = useTheme() // 主题
-  const rem = useRem() // 响应式尺寸
-
+  
   /** 账号类型切换 */
   const handleTabChange = (value: number) => {
     setActiveTab(value)

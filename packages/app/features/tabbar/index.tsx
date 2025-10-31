@@ -1,13 +1,12 @@
 import { useSafeArea } from '../../../app/provider/safe-area/use-safe-area'
 import { YStack, XStack, Text, Circle, Image, View } from 'tamagui'
 import { ImageBackground, LayoutChangeEvent } from 'react-native'
-import { useRem } from '../../../app/hooks/ResponsiveSize'
 import { usePathname } from 'app/hooks/usePathname'
+import { useRem, useStyleStore } from 'app/store'
 import { ICONS, SVG, IMAGES } from '@my/assets'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'solito/navigation'
 import { useEffect, useState } from 'react'
-import { useStyleStore } from 'app/store'
 import { SvgXml } from 'react-native-svg'
 import { Pressable } from 'react-native'
 
@@ -98,7 +97,7 @@ export const CustomTabBar = () => {
   const safeAreaInsets = useSafeArea()
   const { setTabbarLayout } = useStyleStore()
   const rem = useRem()
-
+  
   const onLayout = (event: LayoutChangeEvent) => {
     setTabbarLayout(event.nativeEvent.layout)
   }

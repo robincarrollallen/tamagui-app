@@ -1,6 +1,6 @@
-import { Dialog, ScrollView, YStack, Text, isWeb, XStack, RadioGroup, Stack } from "tamagui"
-import { useRem } from "app/hooks/ResponsiveSize"
-
+import { Dialog, ScrollView, Text, XStack, RadioGroup } from "tamagui"
+import { useRem, usePlatformStore } from 'app/store'
+import { useState } from "react";
 interface SelectionProps {
   value?: string | number
   items?: { label: string; value: string }[]
@@ -18,10 +18,12 @@ export const Selection = ({
   renderItem,
   maxHeight = 300,
 }: SelectionProps) => {
+  const isNative = usePlatformStore(state => state.isNative)
+  const [open, setOpen] = useState(false)
   const rem = useRem()
-
+  
   return (
-    <Dialog modal>
+    <Dialog open={open} onOpenChange={setOpen}>
       {/* 触发器 */}
       <Dialog.Trigger>
         {children}
@@ -36,10 +38,17 @@ export const Selection = ({
           animation="100ms"
           key="SelectionOverlay"
           opacity={0.5}
-          {...(!isWeb && { onPress: () => { console.log('SelectionOverlay onPress <<<<<<<<<<<<') } })}
+          {...(isNative && { onPress: () => { setOpen(false) } })}
         />
         {/* 弹出内容 */}
-        <Dialog.Content height="auto" minH="auto" animation="quick" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }}>
+        <Dialog.Content
+          minH="auto"
+          height="auto"
+          animation="100ms"
+          key="SelectionContent"
+          enterStyle={{ opacity: 0 }}
+          exitStyle={{ opacity: 0 }}
+        >
           <XStack>
             <ScrollView
               maxH={maxHeight}
