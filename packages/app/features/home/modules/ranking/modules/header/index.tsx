@@ -34,8 +34,8 @@ export function HomeRankingHeader({ list = [] }: { list?: Recordable[] }) {
               width={rem(94)}
               inset={0}
             />
-            <Text fontSize={rem(12)} mt={rem(16)} color="$textHighlightWhite">{item.userId}</Text>
-            <Text fontSize={rem(12)} fontWeight="bold" color="$textWarning">{item.rankValue}</Text>
+            <Text z={1} fontSize={rem(12)} mt={rem(16)} color="$textHighlightWhite">{item.userId}</Text>
+            <Text z={1} fontSize={rem(12)} fontWeight="bold" color="$textWarning">{item.rankValue}</Text>
           </YStack>
         ))}
       </XStack>

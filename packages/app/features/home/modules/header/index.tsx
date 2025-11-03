@@ -99,6 +99,8 @@ export function RightSlideDialog() {
           exitStyle={{ x: '100%', opacity: 0 }} // 向右边退出
           borderBottomLeftRadius={rem(12)}
           borderTopLeftRadius={rem(12)}
+          borderTopRightRadius={0}
+          borderBottomRightRadius={0}
           position="absolute"
           animation="100ms"
           key="RightSlideContent"
