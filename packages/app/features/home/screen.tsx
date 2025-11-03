@@ -7,9 +7,9 @@ import { IOScrollView } from 'react-native-intersection-observer'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
 import { useGameStore, useStatusStore, useResponsiveStore } from 'app/store'
-import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky } from './modules'
 import { Button, H1, Paragraph, Separator, XStack, YStack, isWeb } from 'tamagui'
 import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
+import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky, Ranking } from './modules'
 import homeListData from 'app/data/homeList.json'
 import gameListData from 'app/data/gameList.json'
 
@@ -46,6 +46,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
           <Bonus />
           <Sticky />
           <GameList />
+          <Ranking />
           <YStack justify="center" items="center" gap="$8" p="$4">
             <XStack
               position="absolute"

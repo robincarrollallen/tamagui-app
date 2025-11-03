@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Text, ScrollView, ScrollViewProps } from 'tamagui'
 
 export function MarqueeComponent({ messages, color, ...props }: { messages: Recordable[], color?: any } & ScrollViewProps) {
@@ -10,15 +10,22 @@ export function MarqueeComponent({ messages, color, ...props }: { messages: Reco
   const intervalRef = useRef<NodeJS.Timeout>(undefined)
   const textXRef = useRef(0)
 
-  const handleViewLayout = (event) => {
+  /** 处理视图布局 */
+  const handleViewLayout = useCallback((event) => {
     const { width } = event.nativeEvent.layout
     setViewWidth(width)
-  }
+  }, [])
 
-  const handleTextLayout = (event) => {
+  /** 处理文本布局 */
+  const handleTextLayout = useCallback((event) => {
     const { width } = event.nativeEvent.layout
     setTextWidth(width)
-  }
+  }, [])
+
+  /** 内容容器样式 */
+  const contentContainerStyle: Recordable = useMemo(() => ({
+    items: 'center',
+  }), [])
 
   useEffect(() => {
     if (intervalRef.current) return
@@ -34,7 +41,7 @@ export function MarqueeComponent({ messages, color, ...props }: { messages: Reco
 
         if (textXRef.current <= -textWidth) {
           setTextOpacity(0)
-          setCurrentMessage((currentMessage + 1) % messages.length)
+          setCurrentMessage((prev) => (prev + 1) % messages.length)
         }
       }, 15)
     }
@@ -45,7 +52,7 @@ export function MarqueeComponent({ messages, color, ...props }: { messages: Reco
         intervalRef.current = undefined
       }
     }
-  }, [viewWidth, textWidth, currentMessage])
+  }, [viewWidth, textWidth, messages.length])
 
 
   return (
@@ -56,9 +63,7 @@ export function MarqueeComponent({ messages, color, ...props }: { messages: Reco
         scrollEnabled={false}
         onLayout={handleViewLayout}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          items: 'center',
-        }}
+        contentContainerStyle={contentContainerStyle}
         {...props}
       >
         <Text

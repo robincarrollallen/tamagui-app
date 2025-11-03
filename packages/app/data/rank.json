@@ -1,0 +1,61 @@
+{
+    "switch": true,
+    "rankType": "commission",
+    "userRankList": [
+        {
+            "userId": 602781574,
+            "rankValue": 22264,
+            "avatar": ""
+        },
+        {
+            "userId": 816411045,
+            "rankValue": 22872,
+            "avatar": ""
+        },
+        {
+            "userId": 447848491,
+            "rankValue": 16245,
+            "avatar": ""
+        },
+        {
+            "userId": 837836252,
+            "rankValue": 22932,
+            "avatar": ""
+        },
+        {
+            "userId": 626714593,
+            "rankValue": 23435,
+            "avatar": ""
+        },
+        {
+            "userId": 379833815,
+            "rankValue": 29483,
+            "avatar": ""
+        },
+        {
+            "userId": 5299408,
+            "rankValue": 29511,
+            "avatar": ""
+        },
+        {
+            "userId": 245824365,
+            "rankValue": 14052,
+            "avatar": ""
+        },
+        {
+            "userId": 55432840,
+            "rankValue": 24299,
+            "avatar": ""
+        },
+        {
+            "userId": 607869753,
+            "rankValue": 18299,
+            "avatar": ""
+        },
+        {
+            "userId": 662289455,
+            "rankValue": 18297,
+            "avatar": ""
+        }
+    ]
+}

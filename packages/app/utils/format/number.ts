@@ -1,5 +1,5 @@
+import i18n from 'i18next'
 import { LanguageType } from 'app/enums'
-import { useTranslation } from 'react-i18next'
 
 const formatterCache = new Map() // Cache formatter
 
@@ -36,7 +36,6 @@ export function safeNumber(value: number | string, defaultValue = 0) {
  * @param {number} decimals The number of decimal places, default 2
  */
 export const formatMoney = (value: number | string, decimals: number = 2) => {
-	const { i18n } = useTranslation()
 	const language = i18n.language as LanguageType
   
 	let num = safeNumber(value)

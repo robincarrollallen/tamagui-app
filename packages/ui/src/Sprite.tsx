@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { SPRITES } from '@my/assets';
-import { Image, View } from 'tamagui';
+import { Image, View, ViewProps } from 'tamagui';
 
-interface SpriteProps {
-  iconName: string;
+interface SpriteProps extends ViewProps {
+  iconName: string | number;
   source: string;
   height?: number;
   width?: number;
@@ -14,6 +14,7 @@ export const Sprite: React.FC<SpriteProps> = ({
   source,
   height = 32,
   width = 32,
+  ...props
 }) => {
   const spriteData = useMemo(() => {
     const sprite = SPRITES[source];
@@ -34,16 +35,14 @@ export const Sprite: React.FC<SpriteProps> = ({
   if (!spriteData) return null;
   
   return (
-    <View style={{ width, height, overflow: 'hidden' }}>
+    <View width={width} height={height} overflow='hidden' {...props} >
       <Image
         source={SPRITES[source].source}
         objectFit='contain'
-        style={{
-          width: width * spriteData.cols,
-          height: height * spriteData.rows,
-          marginLeft: -spriteData.col * width,
-          marginTop: -spriteData.row * height,
-        }}
+        width={width * spriteData.cols}
+        height={height * spriteData.rows}
+        ml={-spriteData.col * width}
+        mt={-spriteData.row * height}
       />
     </View>
   );

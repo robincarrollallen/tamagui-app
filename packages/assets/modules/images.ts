@@ -9,5 +9,7 @@ export const IMAGES = {
     VIDEO: require('../src/images/sort/bg-game-category-VIDEO-25.png').default?.src || require('../src/images/sort/bg-game-category-VIDEO-25.png'),
     SPORTS: require('../src/images/sort/bg-game-category-SPORTS-25.png').default?.src || require('../src/images/sort/bg-game-category-SPORTS-25.png'),
     LOTTERY: require('../src/images/sort/bg-game-category-LOTTERY-25.png').default?.src || require('../src/images/sort/bg-game-category-LOTTERY-25.png'),
-  }
+  },
+
+  rank_avatar_border_25: require('../src/images/home/rank-avatar-border-25.png').default?.src || require('../src/images/home/rank-avatar-border-25.png'),
 } as const;

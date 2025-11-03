@@ -2,6 +2,7 @@ import { tabbar_background_25 } from '../src/svg/tabbar/tabbar_background_25';
 import { activity_active_25 } from '../src/svg/tabbar/activity-active-25';
 import { deposit_active_25 } from '../src/svg/tabbar/deposit-active-25';
 import { profile_active_25 } from '../src/svg/tabbar/profile-active-25';
+import { bg_rank_header_25 } from '../src/svg/home/bg-rank-header-25';
 import { ring_outside_25 } from '../src/svg/tabbar/ring-outside-25';
 import { ring_inside_25 } from '../src/svg/tabbar/ring-inside-25';
 import { home_active_25 } from '../src/svg/tabbar/home-active-25';
@@ -25,6 +26,8 @@ export const SVG = {
   tabbar_profile_active_25: profile_active_25,
   tabbar_ring_inside_25: ring_inside_25,
   tabbar_ring_outside_25: ring_outside_25,
+
+  bg_rank_header_25: bg_rank_header_25,
 
   empty: empty,
   earth: earth,
