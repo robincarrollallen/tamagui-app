@@ -2,7 +2,7 @@ import { useTenantStore, usePlatformStore, useScreenSpace, useRem  } from 'app/s
 import { useTheme, Image, XStack, YStack, Dialog, VisuallyHidden} from "tamagui";
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { RippleButton } from '@my/ui/src/RippleButton'
-import { SidebarWidget } from 'app/widgets/side_bar'
+import { SidebarWidget } from 'app/widgets/Sidebar'
 import { useTranslation } from 'react-i18next'
 import { setLanguage } from 'app/i18n/client'
 import { SvgXml } from 'react-native-svg'
