@@ -71,6 +71,15 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+      # 清理缓存（避免缓存问题）
+      - name: Clean install
+        run: |
+          rm -rf node_modules
+          rm -rf apps/*/node_modules
+          rm -rf packages/*/node_modules
+          rm -rf apps/next/.next
+          rm -rf apps/expo/.expo
+          rm -rf .yarn/cache
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js

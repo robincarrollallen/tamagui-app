@@ -58,7 +58,7 @@ thumbs.db
 
 # next.js
 /.next/
-/out/
+/apps/next/out/
 
 # misc
 .DS_Store
