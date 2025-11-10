@@ -29,6 +29,11 @@ const plugins = [
   }),
 ]
 
+const isSSR = process.env.NEXT_PUBLIC_SSR !== 'false'
+
+console.log('📦 [next.config.js] NEXT_PUBLIC_SSR:', process.env.NEXT_PUBLIC_SSR, typeof process.env.NEXT_PUBLIC_SSR)
+console.log('📦 [next.config.js] isSSR:', isSSR)
+
 module.exports = () => {
   /** @type {import('next').NextConfig} */
   let config = {
@@ -45,6 +50,14 @@ module.exports = () => {
     experimental: {
       scrollRestoration: true,
     },
+  }
+
+  if (!isSSR) {
+    config.output = 'export'  // 静态导出，纯客户端渲染
+    config.images = {
+      unoptimized: true,  // 静态导出需要禁用图片优化
+    }
+    config.trailingSlash = true // 所有路由 URL 末尾都会添加斜杠
   }
 
   for (const plugin of plugins) {
