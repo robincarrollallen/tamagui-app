@@ -2,4 +2,6 @@
 
 import { ActivityScreen } from 'app/features/activity/screen'
 
-export default ActivityScreen
+export default function ActivityPage() {
+  return <ActivityScreen />
+}

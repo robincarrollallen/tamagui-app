@@ -1,5 +1,6 @@
-import { Button, Paragraph, YStack, Text, XStack, Image } from 'tamagui'
-import { ChevronLeft } from '@tamagui/lucide-icons'
+'use client'
+
+import { YStack, Text } from 'tamagui'
 import { LazyImage } from '@my/ui'
 import { useRouter } from 'solito/navigation'
 import { NavigationBar } from '@my/ui'
@@ -11,7 +12,6 @@ import {
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function UserDetailScreen({ id }: { id: string }) {
-  const router = useRouter()
   const scrollViewRef = useRef<IOScrollViewController>(null)
   const items = Array.from({ length: 10}, (_, i) => i + 1);
 

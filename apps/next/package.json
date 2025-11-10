@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NEXT_PUBLIC_SSR=true next dev",
+    "dev": "next dev",
+    "dev:ssr": "NEXT_PUBLIC_SSR=true next dev",
+    "dev:csr": "NEXT_PUBLIC_SSR=false next dev",
     "build": "cd ../.. && yarn build && cd apps/next && next build",
+    "build:ssr": "cd ../.. && yarn build && cd apps/next && NEXT_PUBLIC_SSR=true next build",
+    "build:csr": "cd ../.. && yarn build && cd apps/next && NEXT_PUBLIC_SSR=false next build",
     "start": "next start",
     "serve": "NODE_ENV=production next start --port 8151",
     "lint": "next lint",

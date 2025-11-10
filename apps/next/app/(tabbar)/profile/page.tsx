@@ -2,4 +2,6 @@
 
 import { ProfileScreen } from 'app/features/profile'
 
-export default ProfileScreen
+export default function ProfilePage() {
+  return <ProfileScreen />
+}

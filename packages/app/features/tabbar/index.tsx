@@ -98,6 +98,7 @@ export const CustomTabBar = () => {
   const { setTabbarLayout } = useStyleStore()
   const rem = useRem()
   
+  
   const onLayout = (event: LayoutChangeEvent) => {
     setTabbarLayout(event.nativeEvent.layout)
   }
@@ -112,7 +113,7 @@ export const CustomTabBar = () => {
         pb={safeAreaInsets.bottom + rem(4)}
       >
         {routes.map((route: any, index: number) => {
-          const isFocused = pathname === route.name
+          const isFocused = pathname.includes(route.name)
           const onPress = () => {
             if (pathname !== route.name) {
               router.push(route.name)

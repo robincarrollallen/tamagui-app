@@ -1,4 +1,5 @@
-// 核心结构
+'use client'
+
 import { ScrollView, YStack, Text, Button, XStack } from 'tamagui'
 import { useParams } from 'solito/navigation'
 import { useRef, useState } from 'react'
@@ -16,7 +17,6 @@ export const GameListScreen = () => {
   const scrollRef = useRef<ScrollView>(null)
   const [activeTab, setActiveTab] = useState(0)
   const [tabBarHeight, setTabBarHeight] = useState(0)
-  const { type, id } = useParams()
   
   // 存储每个内容区域的Y位置
   const sectionRefs = useRef<{ [key: number]: number }>({})

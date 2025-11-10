@@ -2,4 +2,6 @@
 
 import { DepositScreen } from 'app/features/deposit'
 
-export default DepositScreen
+export default function DepositPage() {
+  return <DepositScreen />
+}

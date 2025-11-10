@@ -27,6 +27,6 @@ export const LanguageSupport = Object.keys(LANGUAGE_TYPE) as LanguageType[]
 export const LanguageSupportValue = Object.values(LANGUAGE_TYPE)
 
 // Reverse mapping for language values
-export const LANGUAGE_REVERSE = Object.fromEntries(
+export const LANGUAGE_CODE = Object.fromEntries(
 	Object.entries(LANGUAGE_TYPE).map(([key, value]) => [value, key])
 ) as Record<LanguageValue, LanguageType>

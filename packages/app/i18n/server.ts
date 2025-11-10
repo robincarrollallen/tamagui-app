@@ -4,6 +4,7 @@ import { getCookie, getHeaderLanguage } from 'next-app/utils/context'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 import { resources } from './resources'
 
+/** init i18n server */
 export const initI18nServer = async () => {
   const defaultLang = await fetchDefaultLanguageFromBackend()
 
