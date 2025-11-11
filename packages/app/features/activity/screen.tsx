@@ -27,7 +27,7 @@ export function ActivityScreen() {
     // web only fix for position relative
     <YStack
       flex={1}
-      bg="$background"
+      bg="$topNavSecondary"
       pt={safeArea.top}
       {...(isWeb && {
         position: 'unset' as any,
@@ -35,7 +35,6 @@ export function ActivityScreen() {
     >
       <Tabs
         flex={1}
-        bg="$background"
         overflow="hidden"
         defaultValue={activeTab}
         orientation="horizontal"
@@ -45,7 +44,6 @@ export function ActivityScreen() {
       >
         <Tabs.List
           width="100%"
-          bg="$topNavSecondary"
           borderTopLeftRadius={0}
           borderTopRightRadius={0}
           borderBottomLeftRadius={0}

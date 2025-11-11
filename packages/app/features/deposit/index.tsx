@@ -55,7 +55,7 @@ export const DepositScreen = () => {
         {/* 列表 - 带懒加载 */}
         <YStack>
           {Array.from({ length: 10 }, (_, index) => (
-            <LazyImage width={100} height={100} source={{ uri: 'https://game-logo.d-e-7-f.com/pre/style1/en/FC_PANDADRAGONBOAT.jpg' }} />
+            <LazyImage key={index} width={100} height={100} source={{ uri: 'https://game-logo.d-e-7-f.com/pre/style1/en/FC_PANDADRAGONBOAT.jpg' }} />
           ))}
         </YStack>
       </IOScrollView>

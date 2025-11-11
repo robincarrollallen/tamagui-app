@@ -31,7 +31,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   }, [])
 
   return (
-    <YStack flex={1} bg="$background" pt={safeArea.top}>
+    <YStack flex={1} pt={safeArea.top}>
       <HomeHeader />
       <YStack flex={1}>
         <IOScrollView

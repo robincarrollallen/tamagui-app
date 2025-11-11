@@ -1,4 +1,3 @@
-
 import { useFonts } from 'expo-font'
 import { Provider } from 'app/provider'
 import { useEffect, useState } from 'react'

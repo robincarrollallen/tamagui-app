@@ -79,9 +79,7 @@ export const List = forwardRef<BigList<any>, ListProps<any>>(({
           colors={['#facc15', '#ef4444', '#3b82f6']} // Android 多色
           progressBackgroundColor="#1f2937" // 自定义背景（Android）
           tintColor="#facc15" // iOS 单色
-          size={100} // 自定义大小（Android）
-          // 自定义文本（仅 iOS）
-          titleColor="#facc15"
+          titleColor="#facc15" // 自定义文本（仅 iOS）
           title=""
         />
       }
