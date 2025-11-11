@@ -37,6 +37,7 @@ console.log('📦 [next.config.js] isSSR:', isSSR)
 module.exports = () => {
   /** @type {import('next').NextConfig} */
   let config = {
+    basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
     typescript: {
       ignoreBuildErrors: true,
     },
