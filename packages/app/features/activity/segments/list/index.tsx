@@ -4,10 +4,10 @@ import { LanguageType } from 'app/enums'
 import { ActivityListData } from './data'
 import { YStack, Text, Image } from 'tamagui'
 import { useTranslation } from 'react-i18next'
-import { ImageBackground } from 'react-native'
 import { useRem, useStyleStore } from 'app/store'
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { ImageBackground, StyleSheet } from 'react-native'
 import { useActivityStore } from 'app/store/modules/activity'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BigList from 'react-native-big-list'
 
 export const ActivityList = () => {
@@ -18,6 +18,16 @@ export const ActivityList = () => {
   const [refreshing, setRefreshing] = useState(false)
   const { i18n } = useTranslation()
   const rem = useRem()
+
+  const renderItem = useCallback(({ item, index }) => (
+    <RenderItem item={item} index={index} />
+  ), [])
+
+  const styles = useMemo(() => StyleSheet.create({
+    list: {
+      paddingTop: rem(12)
+    }
+  }), [rem])
   
   useEffect(() => {
     activityStore.setActivityList(ActivityListData.activityList, i18n.language as LanguageType) // 设置活动列表
@@ -50,10 +60,8 @@ export const ActivityList = () => {
         data={activityList}
         itemHeight={rem(130)}
         footerHeight={tabbarLayout.height}
-        renderItem={
-          ({ item, index }) => <RenderItem item={item} index={index} />
-        }
-        contentContainerStyle={{ paddingTop: rem(12) }}
+        renderItem={renderItem}
+        contentContainerStyle={styles.list}
       />
     </YStack>
   )
@@ -63,11 +71,33 @@ export const ActivityList = () => {
 const RenderItem = memo<{ item: Recordable; index: number }>(({ item, index }) => {
   const rem = useRem()
 
+  const handleItemPress = useCallback(() => {
+    console.log('onPress', item)
+  }, [item])
+
+  const styles = useMemo(() => StyleSheet.create({
+    imageBackground: {
+      width: '100%',
+      height: rem(120),
+      borderRadius: rem(10),
+      overflow: 'hidden'
+    },
+    shimmerPress: {
+      bg: 'transparent',
+    } as any,
+    shimmerHover: {
+      bg: 'transparent',
+    } as any,
+  }), [rem])
+
+  const imageBackgroundSource = useMemo(() => ({ uri: item.bannerBackground }), [item.bannerBackground])
+  const imageSource = useMemo(() => ({ uri: item.bannerLogo }), [item.bannerLogo])
+
   return (
-    <ImageBackground source={{ uri: item.bannerBackground }} style={{ width: '100%', height: rem(120), borderRadius: rem(10), overflow: 'hidden' }}>
-      <ShimmerButton onPress={() => { console.log('onPress') }} height={rem(120)} enableShimmer bg="transparent" pressStyle={{ bg: 'transparent' }} hoverStyle={{ bg: 'transparent' }}>
+    <ImageBackground source={imageBackgroundSource} style={styles.imageBackground}>
+      <ShimmerButton onPress={handleItemPress} height={rem(120)} enableShimmer bg="transparent" pressStyle={styles.shimmerPress} hoverStyle={styles.shimmerHover}>
         <Text flex={1} fontSize={rem(12)}>{item.name}</Text>
-        <Image source={{ uri: item.bannerLogo }} width={rem(154)} height={rem(85)} resizeMode="contain" objectFit='contain' />
+        <Image source={imageSource} width={rem(154)} height={rem(85)} resizeMode="contain" objectFit='contain' />
       </ShimmerButton>
     </ImageBackground>
   )

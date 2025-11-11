@@ -49,7 +49,7 @@ export function AnimatedNumber({ value = 0, duration = 2000, decimal = 0, format
         cancelAnimationFrame(frameRef.current)
       }
     }
-  }, [value, duration])
+  }, [value, duration, decimal])
 
   return (
     <Text {...props}>

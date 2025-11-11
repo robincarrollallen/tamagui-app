@@ -84,8 +84,8 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         env:
-        NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-        NEXT_PUBLIC_SSR: false
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_SSR: false
         run: ${{ steps.detect-package-manager.outputs.runner }} web:prod:csr
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
