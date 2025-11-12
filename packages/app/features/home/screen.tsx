@@ -41,7 +41,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
           rootMargin={{ top: screenHeight, bottom: screenHeight, left: screenWidth, right: screenWidth }}
         >
           <Sign />
-          <Banner />
+          <Banner autoPlay />
           <Marquee />
           <Bonus />
           <Sticky />

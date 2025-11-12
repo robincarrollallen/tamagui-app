@@ -31,3 +31,15 @@ export const maskMiddle = (
 
 	return `${start}${maskedMiddle}${end}`
 }
+
+/**
+ * @description 驼峰命名
+ * @param str 字符串
+ */
+export function camelCase(str: string = ""): string {
+  if (!str || typeof str !== "string")
+    return ""
+  return str
+    .replace(/[^a-z0-9]+(.)/gi, (_match, chr) => chr.toUpperCase())
+    .replace(/^[A-Z]/, char => char.toLowerCase())
+}

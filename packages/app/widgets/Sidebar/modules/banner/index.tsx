@@ -1,7 +1,10 @@
-import { ScrollView, View, XStack, YStack, Circle, Image } from 'tamagui'
+import { ScrollView, View, XStack, YStack, Circle, Image, Text } from 'tamagui'
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { LinearGradient } from '@tamagui/linear-gradient';
 import { useRem, useTenantStore } from 'app/store';
 import { Platform } from 'react-native'
+import { ICONS } from "@my/assets";
+import { LazyImage } from '@my/ui';
 
 interface CarouselProps {
   data?: Array<{ id: string; backgroundColor: string }>
@@ -11,10 +14,10 @@ interface CarouselProps {
   showIndicators?: boolean
 }
 
-export function Banner({
+export function SidebarBanner({
   autoPlay = false,
   autoPlayInterval = 3000,
-  showIndicators = false,
+  showIndicators = true,
 }: CarouselProps) {
   const [realIndex, setRealIndex] = useState(0) // 真实数据索引
   const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
@@ -154,70 +157,92 @@ export function Banner({
   }, [])
 
   return (
-    <YStack px={rem(12)}>
-      <View onLayout={handleLayout}>
-        <ScrollView
-          ref={scrollViewRef}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          onScrollBeginDrag={handleScrollBegin}
-          onMomentumScrollEnd={handleMomentumScrollEnd}
-          onTouchEnd={handleMomentumScrollEnd}
-          scrollEventThrottle={16}
-          decelerationRate="fast"
-          // Web 端额外属性
-          {...(Platform.OS === 'web' && {
-            style: { scrollSnapType: 'x mandatory' } as any
-          })}
-        >
-          <XStack>
-            {loopData.map((item, index) => (
-              <View
-                key={item.id}
-                width={containerWidth || '100%'}
-                justify="center"
-                items="center"
-                style={{
-                  // Web 端滚动对齐
-                  ...(Platform.OS === 'web' && { scrollSnapAlign: 'center' })
-                }}
-              >
-                <Image width="100%" aspectRatio={61 / 38} borderTopLeftRadius={rem(12)} borderTopRightRadius={rem(12)} borderBottomLeftRadius={rem(12)} borderBottomRightRadius={rem(12)} source={{ uri: item.imageUrl }} />
-              </View>
-            ))}
+    <LinearGradient
+      p={rem(1)}
+      end={[1, 1]}
+      width="100%"
+      start={[0, 0]}
+      borderTopLeftRadius={rem(12)}
+      borderTopRightRadius={rem(12)}
+      borderBottomLeftRadius={rem(12)}
+      borderBottomRightRadius={rem(12)}
+      colors={['$glowPrimaryOpacity40', '$surfaceRaisedL2']}
+      locations={[0, .3]}
+    >
+      <YStack
+        px={rem(16)}
+        pt={rem(10)}
+        pb={rem(10)}
+        bg="$surfaceRaisedL2"
+        borderTopLeftRadius={rem(12)}
+        borderTopRightRadius={rem(12)}
+        borderBottomLeftRadius={rem(12)}
+        borderBottomRightRadius={rem(12)}
+      >
+        <XStack pb={rem(8)} items="center" justify="space-between">
+          <XStack gap={rem(4)} items="center">
+            <LazyImage source={ICONS.tabbar_promo_25} width={rem(24)} height={rem(24)} />
+            <Text fontSize={rem(16)} fontWeight="bold">Banner</Text>
           </XStack>
-        </ScrollView>
-
-        {/* 指示器 - 基于真实索引 */}
-        {showIndicators && (
-          <XStack
-            justify="center"
-            items="center"
-            gap="$2"
-            my="$3"
+          <Text fontSize={rem(12)} color="$textBrandPrimary">All</Text>
+        </XStack>
+        <View onLayout={handleLayout}>
+          <ScrollView
+            ref={scrollViewRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleScroll}
+            onScrollBeginDrag={handleScrollBegin}
+            onMomentumScrollEnd={handleMomentumScrollEnd}
+            onTouchEnd={handleMomentumScrollEnd}
+            scrollEventThrottle={16}
+            decelerationRate="fast"
+            // Web 端额外属性
+            {...(Platform.OS === 'web' && {
+              style: { scrollSnapType: 'x mandatory' } as any
+            })}
           >
-            {bannerList.map((_, index) => (
-              <Circle
-                key={index}
-                size={10}
-                background={
-                  index === realIndex ? '$blue10' : '$gray5'
-                }
-                borderWidth={1}
-                borderColor={index === realIndex ? '$blue10' : '$blue8'}
-                pressStyle={{ scale: 0.9 }}
-                onPress={() => scrollToIndex(index + 1)} // +1 因为真实数据从索引1开始
-                // Web 端鼠标样式
-                {...(Platform.OS === 'web' && {
-                  cursor: 'pointer'
-                })}
-              />
-            ))}
-          </XStack>
-        )}
-      </View>
-    </YStack>
+            <XStack>
+              {loopData.map((item, index) => (
+                <View
+                  key={item.id}
+                  width={containerWidth || '100%'}
+                  justify="center"
+                  items="center"
+                  style={{
+                    // Web 端滚动对齐
+                    ...(Platform.OS === 'web' && { scrollSnapAlign: 'center' })
+                  }}
+                >
+                  <Image width="100%" aspectRatio={61 / 38} borderTopLeftRadius={rem(12)} borderTopRightRadius={rem(12)} borderBottomLeftRadius={rem(12)} borderBottomRightRadius={rem(12)} source={{ uri: item.imageUrl }} />
+                </View>
+              ))}
+            </XStack>
+          </ScrollView>
+
+          {/* 指示器 - 基于真实索引 */}
+          {showIndicators && (
+            <XStack
+              justify="center"
+              items="center"
+              gap={rem(8)}
+              mt={rem(10)}
+            >
+              {bannerList.map((_, index) => (
+                <Circle
+                  key={index}
+                  width={index === realIndex ? rem(16) : rem(8)}
+                  height={rem(4)}
+                  background={
+                    index === realIndex ? '$iconBrandPrimary' : '$textWeaker'
+                  }
+                />
+              ))}
+            </XStack>
+          )}
+        </View>
+      </YStack>
+    </LinearGradient>
   )
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import { ScrollView, YStack, Text, Button, XStack } from 'tamagui'
-import { useParams } from 'solito/navigation'
 import { useRef, useState } from 'react'
 import { NavigationBar } from '@my/ui'
 
@@ -13,7 +12,7 @@ const tabs = [
   { id: 4, label: '历史', key: 'history' },
 ]
 
-export const GameListScreen = () => {
+export const GameListScreen = ({ type, id }: { type: string, id: string }) => {
   const scrollRef = useRef<ScrollView>(null)
   const [activeTab, setActiveTab] = useState(0)
   const [tabBarHeight, setTabBarHeight] = useState(0)

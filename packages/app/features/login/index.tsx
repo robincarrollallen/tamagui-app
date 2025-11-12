@@ -78,7 +78,13 @@ export function LoginScreen() {
           </XStack>
         </Sheet.Handle>
         {/* 内容 */}
-        <Sheet.Frame pt={rem(2)} borderTopLeftRadius={rem(20)} borderTopRightRadius={rem(20)} bg="$surfaceRaisedL1" style={{ boxShadow: `0 ${rem(-3)}px 0 0 ${theme.iconDefault.get()}` }}>
+        <Sheet.Frame
+          pt={rem(2)}
+          borderTopLeftRadius={rem(20)}
+          borderTopRightRadius={rem(20)}
+          bg="$surfaceRaisedL1"
+          style={{ boxShadow: `0 ${rem(-3)}px 0 0 ${theme.iconDefault.get()}` }}
+        >
             {/* 标题 */}
             <YStack pt={rem(40)} pb={rem(32)}>
               { isLogin

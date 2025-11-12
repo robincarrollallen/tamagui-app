@@ -34,7 +34,7 @@ export const LazyImage = forwardRef<InView, InViewProps & { source?: ImageProps[
       ref={ref}
       onChange={onChange}
       style={{
-        backgroundColor: theme.textWeakest?.get(),
+        backgroundColor: (error || (!source && !uri)) ? theme.textWeakest?.get() : 'transparent',
         borderRadius: borderRadius,
         justifyContent: 'center',
         alignItems: 'center',
