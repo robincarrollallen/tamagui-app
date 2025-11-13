@@ -234,9 +234,13 @@ export function SidebarBanner({
                   key={index}
                   width={index === realIndex ? rem(16) : rem(8)}
                   height={rem(4)}
-                  background={
+                  onPress={() => scrollToIndex(index + 1)} // +1 因为真实数据从索引1开始
+                  bg={
                     index === realIndex ? '$iconBrandPrimary' : '$textWeaker'
                   }
+                  {...(Platform.OS === 'web' && {
+                    cursor: 'pointer' // Web 端鼠标样式
+                  })}
                 />
               ))}
             </XStack>

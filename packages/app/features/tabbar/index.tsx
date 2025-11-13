@@ -110,7 +110,7 @@ export const CustomTabBar = () => {
       <XStack
         height="100%"
         items="flex-end"
-        pb={safeAreaInsets.bottom + rem(4)}
+        pb={safeAreaInsets.bottom * .75 + rem(4)}
       >
         {routes.map((route: any, index: number) => {
           const isFocused = pathname.includes(route.name)

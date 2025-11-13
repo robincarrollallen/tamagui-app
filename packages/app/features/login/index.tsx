@@ -80,6 +80,7 @@ export function LoginScreen() {
         {/* 内容 */}
         <Sheet.Frame
           pt={rem(2)}
+          px={rem(12)}
           borderTopLeftRadius={rem(20)}
           borderTopRightRadius={rem(20)}
           bg="$surfaceRaisedL1"

@@ -69,6 +69,7 @@ export const List = forwardRef<BigList<any>, ListProps<any>>(({
       scrollEventThrottle={16} // 滚动事件节流
       onScroll={onScrollHandler} // 滚动事件监听
       renderHeader={renderHeader}
+      onEndReachedThreshold={0.1}
       keyExtractor={(item) => item.id}
       renderEmpty={() => EmptyComponent}
       showsVerticalScrollIndicator={false}
