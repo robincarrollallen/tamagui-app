@@ -1,4 +1,4 @@
-export const ring_inside_25 = `<svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const tabbar_ring_inside_25 = `<svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="31" cy="31" r="29.5" stroke="url(#paint0_linear_10353_34388)" stroke-width="3"/>
 <defs>
 <linearGradient id="paint0_linear_10353_34388" x1="12" y1="7" x2="34" y2="55" gradientUnits="userSpaceOnUse">

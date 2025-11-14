@@ -1,5 +1,6 @@
 export const IMAGES = {
   tabbar_bg_flexible_25: require('../src/images/tabbar/bg-flexible-25.png').default?.src || require('../src/images/tabbar/bg-flexible-25.png'),
+  yellow_dark_top_bg: require('../src/images/profile/yellow-dark-top-bg.webp').default?.src || require('../src/images/profile/yellow-dark-top-bg.webp'),
 
   category_game_bg_25: {
     ONE_API_HOT: require('../src/images/sort/bg-game-category-ONE_API_HOT-25.png').default?.src || require('../src/images/sort/bg-game-category-ONE_API_HOT-25.png'),

@@ -46,6 +46,7 @@ module.exports = () => {
       'solito',
       'expo-image',
       'expo-linking',
+      'expo-clipboard',
       'expo-constants',
       'react-native-web',
       'expo-modules-core',

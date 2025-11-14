@@ -30,7 +30,6 @@ export function InviteScreen() {
       <YStack
         width="100%"
         flex={1}
-        pt={safeArea.top}
         {...(isWeb && {
           position: 'unset' as any,
         })}

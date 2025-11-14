@@ -12,4 +12,7 @@ export const ICONS = {
   invite_level_icon_4: require('../src/icons/invite/level-4.png').default?.src || require('../src/icons/invite/level-4.png'),
   invite_level_icon_5: require('../src/icons/invite/level-5.png').default?.src || require('../src/icons/invite/level-5.png'),
   invite_level_icon_6: require('../src/icons/invite/level-6.png').default?.src || require('../src/icons/invite/level-6.png'),
+
+  vip_1: require('../src/icons/vip/vip-1.webp').default?.src || require('../src/icons/vip/vip-1.webp'),
+  vip_2: require('../src/icons/vip/vip-2.webp').default?.src || require('../src/icons/vip/vip-2.webp'),
 } as const

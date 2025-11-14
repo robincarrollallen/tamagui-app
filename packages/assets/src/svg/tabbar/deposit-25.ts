@@ -1,4 +1,4 @@
-export const deposit_25 = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const tabbar_deposit_25 = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_5_283198" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="2" width="20" height="20">
 <path d="M22 2H2V22H22V2Z" fill="white"/>
 </mask>

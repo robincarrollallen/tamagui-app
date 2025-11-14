@@ -1,4 +1,6 @@
 export * from './modules/app'
+export * from './modules/vip'
+export * from './modules/user'
 export * from './modules/game'
 export * from './modules/theme'
 export * from './modules/agent'
