@@ -140,7 +140,16 @@ export function Banner({
 
     const interval = setInterval(() => {
       const nextDisplayIndex = displayIndex + 1
-      scrollToIndex(nextDisplayIndex)
+      
+      if (displayIndex === realDataLength + 1) {
+        scrollViewRef.current?.scrollTo({
+          x: containerWidth,
+          animated: false,
+        })
+        setDisplayIndex(1)
+      } else {
+        scrollToIndex(nextDisplayIndex)
+      }
     }, autoPlayInterval)
 
     return () => clearInterval(interval)

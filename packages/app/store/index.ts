@@ -1,6 +1,7 @@
 export * from './modules/app'
 export * from './modules/game'
 export * from './modules/theme'
+export * from './modules/agent'
 export * from './modules/style'
 export * from './modules/tenant'
 export * from './modules/status'

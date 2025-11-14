@@ -42,10 +42,12 @@ module.exports = () => {
       ignoreBuildErrors: true,
     },
     transpilePackages: [
+      'expo',
       'solito',
-      'react-native-web',
+      'expo-image',
       'expo-linking',
       'expo-constants',
+      'react-native-web',
       'expo-modules-core',
     ],
     experimental: {

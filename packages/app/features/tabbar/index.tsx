@@ -25,7 +25,7 @@ const CenterButton = () => {
   }, [])
   
   return (
-    <View width="100%" onPress={() => { console.log('click'); router.push('/activity/agency?id=1') }}>
+    <View width="100%" onPress={() => { console.log('click'); router.push('/activity/invite') }}>
       <ImageBackground
         source={IMAGES.tabbar_bg_flexible_25}
         style={{

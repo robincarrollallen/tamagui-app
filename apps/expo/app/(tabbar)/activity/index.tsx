@@ -1,15 +1,6 @@
-import { ActivityScreen } from 'app/features/activity/screen'
+import { ActivityScreen } from 'app/features/activity/main/screen'
 import { Stack } from 'expo-router'
 
 export default function Screen() {
-  return (
-    <>
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-      />
-      <ActivityScreen />
-    </>
-  )
+  return <ActivityScreen />
 }

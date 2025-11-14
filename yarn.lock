@@ -6818,6 +6818,7 @@ __metadata:
     burnt: "npm:^0.12.2"
     dayjs: "npm:^1.11.18"
     expo-constants: "npm:~17.1.6"
+    expo-image: "npm:^3.0.10"
     expo-linking: "npm:~7.1.4"
     i18next: "npm:^25.3.1"
     js-cookie: "npm:^3.0.5"
@@ -9965,6 +9966,21 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10/ac3de637e226c5a68049b55e1f90989fae80464f4f5919609a729a9296d79fa294f7b8774fd46b466855882a5133a3badb576957735d4c637f6fffa7720db9ce
+  languageName: node
+  linkType: hard
+
+"expo-image@npm:^3.0.10":
+  version: 3.0.10
+  resolution: "expo-image@npm:3.0.10"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+    react-native-web: "*"
+  peerDependenciesMeta:
+    react-native-web:
+      optional: true
+  checksum: 10/1dfcbaef52da559de640ab168507060184b8945ee9ca4b6f26dca392e4161e1590402ddf407ef36d7f9951fbb76a0f6cba064e1ef3ffa9a1b2bd6f278402cd1a
   languageName: node
   linkType: hard
 

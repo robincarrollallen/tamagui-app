@@ -57,3 +57,27 @@ export const formatMoney = (value: number | string, decimals: number = 2) => {
 
 	return `${sign}${formatted}`
 }
+
+/**
+ * Format server amount to local
+ * @param {number|string} value The number to be formatted
+ * @param {number} multiple Multiple, default 100
+ */
+export function formatMoneyToLocal(value: number | string, multiple: number = 100) {
+  return formatMoney(safeNumber(value) / multiple)
+}
+
+/**
+ * Fixed number to specified decimal places (no rounding)
+ * @param value - The value to process
+ * @param digits - Number of decimal places
+ */
+export function fixedNumber(value: string | number, digits = 2) {
+  const num = safeNumber(value)
+
+  const str = num.toFixed(digits + 1)
+
+  const [intPart, decimalPart] = str.split(".")
+
+  return `${intPart}.${decimalPart.slice(0, digits)}`
+}

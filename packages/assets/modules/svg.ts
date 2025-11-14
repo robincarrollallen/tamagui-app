@@ -1,5 +1,13 @@
+import { bg_invite_level_icon } from '../src/svg/invite/bg-invite-level-icon';
 import { tabbar_background_25 } from '../src/svg/tabbar/tabbar_background_25';
 import { activity_active_25 } from '../src/svg/tabbar/activity-active-25';
+import { bg_invite_level_0 } from '../src/svg/invite/bg-invite-level-0';
+import { bg_invite_level_1 } from '../src/svg/invite/bg-invite-level-1';
+import { bg_invite_level_2 } from '../src/svg/invite/bg-invite-level-2';
+import { bg_invite_level_3 } from '../src/svg/invite/bg-invite-level-3';
+import { bg_invite_level_4 } from '../src/svg/invite/bg-invite-level-4';
+import { bg_invite_level_5 } from '../src/svg/invite/bg-invite-level-5';
+import { bg_invite_level_6 } from '../src/svg/invite/bg-invite-level-6';
 import { deposit_active_25 } from '../src/svg/tabbar/deposit-active-25';
 import { profile_active_25 } from '../src/svg/tabbar/profile-active-25';
 import { bg_rank_header_25 } from '../src/svg/home/bg-rank-header-25';
@@ -29,6 +37,15 @@ export const SVG = {
 
   bg_rank_header_25: bg_rank_header_25,
 
+  bg_invite_level_0: bg_invite_level_0,
+  bg_invite_level_1: bg_invite_level_1,
+  bg_invite_level_2: bg_invite_level_2,
+  bg_invite_level_3: bg_invite_level_3,
+  bg_invite_level_4: bg_invite_level_4,
+  bg_invite_level_5: bg_invite_level_5,
+  bg_invite_level_6: bg_invite_level_6,
+  bg_invite_level_icon: bg_invite_level_icon,
+  
   empty: empty,
   earth: earth,
   menu: menu,

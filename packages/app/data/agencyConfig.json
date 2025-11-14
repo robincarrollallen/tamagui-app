@@ -1,0 +1,220 @@
+{
+  "templateInfo": {
+    "config": "[{\"name\":\"青铜代理\",\"count\":0,\"level\":1,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":0,\"open\":true,\"rats\":[{\"gameType\":\"CHESS\",\"level\":1,\"rat\":100},{\"gameType\":\"ELECTRONIC\",\"level\":1,\"rat\":100},{\"gameType\":\"FISHING\",\"level\":1,\"rat\":100},{\"gameType\":\"VIDEO\",\"level\":1,\"rat\":100},{\"gameType\":\"SPORTS\",\"level\":1,\"rat\":100},{\"gameType\":\"LOTTERY\",\"level\":1,\"rat\":100},{\"gameType\":\"CHESS\",\"level\":2,\"rat\":90},{\"gameType\":\"ELECTRONIC\",\"level\":2,\"rat\":90},{\"gameType\":\"FISHING\",\"level\":2,\"rat\":90},{\"gameType\":\"VIDEO\",\"level\":2,\"rat\":90},{\"gameType\":\"SPORTS\",\"level\":2,\"rat\":90},{\"gameType\":\"LOTTERY\",\"level\":2,\"rat\":90},{\"gameType\":\"CHESS\",\"level\":3,\"rat\":80},{\"gameType\":\"ELECTRONIC\",\"level\":3,\"rat\":80},{\"gameType\":\"FISHING\",\"level\":3,\"rat\":80},{\"gameType\":\"VIDEO\",\"level\":3,\"rat\":80},{\"gameType\":\"SPORTS\",\"level\":3,\"rat\":80},{\"gameType\":\"LOTTERY\",\"level\":3,\"rat\":80},{\"gameType\":\"CHESS\",\"level\":4,\"rat\":70},{\"gameType\":\"ELECTRONIC\",\"level\":4,\"rat\":70},{\"gameType\":\"FISHING\",\"level\":4,\"rat\":70},{\"gameType\":\"VIDEO\",\"level\":4,\"rat\":70},{\"gameType\":\"SPORTS\",\"level\":4,\"rat\":70},{\"gameType\":\"LOTTERY\",\"level\":4,\"rat\":70},{\"gameType\":\"CHESS\",\"level\":5,\"rat\":60},{\"gameType\":\"ELECTRONIC\",\"level\":5,\"rat\":60},{\"gameType\":\"FISHING\",\"level\":5,\"rat\":60},{\"gameType\":\"VIDEO\",\"level\":5,\"rat\":60},{\"gameType\":\"SPORTS\",\"level\":5,\"rat\":60},{\"gameType\":\"LOTTERY\",\"level\":5,\"rat\":60}]},{\"name\":\"白银代理\",\"count\":2,\"level\":2,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":100000,\"open\":true,\"rats\":[{\"gameType\":\"CHESS\",\"level\":1,\"rat\":120},{\"gameType\":\"ELECTRONIC\",\"level\":1,\"rat\":120},{\"gameType\":\"FISHING\",\"level\":1,\"rat\":120},{\"gameType\":\"VIDEO\",\"level\":1,\"rat\":120},{\"gameType\":\"SPORTS\",\"level\":1,\"rat\":120},{\"gameType\":\"LOTTERY\",\"level\":1,\"rat\":120},{\"gameType\":\"CHESS\",\"level\":2,\"rat\":110},{\"gameType\":\"ELECTRONIC\",\"level\":2,\"rat\":110},{\"gameType\":\"FISHING\",\"level\":2,\"rat\":110},{\"gameType\":\"VIDEO\",\"level\":2,\"rat\":110},{\"gameType\":\"SPORTS\",\"level\":2,\"rat\":110},{\"gameType\":\"LOTTERY\",\"level\":2,\"rat\":110},{\"gameType\":\"CHESS\",\"level\":3,\"rat\":100},{\"gameType\":\"ELECTRONIC\",\"level\":3,\"rat\":100},{\"gameType\":\"FISHING\",\"level\":3,\"rat\":100},{\"gameType\":\"VIDEO\",\"level\":3,\"rat\":100},{\"gameType\":\"SPORTS\",\"level\":3,\"rat\":100},{\"gameType\":\"LOTTERY\",\"level\":3,\"rat\":100},{\"gameType\":\"CHESS\",\"level\":4,\"rat\":90},{\"gameType\":\"ELECTRONIC\",\"level\":4,\"rat\":90},{\"gameType\":\"FISHING\",\"level\":4,\"rat\":90},{\"gameType\":\"VIDEO\",\"level\":4,\"rat\":90},{\"gameType\":\"SPORTS\",\"level\":4,\"rat\":90},{\"gameType\":\"LOTTERY\",\"level\":4,\"rat\":90},{\"gameType\":\"CHESS\",\"level\":5,\"rat\":80},{\"gameType\":\"ELECTRONIC\",\"level\":5,\"rat\":80},{\"gameType\":\"FISHING\",\"level\":5,\"rat\":80},{\"gameType\":\"VIDEO\",\"level\":5,\"rat\":80},{\"gameType\":\"SPORTS\",\"level\":5,\"rat\":80},{\"gameType\":\"LOTTERY\",\"level\":5,\"rat\":80}]},{\"name\":\"黄金代理\",\"count\":3,\"level\":3,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":300000,\"open\":true,\"rats\":[{\"gameType\":\"CHESS\",\"level\":1,\"rat\":140},{\"gameType\":\"ELECTRONIC\",\"level\":1,\"rat\":140},{\"gameType\":\"FISHING\",\"level\":1,\"rat\":140},{\"gameType\":\"VIDEO\",\"level\":1,\"rat\":140},{\"gameType\":\"SPORTS\",\"level\":1,\"rat\":140},{\"gameType\":\"LOTTERY\",\"level\":1,\"rat\":140},{\"gameType\":\"CHESS\",\"level\":2,\"rat\":130},{\"gameType\":\"ELECTRONIC\",\"level\":2,\"rat\":130},{\"gameType\":\"FISHING\",\"level\":2,\"rat\":130},{\"gameType\":\"VIDEO\",\"level\":2,\"rat\":130},{\"gameType\":\"SPORTS\",\"level\":2,\"rat\":130},{\"gameType\":\"LOTTERY\",\"level\":2,\"rat\":130},{\"gameType\":\"CHESS\",\"level\":3,\"rat\":120},{\"gameType\":\"ELECTRONIC\",\"level\":3,\"rat\":120},{\"gameType\":\"FISHING\",\"level\":3,\"rat\":120},{\"gameType\":\"VIDEO\",\"level\":3,\"rat\":120},{\"gameType\":\"SPORTS\",\"level\":3,\"rat\":120},{\"gameType\":\"LOTTERY\",\"level\":3,\"rat\":120},{\"gameType\":\"CHESS\",\"level\":4,\"rat\":110},{\"gameType\":\"ELECTRONIC\",\"level\":4,\"rat\":110},{\"gameType\":\"FISHING\",\"level\":4,\"rat\":110},{\"gameType\":\"VIDEO\",\"level\":4,\"rat\":110},{\"gameType\":\"SPORTS\",\"level\":4,\"rat\":110},{\"gameType\":\"LOTTERY\",\"level\":4,\"rat\":110},{\"gameType\":\"CHESS\",\"level\":5,\"rat\":90},{\"gameType\":\"ELECTRONIC\",\"level\":5,\"rat\":90},{\"gameType\":\"FISHING\",\"level\":5,\"rat\":90},{\"gameType\":\"VIDEO\",\"level\":5,\"rat\":90},{\"gameType\":\"SPORTS\",\"level\":5,\"rat\":90},{\"gameType\":\"LOTTERY\",\"level\":5,\"rat\":90}]},{\"name\":\"铂金代理\",\"count\":4,\"level\":4,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":500000,\"open\":true,\"rats\":[{\"gameType\":\"CHESS\",\"level\":1,\"rat\":160},{\"gameType\":\"ELECTRONIC\",\"level\":1,\"rat\":160},{\"gameType\":\"FISHING\",\"level\":1,\"rat\":160},{\"gameType\":\"VIDEO\",\"level\":1,\"rat\":160},{\"gameType\":\"SPORTS\",\"level\":1,\"rat\":160},{\"gameType\":\"LOTTERY\",\"level\":1,\"rat\":160},{\"gameType\":\"CHESS\",\"level\":2,\"rat\":150},{\"gameType\":\"ELECTRONIC\",\"level\":2,\"rat\":150},{\"gameType\":\"FISHING\",\"level\":2,\"rat\":150},{\"gameType\":\"VIDEO\",\"level\":2,\"rat\":150},{\"gameType\":\"SPORTS\",\"level\":2,\"rat\":150},{\"gameType\":\"LOTTERY\",\"level\":2,\"rat\":150},{\"gameType\":\"CHESS\",\"level\":3,\"rat\":140},{\"gameType\":\"ELECTRONIC\",\"level\":3,\"rat\":140},{\"gameType\":\"FISHING\",\"level\":3,\"rat\":140},{\"gameType\":\"VIDEO\",\"level\":3,\"rat\":140},{\"gameType\":\"SPORTS\",\"level\":3,\"rat\":140},{\"gameType\":\"LOTTERY\",\"level\":3,\"rat\":140},{\"gameType\":\"CHESS\",\"level\":4,\"rat\":130},{\"gameType\":\"ELECTRONIC\",\"level\":4,\"rat\":130},{\"gameType\":\"FISHING\",\"level\":4,\"rat\":130},{\"gameType\":\"VIDEO\",\"level\":4,\"rat\":130},{\"gameType\":\"SPORTS\",\"level\":4,\"rat\":130},{\"gameType\":\"LOTTERY\",\"level\":4,\"rat\":130},{\"gameType\":\"CHESS\",\"level\":5,\"rat\":120},{\"gameType\":\"ELECTRONIC\",\"level\":5,\"rat\":120},{\"gameType\":\"FISHING\",\"level\":5,\"rat\":120},{\"gameType\":\"VIDEO\",\"level\":5,\"rat\":120},{\"gameType\":\"SPORTS\",\"level\":5,\"rat\":120},{\"gameType\":\"LOTTERY\",\"level\":5,\"rat\":120}]},{\"name\":\"钻石代理\",\"count\":5,\"level\":5,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":800000,\"open\":true,\"rats\":[{\"gameType\":\"CHESS\",\"level\":1,\"rat\":180},{\"gameType\":\"ELECTRONIC\",\"level\":1,\"rat\":180},{\"gameType\":\"FISHING\",\"level\":1,\"rat\":180},{\"gameType\":\"VIDEO\",\"level\":1,\"rat\":180},{\"gameType\":\"SPORTS\",\"level\":1,\"rat\":180},{\"gameType\":\"LOTTERY\",\"level\":1,\"rat\":180},{\"gameType\":\"CHESS\",\"level\":2,\"rat\":170},{\"gameType\":\"ELECTRONIC\",\"level\":2,\"rat\":170},{\"gameType\":\"FISHING\",\"level\":2,\"rat\":170},{\"gameType\":\"VIDEO\",\"level\":2,\"rat\":170},{\"gameType\":\"SPORTS\",\"level\":2,\"rat\":170},{\"gameType\":\"LOTTERY\",\"level\":2,\"rat\":170},{\"gameType\":\"CHESS\",\"level\":3,\"rat\":160},{\"gameType\":\"ELECTRONIC\",\"level\":3,\"rat\":160},{\"gameType\":\"FISHING\",\"level\":3,\"rat\":160},{\"gameType\":\"VIDEO\",\"level\":3,\"rat\":160},{\"gameType\":\"SPORTS\",\"level\":3,\"rat\":160},{\"gameType\":\"LOTTERY\",\"level\":3,\"rat\":160},{\"gameType\":\"CHESS\",\"level\":4,\"rat\":150},{\"gameType\":\"ELECTRONIC\",\"level\":4,\"rat\":150},{\"gameType\":\"FISHING\",\"level\":4,\"rat\":150},{\"gameType\":\"VIDEO\",\"level\":4,\"rat\":150},{\"gameType\":\"SPORTS\",\"level\":4,\"rat\":150},{\"gameType\":\"LOTTERY\",\"level\":4,\"rat\":150},{\"gameType\":\"CHESS\",\"level\":5,\"rat\":140},{\"gameType\":\"ELECTRONIC\",\"level\":5,\"rat\":140},{\"gameType\":\"FISHING\",\"level\":5,\"rat\":140},{\"gameType\":\"VIDEO\",\"level\":5,\"rat\":140},{\"gameType\":\"SPORTS\",\"level\":5,\"rat\":140},{\"gameType\":\"LOTTERY\",\"level\":5,\"rat\":140}]},{\"name\":\"王者代理\",\"count\":6,\"level\":6,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":1000000,\"open\":true,\"rats\":[{\"gameType\":\"CHESS\",\"level\":1,\"rat\":200},{\"gameType\":\"ELECTRONIC\",\"level\":1,\"rat\":200},{\"gameType\":\"FISHING\",\"level\":1,\"rat\":200},{\"gameType\":\"VIDEO\",\"level\":1,\"rat\":200},{\"gameType\":\"SPORTS\",\"level\":1,\"rat\":200},{\"gameType\":\"LOTTERY\",\"level\":1,\"rat\":200},{\"gameType\":\"CHESS\",\"level\":2,\"rat\":190},{\"gameType\":\"ELECTRONIC\",\"level\":2,\"rat\":190},{\"gameType\":\"FISHING\",\"level\":2,\"rat\":190},{\"gameType\":\"VIDEO\",\"level\":2,\"rat\":190},{\"gameType\":\"SPORTS\",\"level\":2,\"rat\":190},{\"gameType\":\"LOTTERY\",\"level\":2,\"rat\":190},{\"gameType\":\"CHESS\",\"level\":3,\"rat\":180},{\"gameType\":\"ELECTRONIC\",\"level\":3,\"rat\":180},{\"gameType\":\"FISHING\",\"level\":3,\"rat\":180},{\"gameType\":\"VIDEO\",\"level\":3,\"rat\":180},{\"gameType\":\"SPORTS\",\"level\":3,\"rat\":180},{\"gameType\":\"LOTTERY\",\"level\":3,\"rat\":180},{\"gameType\":\"CHESS\",\"level\":4,\"rat\":170},{\"gameType\":\"ELECTRONIC\",\"level\":4,\"rat\":170},{\"gameType\":\"FISHING\",\"level\":4,\"rat\":170},{\"gameType\":\"VIDEO\",\"level\":4,\"rat\":170},{\"gameType\":\"SPORTS\",\"level\":4,\"rat\":170},{\"gameType\":\"LOTTERY\",\"level\":4,\"rat\":170},{\"gameType\":\"CHESS\",\"level\":5,\"rat\":160},{\"gameType\":\"ELECTRONIC\",\"level\":5,\"rat\":160},{\"gameType\":\"FISHING\",\"level\":5,\"rat\":160},{\"gameType\":\"VIDEO\",\"level\":5,\"rat\":160},{\"gameType\":\"SPORTS\",\"level\":5,\"rat\":160},{\"gameType\":\"LOTTERY\",\"level\":5,\"rat\":160}]},{\"name\":\"至尊代理\",\"count\":7,\"level\":7,\"totalLineRecharge\":-1,\"dayLineRecharge\":-1,\"dayDirectRecharge\":-1,\"dayTeamRecharge\":-1,\"totalDirectRecharge\":-1,\"totalTeamRecharge\":-1,\"dayLineValidBet\":-1,\"dayDirectValidBet\":-1,\"dayTeamValidBet\":-1,\"totalTeamBet\":1500000,\"open\":false,\"rats\":[]}]",
+    "agencyMode": "multipleLevel",
+    "achievementType": "recharge",
+    "commissionType": "noGameType",
+    "type": "noGameType"
+  },
+  "configList": {
+    "receiveType": "Normal",
+    "advertise_en": "",
+    "advertise": "推广赚钱广告语：不限字数，效果建议根据预览图设置，不超过蓝色框",
+    "siteUrl": "https://zhu-2.7-a-6-w.com",
+    "banner": "https://upload-us.b83.xyz/1722083669264/kk_slots.jpg",
+    "inviteRuleType": "Normal",
+    "inviteRule": "https://upload-us.b83.xyz/1722084103295/content.txt",
+    "commissionDistributeTime": "08:00:00"
+  },
+  "rankConfig": {
+    "isOpen": true
+  },
+  "ossUrl": "https://upload-oss-dev.po7.xyz",
+  "inviteConfig": {
+    "rewardSwitch": true,
+    "inviterAmount": 3000,
+    "dailyLimit": 10,
+    "inviteeAmount": 1000,
+    "validUserRechargeAmount": 10000,
+    "validUserBetAmount": 1000,
+    "sameIpLimit": 0,
+    "sameDeviceLimit": 0,
+    "commissionSwitch": true,
+    "commissionLevelConfig": [
+      {
+        "level": "d4e9c7013d3740e3a207e0b3af1db107",
+        "requiredCount": 1,
+        "rewardAmount": 1000
+      },
+      {
+        "level": "f481103b921f4ec08b2ccbbdf333023d",
+        "requiredCount": 3,
+        "rewardAmount": 2000
+      },
+      {
+        "level": "5226c0d1271448a5abf71ac3bf8a7a96",
+        "requiredCount": 5,
+        "rewardAmount": 3000
+      },
+      {
+        "level": "03570fa1db0c488387c8ae9535daaa9e",
+        "requiredCount": 8,
+        "rewardAmount": 4000
+      },
+      {
+        "level": "04e9e658a0864a7f8aad2d005cf2312d",
+        "requiredCount": 10,
+        "rewardAmount": 5000
+      }
+    ],
+    "commissionValidUserRechargeAmount": 10000,
+    "commissionValidUserBetAmount": 1000,
+    "commissionSameIpLimit": 0,
+    "commissionSameDeviceLimit": 0,
+    "commissionAuditMultiple": 5,
+    "commissionAuditLimitMd5": "8d76486ee8f8c49d20e38e3e22bf740a",
+    "firstRechargeRebateSwitch": true,
+    "firstRechargeRebateLevelConfig": [
+      {
+        "level": 1,
+        "subLevel": 1,
+        "rate": 500
+      },
+      {
+        "level": 1,
+        "subLevel": 2,
+        "rate": 400
+      },
+      {
+        "level": 1,
+        "subLevel": 3,
+        "rate": 300
+      },
+      {
+        "level": 1,
+        "subLevel": 4,
+        "rate": 200
+      },
+      {
+        "level": 1,
+        "subLevel": 5,
+        "rate": 100
+      },
+      {
+        "level": 2,
+        "subLevel": 1,
+        "rate": 600
+      },
+      {
+        "level": 2,
+        "subLevel": 2,
+        "rate": 500
+      },
+      {
+        "level": 2,
+        "subLevel": 3,
+        "rate": 400
+      },
+      {
+        "level": 2,
+        "subLevel": 4,
+        "rate": 300
+      },
+      {
+        "level": 2,
+        "subLevel": 5,
+        "rate": 200
+      },
+      {
+        "level": 3,
+        "subLevel": 1,
+        "rate": 700
+      },
+      {
+        "level": 3,
+        "subLevel": 2,
+        "rate": 600
+      },
+      {
+        "level": 3,
+        "subLevel": 3,
+        "rate": 500
+      },
+      {
+        "level": 3,
+        "subLevel": 4,
+        "rate": 400
+      },
+      {
+        "level": 3,
+        "subLevel": 5,
+        "rate": 300
+      },
+      {
+        "level": 4,
+        "subLevel": 1,
+        "rate": 800
+      },
+      {
+        "level": 4,
+        "subLevel": 2,
+        "rate": 700
+      },
+      {
+        "level": 4,
+        "subLevel": 3,
+        "rate": 600
+      },
+      {
+        "level": 4,
+        "subLevel": 4,
+        "rate": 500
+      },
+      {
+        "level": 4,
+        "subLevel": 5,
+        "rate": 400
+      },
+      {
+        "level": 5,
+        "subLevel": 1,
+        "rate": 900
+      },
+      {
+        "level": 5,
+        "subLevel": 2,
+        "rate": 800
+      },
+      {
+        "level": 5,
+        "subLevel": 3,
+        "rate": 700
+      },
+      {
+        "level": 5,
+        "subLevel": 4,
+        "rate": 600
+      },
+      {
+        "level": 5,
+        "subLevel": 5,
+        "rate": 500
+      },
+      {
+        "level": 6,
+        "subLevel": 1,
+        "rate": 1000
+      },
+      {
+        "level": 6,
+        "subLevel": 2,
+        "rate": 900
+      },
+      {
+        "level": 6,
+        "subLevel": 3,
+        "rate": 800
+      },
+      {
+        "level": 6,
+        "subLevel": 4,
+        "rate": 700
+      },
+      {
+        "level": 6,
+        "subLevel": 5,
+        "rate": 600
+      }
+    ]
+  }
+}

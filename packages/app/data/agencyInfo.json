@@ -1,0 +1,25 @@
+{
+  "info": {
+      "level": {},
+      "agencyLevel": 0,
+      "yesterdayComm": 0,
+      "dayDirectAdd": 0,
+      "dayDirectRechargeCnt": 0,
+      "dayDirectRechargeAmt": 0,
+      "dayDirectFirstRechargeCnt": 0,
+      "dayTeamAdd": 0,
+      "dayTeamRechargeCnt": 0,
+      "dayTeamRechargeAmt": 0,
+      "dayTeamFirstRechargeCnt": 0,
+      "weekComm": 0,
+      "histComm": 8360,
+      "histDirectCnt": 1,
+      "histTeamCnt": 0,
+      "histBet": 2311460,
+      "histTeamBet": 0,
+      "histDirectBet": 0,
+      "histRecharge": 835000,
+      "histTeamRecharge": 0,
+      "histDirectRecharge": 0
+  }
+}

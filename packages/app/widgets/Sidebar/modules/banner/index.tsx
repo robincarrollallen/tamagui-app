@@ -3,8 +3,8 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { LinearGradient } from '@tamagui/linear-gradient';
 import { useRem, useTenantStore } from 'app/store';
 import { Platform } from 'react-native'
-import { ICONS } from "@my/assets";
 import { LazyImage } from '@my/ui';
+import { ICONS } from "@my/assets";
 
 interface CarouselProps {
   data?: Array<{ id: string; backgroundColor: string }>
@@ -143,7 +143,16 @@ export function SidebarBanner({
 
     const interval = setInterval(() => {
       const nextDisplayIndex = displayIndex + 1
-      scrollToIndex(nextDisplayIndex)
+      
+      if (displayIndex === realDataLength + 1) {
+        scrollViewRef.current?.scrollTo({
+          x: containerWidth,
+          animated: false,
+        })
+        setDisplayIndex(1)
+      } else {
+        scrollToIndex(nextDisplayIndex)
+      }
     }, autoPlayInterval)
 
     return () => clearInterval(interval)

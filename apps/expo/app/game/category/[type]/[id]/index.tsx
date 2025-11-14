@@ -13,7 +13,7 @@ export default function GameListPage() {
           headerShown: false,
         }}
       />
-      <GameListScreen />
+      <GameListScreen type={type as string} id={id as string} />
     </>
   )
 }

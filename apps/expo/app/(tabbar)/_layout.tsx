@@ -8,7 +8,6 @@ export default function TabLayout() {
 
   return (
     <>
-      <StatusBar style="light" backgroundColor="transparent" />
       <Tabs
         screenOptions={{
           headerShown: false,

@@ -1,5 +1,6 @@
 import { useFonts } from 'expo-font'
 import { Provider } from 'app/provider'
+import { StatusBar } from 'expo-status-bar'
 import { useEffect, useState } from 'react'
 import { useColorScheme } from 'react-native'
 import { LoginScreen } from 'app/features/login'
@@ -53,6 +54,7 @@ function RootLayoutNav() {
   return (
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <StatusBar style="light" backgroundColor="transparent" />
         <Stack>
           <Stack.Screen
             name="(tabbar)"
