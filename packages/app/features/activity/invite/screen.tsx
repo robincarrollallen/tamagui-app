@@ -25,7 +25,7 @@ export function InviteScreen() {
   }, [])
   
   return (
-    <YStack flex={1} width="100%">
+    <YStack flex={1} width="100%" bg="$background">
       <NavigationBar title={t('tags.invite')} />
       <YStack
         width="100%"

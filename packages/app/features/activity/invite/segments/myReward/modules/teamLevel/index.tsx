@@ -1,12 +1,12 @@
 import { Image } from 'expo-image'
-import { ICONS, SVG } from '@my/assets'
 import { Platform } from 'react-native'
 import { SvgXml } from 'react-native-svg'
+import { ICONS, IMAGES, SVG } from '@my/assets'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { useRem, useTenantStore, useAgentStore } from 'app/store'
 import { formatMoneyToLocal, safeNumber } from 'app/utils/format/number'
-import { ScrollView, View, XStack, YStack, Circle, Text, Progress } from 'tamagui'
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
+import { ScrollView, View, XStack, YStack, Circle, Text, Progress } from 'tamagui'
 import agencyConfigData from 'app/data/agencyConfig.json'
 import agencyInfoData from 'app/data/agencyInfo.json'
 
@@ -236,20 +236,20 @@ export function TeamLevel({
   }, [])
 
   return (
-    <View onLayout={handleLayout}>
+    <View onLayout={handleLayout} width="100%">
       <ScrollView
-        ref={scrollViewRef}
         horizontal
+        ref={scrollViewRef}
         pagingEnabled={false}
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        onScrollBeginDrag={handleScrollBegin}
-        onMomentumScrollEnd={handleMomentumScrollEnd}
-        onTouchEnd={handleMomentumScrollEnd}
-        scrollEventThrottle={16}
         decelerationRate="fast"
-        snapToOffsets={snapOffsets} // 使用精确偏移量替代 snapToInterval
         snapToAlignment="start"
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        snapToOffsets={snapOffsets} // 使用精确偏移量替代 snapToInterval
+        onTouchEnd={handleMomentumScrollEnd}
+        onScrollBeginDrag={handleScrollBegin}
+        showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={handleMomentumScrollEnd}
         contentContainerStyle={{
           px: padding,
         }}
@@ -258,7 +258,7 @@ export function TeamLevel({
         })}
       >
         <XStack gap={ITEM_SPACING}>
-          {loopData.map((item, _index) => (
+          {!!containerWidth && loopData.map((item, _index) => (
             <YStack
               key={item.name}
               width={itemWidth || containerWidth * ITEM_WIDTH_PERCENTAGE}
@@ -271,7 +271,7 @@ export function TeamLevel({
             >
               <YStack height={rem(128)} items="center" width="100%">
                 {/* 背景 */}
-                <SvgXml xml={SVG[`bg_invite_level_${item.level - 1}`]} width="100%" height="100%" style={{ position: 'absolute', zIndex: -1 }} />
+                <Image source={IMAGES[`bg_invite_level_${item.level - 1}`]} contentFit="fill" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }} />
                 {/* 标题 */}
                 <Text fontSize={rem(14)} lineHeight={rem(24)}>{item.level === currentLevel ? 'My Team' : item.level > currentLevel ? 'Next Level' : 'Previous Level'}</Text>
                 {/* 等级信息 */}
@@ -300,7 +300,7 @@ export function TeamLevel({
                         : <XStack items="center" width="100%">
                             <YStack width="50%" gap={rem(4)} pr={rem(8)}>
                               <Text fontSize={rem(10)} color="$textWeaker">{`Team Size`}</Text>
-                              <Progress minW="100%" size="$2" bg="#ffffff33" value={totalTeamCount >= item.count ? 100 : totalTeamCount / safeNumber(item.count) * 100}>
+                              <Progress minW="100%" size="$2" bg="#ffffff33" value={totalTeamCount >= item.count ? 100 : Math.round((totalTeamCount / safeNumber(item.count)) * 100)}>
                                 <Progress.Indicator animation="bouncy" bg="$iconBrandPrimary"/>
                               </Progress>
                               <Text fontSize={rem(10)} color="$textWeaker">{`${totalTeamCount}/${safeNumber(item.count)}`}</Text>
@@ -308,7 +308,7 @@ export function TeamLevel({
                             <YStack width="50%" gap={rem(4)} pl={rem(8)}>
                               <Text fontSize={rem(10)} color="$textWeaker">{`Team Size`}</Text>
                               <Progress minW="100%" size="$2" bg="#ffffff33" value={totalTeamBet >= safeNumber(item.totalTeamBet) ? 100 : totalTeamBet / safeNumber((item.totalTeamBet)) * 100}>
-                                <Progress.Indicator animation="bouncy" bg="$iconBrandPrimary"/>
+                                <Progress.Indicator animation="bouncy" bg="$iconBrandPrimary" />
                               </Progress>
                               <Text fontSize={rem(10)} color="$textWeaker">{`${formatMoneyToLocal(totalTeamBet)}/${safeNumber(item.totalTeamBet / 100)}`}</Text>
                             </YStack>
@@ -319,7 +319,7 @@ export function TeamLevel({
                 </XStack>
               </YStack>
               {/* 奖励信息 */}
-              <YStack flex={1} width="100%" items="center" px={rem(16)}>
+              <YStack width="100%" items="center" px={rem(16)}>
                 <XStack bg="$surfaceRaisedL1" width="100%" pt={rem(12)} pb={rem(4)} borderBottomLeftRadius={rem(16)} borderBottomRightRadius={rem(16)}>
                   <YStack items="center" justify="center" px={rem(10)} borderRightWidth={rem(1)} borderRightColor="$borderDefault">
                     <Text fontSize={rem(10)} lineHeight={rem(16)} color="$textSuccess" fontWeight="600">{ `Up to ${(item.rats[0]?.rat || 0) / 100}%` }</Text>

@@ -1,10 +1,10 @@
-import { ScrollView, View, XStack, YStack, Circle, Image, Text } from 'tamagui'
+import { ScrollView, View, XStack, YStack, Circle, Text } from 'tamagui'
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { LinearGradient } from '@tamagui/linear-gradient';
 import { useRem, useTenantStore } from 'app/store';
 import { Platform } from 'react-native'
-import { LazyImage } from '@my/ui';
 import { ICONS } from "@my/assets";
+import { Image } from 'expo-image';
 
 interface CarouselProps {
   data?: Array<{ id: string; backgroundColor: string }>
@@ -190,7 +190,7 @@ export function SidebarBanner({
       >
         <XStack pb={rem(8)} items="center" justify="space-between">
           <XStack gap={rem(4)} items="center">
-            <LazyImage source={ICONS.tabbar_promo_25} width={rem(24)} height={rem(24)} />
+            <Image source={ICONS.tabbar_promo_25} style={{ width: rem(24), height: rem(24) }} />
             <Text fontSize={rem(16)} fontWeight="bold">Banner</Text>
           </XStack>
           <Text fontSize={rem(12)} color="$textBrandPrimary">All</Text>
@@ -213,7 +213,7 @@ export function SidebarBanner({
             })}
           >
             <XStack>
-              {loopData.map((item, index) => (
+              {loopData.map((item, _index) => (
                 <View
                   key={item.id}
                   width={containerWidth || '100%'}
@@ -224,7 +224,10 @@ export function SidebarBanner({
                     ...(Platform.OS === 'web' && { scrollSnapAlign: 'center' })
                   }}
                 >
-                  <Image width="100%" aspectRatio={61 / 38} borderTopLeftRadius={rem(12)} borderTopRightRadius={rem(12)} borderBottomLeftRadius={rem(12)} borderBottomRightRadius={rem(12)} source={{ uri: item.imageUrl }} />
+                  <Image 
+                    source={{ uri: item.imageUrl }}
+                    style={{ width: '100%', aspectRatio: 61 / 38, borderRadius: rem(12) }}
+                  />
                 </View>
               ))}
             </XStack>

@@ -2,6 +2,10 @@ import { createAnimations } from '@tamagui/animations-react-native'
 import { Easing } from 'react-native'
 
 export const animations = createAnimations({
+  '0': {
+    type: 'timing',
+    duration: 50,
+  },
   '100ms': {
     type: 'timing',
     duration: 100,

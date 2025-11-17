@@ -19,6 +19,7 @@ export const style_25 = {
   textWarning: 'rgb(252, 151, 76)', // #FFC754
   textHighlight: 'rgb(245, 200, 76)', // #F5C84C
   textHighlightWhite: 'rgb(255, 255, 255)', // #FFFFFF
+  textHighlightWhiteWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
   textWeak: 'rgba(255, 255, 255, .6)', // #FFFFFF 60% 透明度
   textWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
   textWeakest: 'rgba(255, 255, 255, .2)', // #FFFFFF 20% 透明度

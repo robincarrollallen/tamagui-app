@@ -1,10 +1,16 @@
 import { useEffect } from 'react'
+import { useRem } from 'app/store'
+import { ScrollView, Stack } from 'tamagui'
 import { UserInfo } from './modules/userInfo'
-import { useUserStore, useVipStore } from 'app/store'
+import { VipWrapper } from 'app/widgets/VipWrapper'
+import { NavigationWrapper } from './modules/navigation'
+import { useUserStore, useVipStore, useStyleStore } from 'app/store'
 import userInfoData from 'app/data/userInfo.json'
 import vipInfoData from 'app/data/vipInfo.json'
 
 export function ProfileScreen() {
+  const rem = useRem()
+  const tabbarLayout = useStyleStore(state => state.tabbarLayout) // TabBar 布局
 
   useEffect(() => {
     useUserStore.getState().setUserInfo(userInfoData)
@@ -13,5 +19,12 @@ export function ProfileScreen() {
 
   return <>
     <UserInfo />
+    <ScrollView>
+      <Stack px={rem(12)}>
+        <VipWrapper />
+      </Stack>
+      <NavigationWrapper />
+      <Stack height={tabbarLayout.height} />
+    </ScrollView>
   </>
 }

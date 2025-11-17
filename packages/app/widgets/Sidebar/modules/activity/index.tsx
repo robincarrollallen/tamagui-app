@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { LazyImage } from '@my/ui'
 import { useRem } from 'app/store'
+import { Image } from 'expo-image'
 import { useActivityStore } from 'app/store'
 import { Text, YStack, XStack } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
@@ -35,7 +35,7 @@ export const SidebarActivity = () => {
             borderBottomRightRadius={rem(6)}
           >
             <XStack items="center" gap={rem(4)}>
-              <LazyImage uri={item.logoSrc} width={rem(24)} height={rem(24)} />
+              <Image source={item.logoSrc} style={{ width: rem(24), height: rem(24) }} />
               <Text fontSize={rem(12)} fontWeight="bold">{item.name}</Text>
             </XStack>
             <XStack justify="flex-end">

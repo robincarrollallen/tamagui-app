@@ -10,6 +10,7 @@ interface UnclaimedState {
   setRecordList: (list: Recordable[]) => void
   setDate: (date: number) => void
   setPage: (page: number) => void
+  reset: () => void
 }
 
 const initialState = {
