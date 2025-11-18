@@ -18,7 +18,7 @@ export function VipWrapper() {
         <VipTag level={vipInfo.currentVipLevel?.level ?? 0} size={rem(36)} fontSize={rem(12)} />
         <XStack pt={rem(16)} pb={rem(12)} px={rem(4)} items="center" justify="space-between">
           <YStack flex={1} pr={rem(8)}>
-            <ProgressBar value={rem(50)} size={rem(4)} indicatorColor={theme.$iconBrandPrimary?.get()} backgroundColor="#ffffff33" />
+            <ProgressBar value={rem(50)} size={rem(4)} indicatorColor={theme.$iconBrandPrimary?.get()} bg="#ffffff33" />
           </YStack>
           <VipTag level={(vipInfo.currentVipLevel?.level ?? 0) + 1} />
         </XStack>

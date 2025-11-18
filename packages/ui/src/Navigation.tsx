@@ -2,8 +2,8 @@ import { Icon } from "./Icon"
 import { JSX, memo } from "react"
 import { useRem } from "app/store"
 import { Pressable } from "react-native"
-import { Text, XStack, XStackProps } from "tamagui"
 import { ChevronRight } from '@tamagui/lucide-icons'
+import { Text, useTheme, XStack, XStackProps } from "tamagui"
 
 interface NavigationProps extends Omit<XStackProps, 'content'> {
   icon?: string
@@ -24,6 +24,7 @@ export const Navigation = memo(({
   ...props
 }: NavigationProps) => {
   const rem = useRem()
+  const theme = useTheme()
 
   return (
     <Pressable onPress={onPress}>
@@ -38,7 +39,7 @@ export const Navigation = memo(({
         borderBottomRightRadius={rem(6)}
         {...props}
       >
-        <Icon uri={icon} color={iconColor} width={iconSize} height={iconSize} />
+        <Icon uri={icon} color={iconColor || theme.$iconWeaker?.get()} width={iconSize} height={iconSize} />
         <Text flex={content ? 0 : 1} fontSize={rem(12)}>{title}</Text>
         {content && <XStack flex={1} justify="flex-end">{content}</XStack>}
         <ChevronRight size={rem(20)} />

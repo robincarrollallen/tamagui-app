@@ -1,9 +1,11 @@
-import { JSX } from "react"
 import { SVG } from "@my/assets"
 import { useRem } from "app/store"
+import { Selection } from '@my/ui'
+import { JSX, useCallback } from "react"
 import { Icon, Navigation } from "@my/ui"
+import { setLanguage } from 'app/i18n/client'
 import { useTranslation } from "react-i18next"
-import { useTheme, YStack, Text, XStack } from "tamagui"
+import { useTheme, YStack, Text, XStack, Stack } from "tamagui"
 import { getLanguageName } from "app/utils/language"
 
 export function NavigationWrapper() {
@@ -33,14 +35,28 @@ export function NavigationWrapper() {
 
 function LanguageContent() {
   const { i18n } = useTranslation()
+  const languageName = getLanguageName(i18n.language)
   const flag = i18n.language.split('-')[1]
   const rem = useRem()
-  const languageName = getLanguageName(i18n.language, i18n.language)
+
+  const items = [
+    { label: 'English', value: 'en-US' },
+    { label: 'Chinese', value: 'zh-CN' },
+  ]
+
+  /** 选择回调事件 */
+  const onChange = useCallback((value: string) => {
+    setLanguage(value)
+  }, [])
 
   return (
-    <XStack items="center" gap={rem(8)}>
-      <Icon uri={SVG[flag]} width={rem(20)} height={rem(20)} style={{ borderRadius: '50%' }} />
-      <Text fontSize={rem(12)} fontWeight="bold">{languageName}</Text>
-    </XStack>
+    <Selection value={i18n.language} items={items} onChange={onChange}>
+      <XStack items="center" gap={rem(8)}>
+        <Stack style={{ borderRadius: '50%', overflow: "hidden" }}>
+          <Icon uri={SVG[flag]} width={rem(20)} height={rem(20)} />
+        </Stack>
+        <Text fontSize={rem(12)} fontWeight="bold">{languageName}</Text>
+      </XStack>
+    </Selection>
   )
 }

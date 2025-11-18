@@ -5,4 +5,4 @@ export * from './regular'
 export * from './time'
 export * from './options'
 export * from './status'
-
+export * from './language'

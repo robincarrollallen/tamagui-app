@@ -1,6 +1,4 @@
-/**
- * Supported language enum
- */
+/** Supported language enum */
 export const LANGUAGE_TYPE = {
 	/** English */
 	'en-US': 'English',
@@ -15,6 +13,17 @@ export const LANGUAGE_TYPE = {
 	/** Vietnamese */
 	'vi-VN': 'Tiếng Việt',
 	/** English (Philippines) */
+	'en-PH': 'English (Philippines)',
+} as const
+
+/** Language names enum */
+export const LANGUAGE_NAMES = {
+	'en-US': 'English (United States)',
+	'pt-BR': 'Português (Brasil)',
+	'zh-CN': '中文 (中国)',
+	'id-ID': 'Bahasa Indonesia',
+	'hi-IN': 'Hindi (India)',
+	'vi-VN': 'Tiếng Việt (Việt Nam)',
 	'en-PH': 'English (Philippines)',
 } as const
 

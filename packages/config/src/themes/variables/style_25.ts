@@ -33,6 +33,7 @@ export const style_25 = {
   borderBrand: 'rgb(25, 204, 16)', // #19CC10
 
   iconDefault: 'rgb(25, 204, 16)', // #19CC10
+  iconWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
   iconSelected: 'rgb(25, 204, 16)', // #19CC10
   iconBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
   iconBrandSecondary: 'rgb(255, 171, 0)', // #FFFFFF

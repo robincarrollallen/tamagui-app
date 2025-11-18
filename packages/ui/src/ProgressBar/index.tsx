@@ -1,15 +1,15 @@
 import { memo } from 'react'
 import { Stack, StackProps } from 'tamagui'
 
-export interface ProgressBarProps extends Omit<StackProps, 'children'> {
+export interface ProgressBarProps extends Omit<StackProps, 'children' | 'bg'> {
   /** 进度值 0-100 */
   value: number
   /** 进度条高度 */
   size?: number
   /** 指示器（圆球）颜色 */
-  indicatorColor?: string
+  indicatorColor?: any
   /** 背景轨道颜色 */
-  backgroundColor?: string
+  bg?: any
   /** 是否启用动画 */
   animated?: boolean
   /** 动画持续时间（毫秒） */
@@ -25,7 +25,7 @@ export const ProgressBar = memo(
     value = 0,
     size = 8,
     indicatorColor = '#52C41A',
-    backgroundColor = '#8B7355',
+    bg = '#8B7355',
     animated = true,
     borderRadius = 390,
     ...props
@@ -44,7 +44,7 @@ export const ProgressBar = memo(
           items="center"
           justify="center"
           position="absolute"
-          background={backgroundColor}
+          bg={bg}
           borderTopLeftRadius={borderRadius}
           borderTopRightRadius={borderRadius}
           borderBottomLeftRadius={borderRadius}
@@ -66,7 +66,7 @@ export const ProgressBar = memo(
           <Stack
             width="100%"
             height="100%"
-            background={indicatorColor} 
+            bg={indicatorColor} 
             borderTopLeftRadius={borderRadius}
             borderTopRightRadius={borderRadius}
             borderBottomLeftRadius={borderRadius}
@@ -78,7 +78,7 @@ export const ProgressBar = memo(
             r={-size}
             width={size * 1.5}
             height={size * 1.5}
-            background={indicatorColor}
+            bg={indicatorColor}
             borderBottomRightRadius={size}
             borderBottomLeftRadius={size}
             borderTopRightRadius={size}
@@ -92,7 +92,7 @@ export const ProgressBar = memo(
               width={size * 3}
               height={size * 3}
               opacity={0.6}
-              background={indicatorColor}
+              bg={indicatorColor}
               borderTopLeftRadius={size * 1.5}
               borderTopRightRadius={size * 1.5}
               borderBottomLeftRadius={size * 1.5}
