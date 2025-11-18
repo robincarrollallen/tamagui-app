@@ -1,48 +1,89 @@
 import { useRem } from 'app/store'
-import { useState, useEffect, memo } from "react"
+import { Animated, Easing } from 'react-native'
+import { useRef, useEffect, memo } from "react"
 import { Button, ButtonProps, Stack } from "tamagui"
 
 interface ShimmerEffectProps {
   enabled: boolean
   interval?: number
+  duration ?: number
 }
 
 /** 闪烁效果 */
 const ShimmerEffect = memo(({ 
   enabled, 
-  interval = 3000 
+  interval = 3000,
+  duration  = 1500,
 }: ShimmerEffectProps) => {
-  const [animationKey, setAnimationKey] = useState(0)
+  const scaleAnim = useRef(new Animated.Value(0)).current
+  const opacityAnim = useRef(new Animated.Value(1)).current
+  const animationRef = useRef<Animated.CompositeAnimation | null>(null)
 
   useEffect(() => {
-    if (!enabled) return
+    if (!enabled) {
+      if (animationRef.current) {
+        animationRef.current.stop()
+        animationRef.current = null
+      }
+      return
+    }
 
-    const intervalId = setInterval(() => {
-      setAnimationKey(prev => prev + 1)
-    }, interval)
-    
-    return () => clearInterval(intervalId)
-  }, [enabled, interval])
+    scaleAnim.setValue(0)
+    opacityAnim.setValue(1)
+
+    const createAnimation = () => {
+      return Animated.sequence([
+        Animated.parallel([
+          Animated.timing(scaleAnim, {
+            toValue: 4,
+            duration: duration,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacityAnim, {
+            toValue: 0,
+            duration: duration,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+        ]),
+        Animated.delay(interval),
+      ])
+    }
+
+    animationRef.current = Animated.loop(createAnimation())
+    animationRef.current.start()
+
+    return () => {
+      if (animationRef.current) {
+        animationRef.current.stop()
+        animationRef.current = null
+      }
+    }
+  }, [enabled, interval, scaleAnim, opacityAnim])
 
   if (!enabled) return null
 
+  const animatedStyle = {
+    transform: [{ scale: scaleAnim }, { rotate: '45deg' }],
+    opacity: opacityAnim,
+  }
+
   return (
-      <Stack
-        key={animationKey}
-        animateOnly={['transform', 'opacity']}
-        position="absolute"
-        b={0}
-        width="100%"
-        aspectRatio={1}
-        rotate={`45deg`}
-        bg="rgba(255,255,255, 0.8)"
-        x={"-100%"}
-        z={1}
-        scale={4}
-        opacity={0}
-        animation="shimmer"
-        enterStyle={{ scale: 0, opacity: 1 }}
-      />
+    <Animated.View
+      style={[
+        {
+          position: 'absolute',
+          bottom: 0,
+          left: '-100%',
+          width: '100%',
+          aspectRatio: 1,
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          zIndex: 1,
+        },
+        animatedStyle,
+      ]}
+    />
   )
 })
 
