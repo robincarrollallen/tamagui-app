@@ -1,5 +1,6 @@
 import { useTheme, YStack, Text, XStack } from "tamagui"
 import { LinearGradient } from "tamagui/linear-gradient"
+import { ChevronRight } from "@tamagui/lucide-icons"
 import { ImageBackground } from "expo-image"
 import { useVipStore } from "app/store"
 import { ProgressBar } from "@my/ui"
@@ -51,7 +52,10 @@ export function VipWrapper() {
         borderBottomRightRadius={rem(390)}
         colors={['#000', 'rgba(252, 209, 126, 0.05)']}
       >
-        <Text fontSize={rem(12)}>VIP Details</Text>
+        <XStack gap={rem(4)} items="center" justify="center">
+          <Text fontSize={rem(12)}>VIP Details</Text>
+          <ChevronRight size={rem(20)} color="$textHighlightWhite" />
+        </XStack>
       </LinearGradient>
     </YStack>
     </YStack>

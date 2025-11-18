@@ -23,4 +23,6 @@ export const IMAGES = {
   bg_card_level_1: require('../src/images/vip/bg-card-level-1.webp').default?.src || require('../src/images/vip/bg-card-level-1.webp'),
   
   rank_avatar_border_25: require('../src/images/home/rank-avatar-border-25.png').default?.src || require('../src/images/home/rank-avatar-border-25.png'),
+
+  bg_dialog_confirm: require('../src/images/dialog/bg-dialog-confirm.webp').default?.src || require('../src/images/dialog/bg-dialog-confirm.webp'),
 } as const;

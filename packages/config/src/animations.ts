@@ -4,7 +4,7 @@ import { Easing } from 'react-native'
 export const animations = createAnimations({
   '0': {
     type: 'timing',
-    duration: 50,
+    duration: 0,
   },
   '100ms': {
     type: 'timing',

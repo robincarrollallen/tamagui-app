@@ -1,6 +1,6 @@
 import { Popover, PopoverProps, YStack, Text, ScrollView } from "tamagui"
 import { Pressable, useWindowDimensions } from "react-native"
-import { useRef, useState } from "react"
+import { memo, useRef, useState } from "react"
 import { useRem } from 'app/store'
 
 interface CustomPopoverProps {
@@ -14,7 +14,7 @@ interface CustomPopoverProps {
   onOpenChange?: (open: boolean) => void
 }
 
-export function Picker({
+export const Picker = memo(({
   value,
   children,
   onChange,
@@ -24,7 +24,7 @@ export function Picker({
   placement = 'bottom-start',
   onOpenChange: controlledOnOpenChange,
   ...props
-}: CustomPopoverProps) {
+}: CustomPopoverProps) => {
   const triggerRef = useRef<any>(null) // 触发器引用
   const rem = useRem()
   const [internalOpen, setInternalOpen] = useState(false) // 内部打开状态
@@ -97,4 +97,4 @@ export function Picker({
       </Popover.Content>
     </Popover>
   )
-}
+})

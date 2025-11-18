@@ -19,7 +19,7 @@ export function ProfileScreen() {
 
   return <>
     <UserInfo />
-    <ScrollView>
+    <ScrollView bg="$background">
       <Stack px={rem(12)}>
         <VipWrapper />
       </Stack>

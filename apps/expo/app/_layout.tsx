@@ -61,6 +61,7 @@ function RootLayoutNav() {
             options={{
               headerShown: false,
             }}
+            
           />
         </Stack>
         <NativeToast />

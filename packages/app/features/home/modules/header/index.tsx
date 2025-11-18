@@ -1,4 +1,4 @@
-import { useTenantStore, usePlatformStore, useScreenSpace, useRem  } from 'app/store'
+import { useTenantStore, usePlatformStore, useScreenSpace, useRem, useLanguageStore } from 'app/store'
 import { useTheme, Image, XStack, YStack, Dialog, VisuallyHidden} from "tamagui"
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { RippleButton } from '@my/ui/src/RippleButton'
@@ -15,12 +15,8 @@ export const HomeHeader = () => {
   const theme = useTheme()
   const isNative = usePlatformStore(state => state.isNative)
   const tenantInfo = useTenantStore(state => state.tenantInfo)
+  const supportedLanguages = useLanguageStore(state => state.supportedLanguages)
   const rem = useRem()
-  
-  const items = [
-    { label: 'English', value: 'en-US' },
-    { label: 'Chinese', value: 'zh-CN' },
-  ]
 
   const { i18n } = useTranslation()
   const language = i18n.language
@@ -57,7 +53,7 @@ export const HomeHeader = () => {
           <Image source={{ uri: tenantInfo.siteLogo }} objectFit='contain' height='100%' width={rem(140)} />
           
           <XStack gap={rem(10)}>
-            <Selection value={language} items={items} onChange={onChange}>
+            <Selection value={language} items={supportedLanguages} onChange={onChange}>
               <RippleButton asChild bg="$surfaceRaisedL2" height={rem(36)} aspectRatio={1} borderColor="$borderDefault" borderWidth={2} {...({ borderRadius: rem(4) } as any)}>
                 <SvgXml xml={SVG.earth} width={rem(20)} height={rem(20)} color={theme.iconDefault?.get()} />
               </RippleButton>
@@ -87,34 +83,34 @@ export function RightSlideDialog() {
 
       <Dialog.Portal>
         <Dialog.Overlay
+          opacity={0.5}
           animation="100ms" // [slow, lazy, medium, slow, bouncy, tooltip, spin, 100ms]
           key="RightSlideOverlay"
-          enterStyle={{ opacity: 0 }}
           exitStyle={{ opacity: 0 }}
-          opacity={0.5}
+          enterStyle={{ opacity: 0 }}
         />
         <Dialog.Content
-          p={rem(10)}
           animateOnly={screenSpace ? ['opacity'] : ['transform', 'opacity']}
           enterStyle={{ x: '100%', opacity: 0 }} // 从右边进入
           exitStyle={{ x: '100%', opacity: 0 }} // 向右边退出
           borderBottomLeftRadius={rem(12)}
           borderTopLeftRadius={rem(12)}
-          borderTopRightRadius={0}
           borderBottomRightRadius={0}
+          borderTopRightRadius={0}
+          key="RightSlideContent"
           position="absolute"
           animation="100ms"
-          key="RightSlideContent"
-          bg="$color2"
           width={rem(300)}
+          bg="$color2"
+          p={rem(10)}
           opacity={1}
           scale={1}
           elevate
-          r={screenSpace ? screenSpace : 0} // 定位在右边
           t={0}
           b={0}
           x={0}
           y={0}
+          r={screenSpace ? screenSpace : 0} // 定位在右边
         >
           <VisuallyHidden>
             <Dialog.Title>title</Dialog.Title>

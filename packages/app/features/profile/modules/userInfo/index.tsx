@@ -1,12 +1,15 @@
 import { VipTag } from '@my/ui'
+import { useCallback } from 'react'
 import { IMAGES, SVG } from '@my/assets'
+import { useUserInfoState } from './state'
 import { useCopy } from 'app/hooks/message'
 import { Copy } from '@tamagui/lucide-icons'
 import { ImageBackground } from 'expo-image'
 import { useRem, useUserStore, useVipStore } from 'app/store'
-import { YStack, XStack, Avatar, Text, useTheme, isWeb } from 'tamagui'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { YStack, XStack, Avatar, Text, useTheme, isWeb } from 'tamagui'
 import { Svg, Defs, RadialGradient, Stop, Rect, SvgXml } from 'react-native-svg';
+import { ConfirmDialog } from './components/ConfirmDialog'
 
 export function UserInfo() {
   const theme = useTheme()
@@ -15,11 +18,20 @@ export function UserInfo() {
   const userInfo = useUserStore(state => state.userInfo)
   const copy= useCopy()
   const rem = useRem()
+
+  const handleWithdraw = useCallback(() => {
+    useUserInfoState.getState().setConfirmDialogOpen(true)
+  }, [])
   
   return (
     <ImageBackground
       source={IMAGES.yellow_dark_top_bg}
-      style={{ width: '100%', paddingTop: safeAreaInsets.top + rem(32), paddingHorizontal: rem(12) }}
+      style={{
+        width: '100%',
+        paddingHorizontal: rem(12),
+        paddingTop: safeAreaInsets.top + rem(32),
+        backgroundColor: theme.background?.get()
+      }}
     >
       {/* 用户信息 */}
       <XStack gap={rem(12)}>
@@ -82,12 +94,13 @@ export function UserInfo() {
           style={{ borderRadius: rem(8) }}
           boxShadow={`0 ${rem(-26)}px ${rem(20)}px ${rem(-24)}px ${theme.glowPrimaryOpacity40?.get()} inset`}
         >
-          <XStack items="center" gap={rem(4)}>
+          <XStack items="center" gap={rem(4)}  onPress={handleWithdraw}>
             <SvgXml xml={SVG.wallet} width={rem(30)} height={rem(30)} color={theme.iconBrandPrimary?.get()} />
             <Text fontSize={rem(14)} fontWeight="600">{`Withdraw`}</Text>
           </XStack>
         </YStack>
       </XStack>
+      <ConfirmDialog />
     </ImageBackground>
   )
 }

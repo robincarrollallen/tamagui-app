@@ -9,6 +9,7 @@ export * from './modules/tenant'
 export * from './modules/status'
 export * from './modules/platform'
 export * from './modules/activity'
+export * from './modules/language'
 export * from './modules/responsive'
 
 export type { BaseStore, PersistConfig } from './types'
