@@ -1,4 +1,5 @@
 import { isWeb } from 'tamagui'
+import { useMemo } from 'react'
 import { create } from 'zustand'
 import { Dimensions } from 'react-native'
 import { throttle } from 'app/utils/library'
@@ -100,4 +101,39 @@ export const useScreenSpace = () => {
     const width = state.screenWidth
     return width > MOBILE_MAX_WIDTH ? (width - MOBILE_MAX_WIDTH) / 2 : 0
   })
+}
+
+/** 响应式元素属性大小Token */
+export const useSizeTokens = () => {
+  const rem = useRem()
+  const screenWidth = useResponsiveStore(state => state.screenWidth)
+  
+  return useMemo(() => {
+
+    const tokens = {
+      2: rem(2),
+      4: rem(4),
+      6: rem(6),
+      10: rem(10),
+      12: rem(12),
+      14: rem(14),
+      16: rem(16),
+      24: rem(24),
+      28: rem(28),
+      32: rem(32),
+      38: rem(38),
+      46: rem(46),
+      50: rem(50),
+      58: rem(58),
+      70: rem(70),
+      88: rem(88),
+      100: rem(100),
+      150: rem(150),
+      170: rem(170),
+      340: rem(340),
+      366: rem(366),
+    }
+
+    return tokens
+  }, [screenWidth])
 }

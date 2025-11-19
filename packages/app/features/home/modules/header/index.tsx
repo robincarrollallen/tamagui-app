@@ -1,13 +1,12 @@
 import { useTenantStore, usePlatformStore, useScreenSpace, useRem, useLanguageStore } from 'app/store'
 import { useTheme, Image, XStack, YStack, Dialog, VisuallyHidden} from "tamagui"
 import { LinearGradient } from 'tamagui/linear-gradient'
-import { RippleButton } from '@my/ui/src/RippleButton'
 import { SidebarWidget } from 'app/widgets/Sidebar'
+import { Selection, RippleButton } from '@my/ui'
 import { useTranslation } from 'react-i18next'
 import { setLanguage } from 'app/i18n/client'
 import { useCallback, useState } from "react"
 import { SvgXml } from 'react-native-svg'
-import { Selection } from '@my/ui'
 import { SVG } from '@my/assets'
 
 /** 首页 Header 组件 */

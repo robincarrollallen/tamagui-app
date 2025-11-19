@@ -1,26 +1,32 @@
 import { VipTag } from '@my/ui'
 import { useCallback } from 'react'
+import { delay } from 'app/utils/time'
 import { IMAGES, SVG } from '@my/assets'
 import { useUserInfoState } from './state'
 import { useCopy } from 'app/hooks/message'
 import { Copy } from '@tamagui/lucide-icons'
 import { ImageBackground } from 'expo-image'
+import { ConfirmDialog } from './components/ConfirmDialog'
 import { useRem, useUserStore, useVipStore } from 'app/store'
+import { useGlobalLoading } from 'app/provider/LoadingProvider'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { YStack, XStack, Avatar, Text, useTheme, isWeb } from 'tamagui'
 import { Svg, Defs, RadialGradient, Stop, Rect, SvgXml } from 'react-native-svg';
-import { ConfirmDialog } from './components/ConfirmDialog'
 
 export function UserInfo() {
   const theme = useTheme()
+  const loading = useGlobalLoading()
   const safeAreaInsets = useSafeArea()
   const vipInfo = useVipStore(state => state.vipInfo)
   const userInfo = useUserStore(state => state.userInfo)
   const copy= useCopy()
   const rem = useRem()
 
-  const handleWithdraw = useCallback(() => {
+  const handleWithdraw = useCallback(async () => {
+    loading.show()
+    await delay(2000)
     useUserInfoState.getState().setConfirmDialogOpen(true)
+    loading.hide()
   }, [])
   
   return (

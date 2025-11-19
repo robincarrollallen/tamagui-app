@@ -1,24 +1,14 @@
-import { Platform } from 'react-native'
-import { useLink } from 'solito/navigation'
-import { useEffect, useState } from 'react'
+import { YStack } from 'tamagui'
+import { useEffect} from 'react'
 import { GameList } from './modules/gameList'
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import { IOScrollView } from 'react-native-intersection-observer'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { SwitchLanguageButton } from '@my/ui/src/SwitchLanguageButton'
-import { useGameStore, useStatusStore, useResponsiveStore, useStyleStore } from 'app/store'
-import { Button, H1, Paragraph, Separator, XStack, YStack, isWeb } from 'tamagui'
-import { SwitchRouterButton, SwitchThemeButton, useToastController } from '@my/ui'
+import { useGameStore, useResponsiveStore, useStyleStore } from 'app/store'
 import { Sign, Banner, Marquee, HomeHeader, Bonus, Sticky, Ranking } from './modules'
 import homeListData from 'app/data/homeList.json'
 import gameListData from 'app/data/gameList.json'
 
-export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
-  const linkTarget = pagesMode ? '/pages-example-activity' : '/activity'
-  const linkProps = useLink({
-    href: `${linkTarget}/nate`,
-  })
-
+export function HomeScreen() {
   const safeArea = useSafeArea()
   const tabbarLayout = useStyleStore(state => state.tabbarLayout)
   const screenWidth = useResponsiveStore(state => state.screenWidth)

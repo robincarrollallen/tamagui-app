@@ -1,14 +1,23 @@
-import { useRem } from 'app/store'
 import { Image } from 'expo-image'
 import { IMAGES } from '@my/assets'
+import { useCallback } from 'react'
+import { RippleButton } from '@my/ui'
+import { useSizeTokens } from 'app/store'
 import { useUserInfoState } from '../state'
-import { AlertDialog, Button, YStack } from 'tamagui'
+import { useRouter } from 'solito/navigation'
 import { LinearGradient } from 'tamagui/linear-gradient'
+import { AlertDialog, Button, YStack, XStack } from 'tamagui'
 
-export const ConfirmDialog = () => {
-  const rem = useRem()
+export const ConfirmDialog = ({ showCancel = false }: { showCancel?: boolean }) => {
+  const router = useRouter()
+  const size = useSizeTokens()
   const confirmDialogOpen = useUserInfoState(state => state.confirmDialogOpen)
   const setConfirmDialogOpen = useUserInfoState.getState().setConfirmDialogOpen
+
+  const onConfirm = useCallback(async () => {
+    setConfirmDialogOpen(false)
+    router.push('/withdraw/pin')
+  }, [])
 
   return (
     <AlertDialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
@@ -30,13 +39,13 @@ export const ConfirmDialog = () => {
           opacity={1}
           key="content"
           borderWidth={0}
-          width={rem(340)}
+          width={size[340]}
           bg="transparent"
           borderColor="transparent"
-          borderTopLeftRadius={rem(10)}
-          borderTopRightRadius={rem(10)}
-          borderBottomLeftRadius={rem(10)}
-          borderBottomRightRadius={rem(10)}
+          borderTopLeftRadius={size[10]}
+          borderTopRightRadius={size[10]}
+          borderBottomLeftRadius={size[10]}
+          borderBottomRightRadius={size[10]}
           animateOnly={['opacity', 'transform']}
           exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
           enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
@@ -50,22 +59,22 @@ export const ConfirmDialog = () => {
           ]}
         >
           <YStack
-            pt={rem(70)}
+            pt={size[70]}
           >
-            <Image source={IMAGES.bg_dialog_confirm} style={{ width: '100%', height: rem(170), position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
+            <Image source={IMAGES.bg_dialog_confirm} style={{ width: '100%', height: size[170], position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
             <YStack
-              gap={rem(32)}
+              gap={size[32]}
               items="center"
               overflow="hidden"
               bg="$surfaceRaisedL1"
-              pb={rem(16)}
-              borderTopLeftRadius={rem(10)}
-              borderTopRightRadius={rem(10)}
-              borderBottomLeftRadius={rem(10)}
-              borderBottomRightRadius={rem(10)}
+              pb={size[16]}
+              borderTopLeftRadius={size[10]}
+              borderTopRightRadius={size[10]}
+              borderBottomLeftRadius={size[10]}
+              borderBottomRightRadius={size[10]}
             >
-              <AlertDialog.Title fontSize={rem(24)} fontWeight="bold" width="100%">
-                <YStack width="100%" height={rem(100)} bg="$red10">
+              <AlertDialog.Title fontSize={size[24]} fontWeight="bold" width="100%">
+                <YStack width="100%" height={size[100]} bg="$red10">
                   <LinearGradient
                     width="100%"
                     height="100%"
@@ -78,25 +87,37 @@ export const ConfirmDialog = () => {
                 </LinearGradient>
                 </YStack>
               </AlertDialog.Title>
-              <AlertDialog.Description fontSize={rem(14)} px={rem(16)} color="$textWeak" text={"center" as any}>
+              <AlertDialog.Description fontSize={size[14]} px={size[16]} color="$textWeak" text={"center" as any}>
                 For your fund's safety, please set up a fund password first
               </AlertDialog.Description>
-              <AlertDialog.Cancel asChild>
-                <Button
-                  minW={rem(150)}
-                  height={rem(46)}
-                  fontWeight="bold"
-                  fontSize={rem(14)}
-                  bg="$gradientsPrimaryB"
-                  color="$textInverse"
-                  borderTopLeftRadius={rem(6)}
-                  borderTopRightRadius={rem(6)}
-                  borderBottomLeftRadius={rem(6)}
-                  borderBottomRightRadius={rem(6)}
+              <XStack justify="space-between" gap={size[10]}>
+                {showCancel && <AlertDialog.Cancel asChild>
+                    <Button
+                      flex={1}
+                      width={size[150]}
+                      height={size[46]}
+                      bg="$surfaceRaisedL2"
+                      borderTopLeftRadius={size[6]}
+                      borderTopRightRadius={size[6]}
+                      borderBottomLeftRadius={size[6]}
+                      borderBottomRightRadius={size[6]}
+                    >
+                      Cancel
+                    </Button>
+                  </AlertDialog.Cancel>
+                }
+                <RippleButton
+                  width={size[150]}
+                  height={size[46]}
+                  onPress={onConfirm}
+                  borderTopLeftRadius={size[6]}
+                  borderTopRightRadius={size[6]}
+                  borderBottomLeftRadius={size[6]}
+                  borderBottomRightRadius={size[6]}
                 >
                   Confirm
-                </Button>
-              </AlertDialog.Cancel>
+                </RippleButton>
+              </XStack>
             </YStack>
           </YStack>
         </AlertDialog.Content>

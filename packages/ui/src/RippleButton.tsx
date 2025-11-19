@@ -1,6 +1,6 @@
 import { ComponentProps, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Stack, styled, isWeb } from 'tamagui'
 import { Pressable, Animated, StyleSheet, LayoutChangeEvent } from 'react-native'
+import { Stack, styled, isWeb, Text } from 'tamagui'
 import type { View } from 'react-native'
 
 // 单个波纹效果
@@ -65,6 +65,8 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
       disabled,
       maxRipples = 1,
       asChild= false,
+      fontSize = 14,
+      fontWeight = 'bold',
       ...props
     },
     ref // 接收转发的 ref
@@ -183,7 +185,7 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
           </Stack>
 
           {/* 按钮内容 */}
-          {children}
+          {typeof children === 'string' ? <Text fontSize={fontSize as number} fontWeight={fontWeight as any}>{children}</Text> : children}
         </StyledButton>
       </Pressable>
     )
