@@ -11,7 +11,16 @@ interface LoadingButtonProps extends ButtonProps {
   onPress: () => void
 }
 
-export const LoadingButton = memo(({ loading = false, onPress, iconSize = 24, children, ...props }: LoadingButtonProps) => {
+export const LoadingButton = memo(({
+  onPress,
+  children,
+  color="$textInverse",
+  bg="$gradientsPrimaryB",
+  disabled = false,
+  loading = false,
+  iconSize = 24,
+  ...props
+}: LoadingButtonProps) => {
   const size = useSizeTokens()
 
   const styles = useMemo(() => StyleSheet.create({
@@ -22,8 +31,10 @@ export const LoadingButton = memo(({ loading = false, onPress, iconSize = 24, ch
   
   return (
     <Button
+      bg={bg}
+      color={color}
       onPress={onPress}
-      disabled={loading}
+      disabled={disabled || loading}
       borderTopLeftRadius={size[6]}
       borderTopRightRadius={size[6]}
       borderBottomLeftRadius={size[6]}

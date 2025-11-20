@@ -61,7 +61,7 @@ module.exports = () => {
     config.images = {
       unoptimized: true,  // 静态导出需要禁用图片优化
     }
-    config.trailingSlash = true // 所有路由 URL 末尾都会添加斜杠
+    config.trailingSlash = false // 所有路由 URL 末尾都不添加斜杠`/`
   }
 
   for (const plugin of plugins) {

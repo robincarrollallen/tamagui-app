@@ -10,12 +10,15 @@ import vipInfoData from 'app/data/vipInfo.json'
 
 export function ProfileScreen() {
   const rem = useRem()
+  const token = useUserStore(state => state.token)
   const tabbarLayout = useStyleStore(state => state.tabbarLayout) // TabBar 布局
 
   useEffect(() => {
-    useUserStore.getState().setUserInfo(userInfoData)
-    useVipStore.getState().setVipInfo(vipInfoData.data)
-  }, [])
+    if (token) {
+      useUserStore.getState().setUserInfo(userInfoData)
+      useVipStore.getState().setVipInfo(vipInfoData.data)
+    }
+  }, [token])
 
   return <>
     <UserInfo />

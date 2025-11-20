@@ -79,8 +79,8 @@ const RenderItem = memo<{ item: Recordable; index: number }>(({ item, index }) =
     imageBackground: {
       width: '100%',
       height: rem(120),
+      overflow: 'hidden',
       borderRadius: rem(10),
-      overflow: 'hidden'
     },
     shimmerPress: {
       bg: 'transparent',
@@ -94,11 +94,13 @@ const RenderItem = memo<{ item: Recordable; index: number }>(({ item, index }) =
   const imageSource = useMemo(() => ({ uri: item.bannerLogo }), [item.bannerLogo])
 
   return (
-    <ImageBackground source={imageBackgroundSource} style={styles.imageBackground}>
-      <ShimmerButton onPress={handleItemPress} height={rem(120)} enableShimmer bg="transparent" pressStyle={styles.shimmerPress} hoverStyle={styles.shimmerHover}>
-        <Text flex={1} fontSize={rem(12)}>{item.name}</Text>
-        <Image source={imageSource} width={rem(154)} height={rem(85)} resizeMode="contain" objectFit='contain' />
-      </ShimmerButton>
-    </ImageBackground>
+    <YStack height="100%" justify="flex-end">
+      <ImageBackground source={imageBackgroundSource} style={styles.imageBackground}>
+        <ShimmerButton onPress={handleItemPress} height={rem(120)} enableShimmer bg="transparent" pressStyle={styles.shimmerPress} hoverStyle={styles.shimmerHover}>
+          <Text flex={1} fontSize={rem(12)}>{item.name}</Text>
+          <Image source={imageSource} width={rem(154)} height={rem(85)} resizeMode="contain" objectFit='contain' />
+        </ShimmerButton>
+      </ImageBackground>
+    </YStack>
   )
 })

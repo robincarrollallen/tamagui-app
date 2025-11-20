@@ -93,7 +93,8 @@ interface ShimmerButtonProps extends ButtonProps {
 }
 
 export const ShimmerButton = memo(({ 
-  children, 
+  children,
+  disabled = false,
   enableShimmer = false,
   shimmerInterval = 3000,
   ...props 
@@ -107,6 +108,7 @@ export const ShimmerButton = memo(({
         borderWidth={0}
         height={rem(48)}
         bg="$activePrimary"
+        disabled={disabled}
         disabledStyle={{ bg: "$disabled" }}
         hoverStyle={{ bg: "$activeActive" }}
         pressStyle={{ bg: "$surfaceRaisedL2" }}
@@ -115,7 +117,7 @@ export const ShimmerButton = memo(({
         {children}
       </Button>
       
-      {enableShimmer && <ShimmerEffect enabled={enableShimmer} interval={shimmerInterval} />}
+      {enableShimmer && !disabled && <ShimmerEffect enabled={enableShimmer} interval={shimmerInterval} />}
     </Stack>
   )
 })

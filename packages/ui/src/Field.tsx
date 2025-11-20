@@ -1,7 +1,7 @@
 import { useRem } from 'app/store'
 import { validateInput } from 'app/utils/validate'
-import { forwardRef, useMemo, useState } from 'react'
 import { useInputErrorMessage } from "app/hooks/message"
+import { forwardRef, useEffect, useMemo, useState } from 'react'
 import { YStack, Text, XStack, Input, InputProps } from 'tamagui'
 import { X, EyeClosed, Eye, CircleAlert} from '@tamagui/lucide-icons'
 
@@ -14,12 +14,13 @@ export interface FormInputProps extends InputProps {
   error?: boolean
   clear?: boolean
   suffix?: React.ReactNode
+  onValidate?: (value: boolean) => void
 }
 
 export const Field = forwardRef<
   React.ComponentRef<typeof Input>,
   FormInputProps
->(({ label, errorMessage, required, error = false, suffix, border = true, clear = true, type = 'text', ...props }, ref) => {
+>(({ label, errorMessage, required, error = false, suffix, border = true, clear = true, type = 'text', onValidate = () => {}, ...props }, ref) => {
   const rem = useRem()
   const [showPassword, setShowPassword] = useState(false)
   const [emptyError, setEmptyError] = useState(false)
@@ -58,6 +59,14 @@ export const Field = forwardRef<
       setEmptyError(true)
     }
   }
+
+  useEffect(() => {
+    if (hasError) {
+      onValidate(false)
+    } else {
+      onValidate(true)
+    }
+  }, [hasError])
   
   return (
     <>

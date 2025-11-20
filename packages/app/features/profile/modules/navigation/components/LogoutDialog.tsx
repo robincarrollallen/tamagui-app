@@ -1,12 +1,15 @@
 import { delay } from 'app/utils/time'
 import { LoadingButton } from '@my/ui'
-import { useSizeTokens } from 'app/store'
+import { NO_AUTH_ROUTES } from 'app/enums'
+import { useRouter } from 'solito/navigation'
 import { memo, useCallback, useState } from 'react'
+import { useSizeTokens, useUserStore } from 'app/store'
 import { AlertDialog, Button, XStack, YStack } from 'tamagui'
 
 export const LogoutDialog = memo(({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => void }) => {
   const [loading, setLoading] = useState(false)
   const size = useSizeTokens()
+  const router = useRouter()
 
   /** 退出登录回调事件 */
   const onLogout = useCallback(async () => {
@@ -14,6 +17,10 @@ export const LogoutDialog = memo(({ open, setOpen }: { open: boolean, setOpen: (
     await delay(2000)
     setOpen(false)
     setLoading(false)
+    router.replace(NO_AUTH_ROUTES.ROOT)
+    setTimeout(() => {
+      useUserStore.getState().clearToken()
+    }, 100)
   }, [])
 
   return (
