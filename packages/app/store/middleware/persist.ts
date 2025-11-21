@@ -6,10 +6,10 @@ import type { PersistConfig } from '../types'
 // 获取平台特定的存储
 const getStorage = () => {
   if (isWeb) {
-    return createJSONStorage(() => localStorage) // React Native / Expo
+    return createJSONStorage(() => localStorage) // Web / Next.js
   } else {
     const AsyncStorage = require('@react-native-async-storage/async-storage').default
-    return createJSONStorage(() => AsyncStorage) // Web / Next.js
+    return createJSONStorage(() => AsyncStorage) // React Native / Expo
   }
 }
 

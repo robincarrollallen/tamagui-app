@@ -1,6 +1,5 @@
 import { Tabs } from 'expo-router'
 import { useTheme } from 'tamagui'
-import { StatusBar } from 'expo-status-bar'
 import { CustomTabBar } from 'app/features/tabbar'
 
 export default function TabLayout() {
@@ -11,6 +10,7 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          freezeOnBlur: true, // 在切换Tab时，保持当前Tab的组件状态
           tabBarStyle: { height: 0 },
           sceneStyle: { backgroundColor: theme.topNavSecondary?.get() }
         }}

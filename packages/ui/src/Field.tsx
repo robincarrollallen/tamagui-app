@@ -1,6 +1,6 @@
 import { useRem } from 'app/store'
 import { validateInput } from 'app/utils/validate'
-import { useInputErrorMessage } from "app/hooks/message"
+import { useInputErrorMessage } from "app/hooks/input"
 import { forwardRef, useEffect, useMemo, useState } from 'react'
 import { YStack, Text, XStack, Input, InputProps } from 'tamagui'
 import { X, EyeClosed, Eye, CircleAlert} from '@tamagui/lucide-icons'

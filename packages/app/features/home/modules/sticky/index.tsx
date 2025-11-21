@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { Segment, Sprite } from "@my/ui"
-import { useRouter } from "solito/navigation"
+import { useRouter } from "app/hooks/router"
 import { ImageBackground } from "react-native"
 import { SPRITE_NAME, IMAGES } from "@my/assets"
 import { useGameStore, useRem } from "app/store"

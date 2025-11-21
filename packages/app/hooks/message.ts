@@ -1,19 +1,9 @@
 import { isWeb } from "tamagui"
 import { useCallback } from "react"
 import { useToastController } from "@my/ui"
-import { useTranslation } from "react-i18next"
 import { setStringAsync } from 'expo-clipboard'
 
-/** 获取输入错误信息 */
-export const useInputErrorMessage = () => {
-	const { t } = useTranslation()
-
-	return {
-		account: t('hint.invalidUsername'),
-		password: t('hint.invalidPassword')
-	}
-}
-
+/** 复制到剪贴板 */
 export const useCopy = () => {
   const toast = useToastController() // 提示框
 	

@@ -1,12 +1,12 @@
-import { useSafeArea } from '../../../app/provider/safe-area/use-safe-area'
 import { YStack, XStack, Text, Circle, Image, View } from 'tamagui'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ImageBackground, LayoutChangeEvent } from 'react-native'
 import { usePathname } from 'app/hooks/usePathname'
+import { memo, useEffect, useState } from 'react'
 import { useRem, useStyleStore } from 'app/store'
 import { ICONS, SVG, IMAGES } from '@my/assets'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from 'solito/navigation'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'app/hooks/router'
 import { SvgXml } from 'react-native-svg'
 import { Pressable } from 'react-native'
 
@@ -25,7 +25,7 @@ const CenterButton = () => {
   }, [])
   
   return (
-    <View width="100%" onPress={() => { console.log('click'); router.push('/activity/invite') }}>
+    <View width="100%" onPress={() => { router.push('/activity/invite') }}>
       <ImageBackground
         source={IMAGES.tabbar_bg_flexible_25}
         style={{
@@ -91,14 +91,14 @@ const CustomTabButton = ({
 }
 
 /** 自定义 TabBar 组件 */
-export const CustomTabBar = () => {
+export const CustomTabBar = memo(() => {
   const router = useRouter()
   const pathname = usePathname()
   const safeAreaInsets = useSafeArea()
-  const { setTabbarLayout } = useStyleStore()
+  const setTabbarLayout = useStyleStore(state => state.setTabbarLayout)
   const rem = useRem()
   
-  
+  /** 布局变化回调 */
   const onLayout = (event: LayoutChangeEvent) => {
     setTabbarLayout(event.nativeEvent.layout)
   }
@@ -143,7 +143,7 @@ export const CustomTabBar = () => {
       </XStack>
     </YStack>
   )
-}
+})
 
 const routes = [
   { name: '/home', label: 'home', icon: SVG.tabbar_home_25, activeIcon: SVG.tabbar_home_active_25 },

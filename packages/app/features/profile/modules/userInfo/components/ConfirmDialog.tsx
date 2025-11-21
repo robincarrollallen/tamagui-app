@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { RippleButton } from '@my/ui'
 import { useSizeTokens } from 'app/store'
 import { useUserInfoState } from '../state'
-import { useRouter } from 'solito/navigation'
+import { useRouter } from 'app/hooks/router'
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { AlertDialog, Button, YStack, XStack } from 'tamagui'
 

@@ -1,28 +1,58 @@
 import { useRef } from 'react'
 import { throttle } from 'app/utils/library'
 import { NO_AUTH_PATHS, NO_AUTH_ROUTES } from 'app/enums'
-import { useRouterStore, useStatusStore } from 'app/store'
 import { useRouter as useSolitoRouter } from 'solito/navigation'
+import { useRouterStore, useStatusStore, useUserStore } from 'app/store'
 
 export function useRouter() {
   const router = useSolitoRouter()
 
-  const showLoginPopup = useRef(
+  const login = useRef(
     throttle(() => {
       const previousPath = useRouterStore.getState().previousPath // 上一个路由
-
-      useStatusStore.getState().showLoginPopup() // 显示登录弹窗
 
       if (NO_AUTH_PATHS.includes(previousPath as any)) {
         router.replace(previousPath)
       } else {
         router.replace(NO_AUTH_ROUTES.ROOT)
       }
+      useStatusStore.getState().showLoginPopup() // 显示登录弹窗
     }, 1000)
   ).current
 
+  /** 是否需要登录验证 */
+  const authed = (path: string) => {
+    const token = useUserStore.getState().token // 用户 token
+    return !!token || NO_AUTH_PATHS.includes(path as any)
+  }
+
+  /** 跳转路由 */
+  const push = (path: string) => {
+    if (authed(path)) {
+      router.push(path)
+    } else {
+      useStatusStore.getState().showLoginPopup()
+    }
+  }
+
+  /** 替换路由 */
+  const replace = (path: string) => {
+    if (authed(path)) {
+      router.replace(path)
+    } else {
+      useStatusStore.getState().showLoginPopup()
+    }
+  }
+
+  /** 返回路由 */
+  const back = () => {
+    router.back()
+  }
+
   return {
-    router,
-    showLoginPopup
+    push,
+    replace,
+    back,
+    login,
   }
 }

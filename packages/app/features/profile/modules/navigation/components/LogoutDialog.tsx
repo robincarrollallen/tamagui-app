@@ -1,7 +1,7 @@
 import { delay } from 'app/utils/time'
 import { LoadingButton } from '@my/ui'
 import { NO_AUTH_ROUTES } from 'app/enums'
-import { useRouter } from 'solito/navigation'
+import { useRouter } from 'app/hooks/router'
 import { memo, useCallback, useState } from 'react'
 import { useSizeTokens, useUserStore } from 'app/store'
 import { AlertDialog, Button, XStack, YStack } from 'tamagui'

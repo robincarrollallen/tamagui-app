@@ -1,7 +1,7 @@
 import { Svg } from "@my/ui"
 import { Image } from "expo-image"
 import { ICONS } from "@my/assets"
-import { useRouter } from "solito/navigation"
+import { useRouter } from "app/hooks/router"
 import { LinearGradient } from "tamagui/linear-gradient"
 import { useStatusStore, useUserStore, useSizeTokens } from "app/store"
 import { XStack, Text, Square, XStackProps, Avatar, YStack } from "tamagui"
@@ -14,11 +14,7 @@ export function Sign(props: XStackProps) {
   const showRegisterPopup = useStatusStore(state => state.showRegisterPopup)
 
   const handleDeposit = () => {
-    if (userInfo.id) {
-      router.replace('/deposit')
-    } else {
-      showLoginPopup()
-    }
+    router.replace('/deposit')
   }
 
   return (
