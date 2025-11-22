@@ -1,23 +1,56 @@
-import { Image, ImageProps, useTheme } from "tamagui";
-import { forwardRef, useCallback, useState } from "react";
-import { InView, InViewProps } from "react-native-intersection-observer";
 import { ICONS } from "@my/assets";
+import { Image } from "expo-image";
+import { StyleSheet } from "react-native";
+import { useSizeTokens } from "app/store";
+import { ImageProps, useTheme } from "tamagui";
+import { LinearGradient } from "tamagui/linear-gradient";
+import { forwardRef, memo, useCallback, useMemo, useState } from "react";
+import { InView, InViewProps } from "react-native-intersection-observer";
 
-export const LazyImage = forwardRef<InView, InViewProps & { source?: ImageProps['source'], uri?: string }>(
+export const LazyImage = memo(forwardRef<InView, InViewProps & { source?: ImageProps['source'], uri?: string }>(
   ({
     uri,
-    width,
-    height,
+    style,
     source,
     borderRadius,
-    style,
+    lazy = false,
+    width = '100%',
+    height = '100%',
     ...props
-  },
+  }, 
     ref
   ) => {
   const [inView, setInView] = useState(false)
   const [error, setError] = useState(false)
+  const rem = useSizeTokens()
   const theme = useTheme()
+
+  const styles = useMemo(() => StyleSheet.create({
+    inView: {
+      backgroundColor: (error || (!source && !uri)) ? theme.textWeakest?.get() : 'transparent',
+      borderRadius: borderRadius,
+      justifyContent: 'center',
+      alignItems: 'center',
+      overflow: 'hidden',
+      height,
+      width,
+      ...style,
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      borderRadius: borderRadius,
+    },
+    error: {
+      height: '35%',
+      aspectRatio: 58/51,
+      objectFit: 'cover',
+    },
+    gradient: {
+      borderRadius: borderRadius,
+    },
+  }), [rem])
 
   const onChange = useCallback((isInView: boolean) => {
     if (isInView) {
@@ -33,20 +66,21 @@ export const LazyImage = forwardRef<InView, InViewProps & { source?: ImageProps[
     <InView
       ref={ref}
       onChange={onChange}
-      style={{
-        backgroundColor: (error || (!source && !uri)) ? theme.textWeakest?.get() : 'transparent',
-        borderRadius: borderRadius,
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-        height,
-        width,
-        ...style
-      }}
+      style={styles.inView}
       {...props}
     >
-      {(error || (!source && !uri)) && <Image height="50%" aspectRatio={58/51} objectFit="cover" source={ICONS.heart} />}
-      {(inView && !error && !!(source || uri)) && <Image width="100%" height="100%" source={uri ? { uri } : source} onError={onError}/>}
+      <LinearGradient
+        inset={0}
+        end={[1, 1]}
+        start={[0, 0]}
+        overflow="hidden"
+        position="absolute"
+        style={styles.gradient}
+        locations={[0, .0258, .5,  .9772, 1]}
+        colors={['#fff', '#fff', `rgba(255, 255, 255, 0)`, '#fff', '#fff']}
+      />
+      {(error || (!source && !uri)) && <Image source={ICONS.heart} style={styles.error} />}
+      {((inView || !lazy) && !error && !!(source || uri)) && <Image style={styles.image} source={uri || source} onError={onError}/>}
     </InView>
   )
-})
+}))

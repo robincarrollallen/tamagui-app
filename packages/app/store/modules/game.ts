@@ -1,7 +1,5 @@
 import { create } from 'zustand'
 import { createPersistStore } from '../middleware/persist'
-import gameList from 'app/data/gameList.json'
-import hotList from 'app/data/hotList.json'
 import type { BaseStore } from '../types'
 
 interface GameState extends BaseStore {
@@ -12,6 +10,7 @@ interface GameState extends BaseStore {
   noHot: boolean
   setGameList: (gameList: Recordable[]) => void
   setHomeList: (list: Recordable[]) => void
+  setHotList: (list: Recordable[]) => void
   setNoHot: (noHot: boolean) => void
 }
 
@@ -68,6 +67,10 @@ export const useGameStore = create<GameState>()(
         else {
           set({ homeList: [hotTab, ...newList] })
         }
+      },
+
+      setHotList: (list: Recordable[]) => {
+        set({ hotList: list })
       },
 
       setNoHot: (noHot: boolean) => {

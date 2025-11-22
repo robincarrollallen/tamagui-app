@@ -6,13 +6,17 @@ import { Loader2 } from '@tamagui/lucide-icons'
 import { YStack, isWeb, Spinner, Text } from 'tamagui'
 import { LoadMoreType, LOAD_MORE_STATUS } from 'app/enums'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, memo, useCallback, useImperativeHandle, useRef, useState } from 'react'
 import BigList, { BigListProps } from 'react-native-big-list'
 
 type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'renderFooter' | 'onRefresh' > & {
+  emptyText?: string
+  emptyIcon?: string
   itemHeight?: number
   refreshing?: boolean
   footerHeight?: number
+  emptyIconColor?: string
+  emptyTextColor?: string
   onEndReached?: () => void
   loadingMore?: LoadMoreType
   onRefresh?: () => Promise<void>
@@ -24,15 +28,19 @@ type ListProps<T> = Omit<BigListProps<T>, 'renderHeader' | 'renderFooter' | 'onR
 export const List = forwardRef<BigList<any>, ListProps<any>>(({
   data = [],
   renderItem,
+  emptyText = '',
   itemHeight = 100,
   footerHeight = 0,
   refreshing = false,
   renderHeader = null,
   renderFooter = null,
+  emptyIconColor = '',
+  emptyIcon = SVG.empty,
   loadingMore = undefined,
+  emptyTextColor = '$textWeakest',
+  onRefresh = () => Promise.resolve(),
   onEndReached = () => null,
   onScroll = () => null,
-  onRefresh = () => Promise.resolve(),
   ...props
 }: ListProps<any>, ref) => {
   const safeArea = useSafeArea() // 安全区域
@@ -71,7 +79,7 @@ export const List = forwardRef<BigList<any>, ListProps<any>>(({
       renderHeader={renderHeader}
       onEndReachedThreshold={0.1}
       keyExtractor={(item) => item.id}
-      renderEmpty={() => EmptyComponent}
+      renderEmpty={() => <EmptyComponent />}
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl
@@ -104,12 +112,12 @@ export const List = forwardRef<BigList<any>, ListProps<any>>(({
   )
 
   /** 空组件 */
-  const EmptyComponent = (
-    <YStack flex={1} items="center" pb={footerHeight as number || 0} pt={150}>
-      <SvgXml xml={SVG.empty} />
-      <Text color="$textWeakest">No Record</Text>
+  const EmptyComponent = memo(() => (
+    <YStack flex={1} items="center" pb={footerHeight as number || 0} pt="25%">
+      <SvgXml xml={emptyIcon} color={emptyIconColor} />
+      <Text color="$textWeakest">{emptyText || 'No Record'}</Text>
     </YStack>
-  )
+  ))
 
   if (isWeb) {
     return (
@@ -191,10 +199,10 @@ const WebPullToRefresh = forwardRef<WebPullToRefreshRef, WebPullToRefreshProps>(
 
   return (
     <YStack 
-      flex={1} 
+      flex={1}
+      width="100%"
       position="relative"
       ref={containerRef}
-      width="100%"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

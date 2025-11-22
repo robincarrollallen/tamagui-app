@@ -3,6 +3,7 @@ export const NO_AUTH_ROUTES = {
   ROOT: '/',
   HOME: '/home',
   ACTIVITY: '/activity',
+  GAME_SEARCH: '/game/search',
 } as const
 
 /** 支持的页面 */

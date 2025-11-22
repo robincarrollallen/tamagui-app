@@ -22,7 +22,7 @@ export function HomeScreen() {
   }, [])
 
   return (
-    <YStack flex={1} pt={safeArea.top} pb={tabbarLayout.height}>
+    <YStack flex={1} pt={safeArea.top} pb={tabbarLayout.height} bg="$background">
       <HomeHeader />
       <YStack flex={1}>
         <IOScrollView

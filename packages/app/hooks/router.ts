@@ -4,6 +4,10 @@ import { NO_AUTH_PATHS, NO_AUTH_ROUTES } from 'app/enums'
 import { useRouter as useSolitoRouter } from 'solito/navigation'
 import { useRouterStore, useStatusStore, useUserStore } from 'app/store'
 
+const getPathname = (path: string) => {
+  return path.replace(/[?#].*$/, '');
+}
+
 export function useRouter() {
   const router = useSolitoRouter()
 
@@ -28,8 +32,9 @@ export function useRouter() {
 
   /** 跳转路由 */
   const push = (path: string) => {
-    if (authed(path)) {
-      router.push(path)
+    const pathname = getPathname(path)
+    if (authed(pathname)) {
+      router.push(pathname)
     } else {
       useStatusStore.getState().showLoginPopup()
     }
@@ -37,8 +42,9 @@ export function useRouter() {
 
   /** 替换路由 */
   const replace = (path: string) => {
-    if (authed(path)) {
-      router.replace(path)
+    const pathname = getPathname(path)
+    if (authed(pathname)) {
+      router.replace(pathname)
     } else {
       useStatusStore.getState().showLoginPopup()
     }

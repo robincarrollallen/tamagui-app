@@ -1,4 +1,4 @@
-import { ComponentProps, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ComponentProps, forwardRef, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Animated, StyleSheet, LayoutChangeEvent } from 'react-native'
 import { Stack, styled, isWeb, Text } from 'tamagui'
 import type { View } from 'react-native'
@@ -15,7 +15,7 @@ interface Ripple {
 
 // 组件类型定义
 export type RippleButtonProps = Omit<ComponentProps<typeof StyledButton>, 'children'> & {
-  children?: React.ReactNode
+  children?: ReactNode | string
   rippleColor?: string
   rippleDuration?: number
   rippleOpacity?: number
@@ -23,6 +23,8 @@ export type RippleButtonProps = Omit<ComponentProps<typeof StyledButton>, 'child
   asChild?: boolean
   disabled?: boolean
   maxRipples?: number
+  fontSize?: number
+  fontWeight?: string | number
 }
 
 /** 按钮样式 */
@@ -37,10 +39,6 @@ const StyledButton = styled(Stack, {
   
   hoverStyle: {
     background: 'rgba(255, 255, 255, 0.1)',
-  },
-  
-  pressStyle: {
-    scale: 0.98,
   },
   
   variants: {
@@ -132,7 +130,10 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
 
       animation.start(() => {
         activeAnimations.current = activeAnimations.current.filter(a => a !== animation)
-        setRipples(prev => prev.filter(r => r.id !== newRipple.id))
+        /** 延迟执行，避免执行时获取不到Store (比 Promise.resolve().then() 更直接, 比 setTimeout(0) 更快) */
+        queueMicrotask(() => {
+          setRipples(prev => prev.filter(r => r.id !== newRipple.id))
+        })
       })
     }, [disabled, layout.width, layout.height, maxRipples, rippleDuration, rippleOpacity, maxRadius])
 

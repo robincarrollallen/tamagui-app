@@ -1,11 +1,11 @@
-import { useRem } from 'app/store'
+import { useSizeTokens } from 'app/store'
 import { validateInput } from 'app/utils/validate'
 import { useInputErrorMessage } from "app/hooks/input"
 import { forwardRef, useEffect, useMemo, useState } from 'react'
 import { YStack, Text, XStack, Input, InputProps } from 'tamagui'
 import { X, EyeClosed, Eye, CircleAlert} from '@tamagui/lucide-icons'
 
-export interface FormInputProps extends InputProps {
+export interface FieldProps extends InputProps {
   type?: string
   border?: boolean
   label?: React.ReactNode
@@ -19,9 +19,9 @@ export interface FormInputProps extends InputProps {
 
 export const Field = forwardRef<
   React.ComponentRef<typeof Input>,
-  FormInputProps
+  FieldProps
 >(({ label, errorMessage, required, error = false, suffix, border = true, clear = true, type = 'text', onValidate = () => {}, ...props }, ref) => {
-  const rem = useRem()
+  const rem = useSizeTokens()
   const [showPassword, setShowPassword] = useState(false)
   const [emptyError, setEmptyError] = useState(false)
   const [errorText, setErrorText] = useState(errorMessage)
@@ -72,19 +72,20 @@ export const Field = forwardRef<
     <>
       <XStack
         gap="$2"
-        p={rem(12)}
+        p={rem[12]}
         width="100%"
         items="center"
         bg="$surfaceLowered"
         borderColor="$borderDefault"
-        style={{ borderRadius: rem(6) }}
-        borderWidth={border ? rem(1) : 0}
+        style={{ borderRadius: rem[6] }}
+        borderWidth={border ? rem[1] : 0}
       >
         { Label({ label }) }
         <Input
-          p={0}
+          py={0}
+          px={rem[3]}
           flex={1}
-          height={rem(22)}
+          height={rem[22]}
           bg="transparent"
           borderWidth={0}
           secureTextEntry={secureTextEntry}
@@ -100,16 +101,16 @@ export const Field = forwardRef<
         { type === 'password'
           ? <YStack onPress={() => setShowPassword(!showPassword)}>{
               showPassword
-              ? <Eye size={rem(20)} />
-              : <EyeClosed size={rem(20)} />
+              ? <Eye size={rem[20]} />
+              : <EyeClosed size={rem[20]} />
             }</YStack>
           : null
         }
       </XStack>
-      <XStack items="center" gap="$2" opacity={hasError ? 1 : 0}>
-        {<CircleAlert size={rem(12)} color="$danger" />}
+      {error && <XStack items="center" gap="$2" opacity={hasError ? 1 : 0}>
+        {<CircleAlert size={rem[12]} color="$danger" />}
         <Text fontSize="$2" color="$danger">{errorText}</Text>
-      </XStack>
+      </XStack>}
     </>
   )
 })
@@ -117,11 +118,11 @@ export const Field = forwardRef<
 Field.displayName = 'Field'
 
 const ClearButton = ({ onClear }: { onClear: () => void | undefined }) => {
-  const rem = useRem()
+  const rem = useSizeTokens()
 
   return (
-    <YStack aspectRatio={1} p={rem(5)} bg="$textWeakest" style={{ borderRadius: "50%" }} onPress={onClear}>
-      <X size={rem(12)} />
+    <YStack aspectRatio={1} p={rem[5]} bg="$textWeakest" style={{ borderRadius: "50%" }} onPress={onClear}>
+      <X size={rem[12]} />
     </YStack>
   )
 }

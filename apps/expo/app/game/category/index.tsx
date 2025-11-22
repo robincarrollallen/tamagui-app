@@ -8,7 +8,6 @@ export default function GameListPage() {
   return (
     <>
       <Stack.Screen
-        name="GameList"
         options={{
           headerShown: false,
         }}

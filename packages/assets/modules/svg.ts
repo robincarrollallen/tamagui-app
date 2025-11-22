@@ -24,7 +24,12 @@ import { bg_vip_3 } from '../src/svg/vip/bg-vip-3';
 import { bg_vip_4 } from '../src/svg/vip/bg-vip-4';
 import { bg_vip_5 } from '../src/svg/vip/bg-vip-5';
 import { bg_vip_6 } from '../src/svg/vip/bg-vip-6';
+import { magnifier } from '../src/svg/magnifier';
+import { favorite } from '../src/svg/favorite';
+import { popular } from '../src/svg/popular';
 import { support } from '../src/svg/support';
+import { no_game } from '../src/svg/no-game';
+import { recent } from '../src/svg/recent';
 import { wallet } from '../src/svg/wallet';
 import { empty } from '../src/svg/empty';
 import { earth } from '../src/svg/earth';
@@ -50,12 +55,19 @@ export const SVG = {
 
   bg_invite_level_icon,
 
+  magnifier,
+  favorite,
+  popular,
+  recent,
+
   bg_vip_1,
   bg_vip_2,
   bg_vip_3,
   bg_vip_4,
   bg_vip_5,
   bg_vip_6,
+
+  no_game,
 
   language,
   security,

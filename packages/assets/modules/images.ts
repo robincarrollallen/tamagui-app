@@ -25,4 +25,6 @@ export const IMAGES = {
   rank_avatar_border_25: require('../src/images/home/rank-avatar-border-25.png').default?.src || require('../src/images/home/rank-avatar-border-25.png'),
 
   bg_dialog_confirm: require('../src/images/dialog/bg-dialog-confirm.webp').default?.src || require('../src/images/dialog/bg-dialog-confirm.webp'),
+  
+  maintain: require('../src/images/maintain.webp').default?.src || require('../src/images/maintain.webp'),
 } as const;

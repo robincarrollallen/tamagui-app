@@ -111,6 +111,7 @@ export const useSizeTokens = () => {
   return useMemo(() => {
 
     const tokens = {
+      1: rem(1),
       2: rem(2),
       3: rem(3),
       4: rem(4),
@@ -125,6 +126,7 @@ export const useSizeTokens = () => {
       16: rem(16),
       18: rem(18),
       20: rem(20),
+      22: rem(22),
       24: rem(24),
       28: rem(28),
       30: rem(30),
@@ -137,6 +139,7 @@ export const useSizeTokens = () => {
       60: rem(60),
       70: rem(70),
       74: rem(74),
+      78: rem(78),
       88: rem(88),
       100: rem(100),
       130: rem(130),

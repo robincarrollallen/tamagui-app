@@ -30,7 +30,7 @@ export function Sticky(props: XStackProps) {
 
   /** 切换 tab */
   const handleTabChange = (value: string) => {
-    router.push(`/game/category?type=${value}&id=0`)
+    router.push(`/game/search?type=${value}&id=0`)
   }
 
   return (
