@@ -91,6 +91,7 @@ export const RippleButton = forwardRef<View, RippleButtonProps>(
       [layout.width, layout.height]
     )
 
+    /** 按下时添加波纹 */
     const handlePressIn = useCallback((event: any) => {
       if (disabled) return
 

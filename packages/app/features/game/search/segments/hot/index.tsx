@@ -17,7 +17,7 @@ export const Hot = ({ gap, numColumns = 4 }: { gap?: number, numColumns?: number
     <YStack p={rem[4]} width="100%" height="100%">
       <FlatList
         data={hotList}
-        renderItem={({ item }) => <GameCard item={item} gap={gap} />}
+        renderItem={({ item }) => <GameCard item={item} gap={gap || rem[8]} p={rem[2]} />}
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
         scrollEnabled={true}

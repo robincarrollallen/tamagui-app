@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, useCallback, useMemo, memo } from 'react'
-import { YStack, YStackProps } from 'tamagui'
-import { Platform } from 'react-native'
+import { YStack, YStackProps, isWeb } from 'tamagui'
+import { Animated, View, Easing } from 'react-native'
+import { useEffect, useRef, useCallback, useMemo, memo } from 'react'
 
 interface VerticalInfiniteScrollProps extends YStackProps {
   data: any[]
@@ -20,10 +20,13 @@ export function VerticalInfiniteScroll({
   onItemVisible,
   ...props
 }: VerticalInfiniteScrollProps) {
+  const frameRef = useRef(0)
+  const lastTimeRef = useRef(0)
   const isPausedRef = useRef(false)
-  const frameRef = useRef<number>(0)
-  const lastTimeRef = useRef<number>(0)
-  const [translateY, setTranslateY] = useState(0)
+  const webTranslateYRef = useRef(0)
+  const translateYRef = useRef(new Animated.Value(0))
+  const containerRefWeb = useRef<HTMLDivElement>(null)
+  const animationRef = useRef<Animated.CompositeAnimation | null>(null)
   
   // 至少复制2份数据确保无缝循环
   const repeatedData = useMemo(() => [...data, ...data], [data])
@@ -60,40 +63,72 @@ export function VerticalInfiniteScroll({
     ))
   }, [repeatedData, data, itemHeight, renderItem])
   
-  // 动画循环
+  // ========== Native 平台：使用 Animated API ==========
   useEffect(() => {
+    if (isWeb) return
+
+    const duration = (singleSetHeight / speed) * 1000 // 计算一个周期需要的时间（毫秒）
+
+    const startAnimation = () => {
+      // 停止上一个动画
+      if (animationRef.current) {
+        animationRef.current.stop()
+      }
+
+      // 创建新的动画：从 0 移动到 -singleSetHeight
+      animationRef.current = Animated.loop(
+        Animated.timing(translateYRef.current, {
+          toValue: -singleSetHeight,
+          duration: duration,
+          useNativeDriver: true, // 使用原生驱动，性能最佳
+          easing: Easing.linear, // 线性缓动，保证动画匀速
+        })
+      )
+
+      // 启动动画
+      animationRef.current.start()
+    }
+
+    if (!isPausedRef.current) {
+      startAnimation()
+    }
+
+    return () => {
+      if (animationRef.current) {
+        animationRef.current.stop()
+      }
+    }
+  }, [speed, singleSetHeight])
+
+  // ========== Web 平台：使用 requestAnimationFrame ==========
+  useEffect(() => {
+    if (!isWeb) return
+
     const animate = (currentTime: number) => {
       if (!lastTimeRef.current) {
         lastTimeRef.current = currentTime
       }
       
-      // 计算时间差（秒）
       const deltaTime = (currentTime - lastTimeRef.current) / 1000
       lastTimeRef.current = currentTime
       
       if (!isPausedRef.current) {
-        setTranslateY(prev => {
-          // 计算新位置（向上移动，所以是负值）
-          const newY = prev - speed * deltaTime
-          
-          // 当滚动超过一组数据的高度时，重置到起始位置
-          // 这样就实现了无缝循环
-          if (Math.abs(newY) >= singleSetHeight) {
-            return 0
-          }
-          
-          return newY
-        })
+        const newY = webTranslateYRef.current - speed * deltaTime
+        
+        if (Math.abs(newY) >= singleSetHeight) {
+          webTranslateYRef.current = 0
+        } else {
+          webTranslateYRef.current = newY
+        }
+
+        containerRefWeb.current!.style.setProperty('transform', `translateY(${webTranslateYRef.current}px)`) // 直接操作DOM, 不用更新状态<性能最佳>
       }
       
-      // 继续下一帧
       frameRef.current = requestAnimationFrame(animate)
     }
     
-    // 启动动画
     frameRef.current = requestAnimationFrame(animate)
     
-    // 清理函数
     return () => {
       if (frameRef.current) {
         cancelAnimationFrame(frameRef.current)
@@ -104,30 +139,71 @@ export function VerticalInfiniteScroll({
   // 暂停/恢复控制
   const pause = useCallback(() => {
     isPausedRef.current = true
+    
+    if (!isWeb && animationRef.current) {
+      animationRef.current.stop()
+    }
   }, [])
   
   const resume = useCallback(() => {
     isPausedRef.current = false
-    lastTimeRef.current = 0 // 重置时间，避免跳跃
-  }, [])
-  
-  return (
-    <YStack 
-      height={actualContainerHeight} 
-      overflow="hidden"
-      {...props}
-    >
-      <YStack
-        style={{
-          transform: [{ translateY }],
-          // Web 端使用 CSS transform 获得更好的性能
-          ...(Platform.OS === 'web' && {
+    lastTimeRef.current = 0
+
+    if (!isWeb) {
+      // Native 平台重新启动动画
+      const duration = (singleSetHeight / speed) * 1000
+      if (animationRef.current) {
+        animationRef.current.stop()
+      }
+      animationRef.current = Animated.loop(
+        Animated.timing(translateYRef.current, {
+          toValue: -singleSetHeight,
+          duration: duration,
+          useNativeDriver: true, // 使用原生驱动，性能最佳
+          easing: Easing.linear, // 线性缓动，保证动画匀速
+        })
+      )
+      animationRef.current.start()
+    }
+  }, [singleSetHeight, speed])
+
+  // ========== 条件渲染：Native vs Web ==========
+  if (isWeb) {
+    return (
+      <YStack 
+        height={actualContainerHeight} 
+        overflow="hidden"
+        {...props}
+      >
+        <YStack
+        ref={containerRefWeb}
+          style={{
             willChange: 'transform',
-          }),
+          }}
+        >
+          {renderedItems}
+        </YStack>
+      </YStack>
+    )
+  }
+
+  // Native 平台使用 Animated.View
+  return (
+    <View 
+      style={{
+        height: actualContainerHeight,
+        overflow: 'hidden',
+      }}
+    >
+      <Animated.View
+        style={{
+          transform: [{ translateY: translateYRef.current }],
         }}
       >
-        {renderedItems}
-      </YStack>
-    </YStack>
+        <YStack>
+          {renderedItems}
+        </YStack>
+      </Animated.View>
+    </View>
   )
 }
