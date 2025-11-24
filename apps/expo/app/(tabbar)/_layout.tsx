@@ -12,7 +12,8 @@ export default function TabLayout() {
           headerShown: false,
           freezeOnBlur: true, // 在切换Tab时，保持当前Tab的组件状态
           tabBarStyle: { height: 0 },
-          sceneStyle: { backgroundColor: theme.topNavSecondary?.get() }
+          sceneStyle: { backgroundColor: theme.topNavSecondary?.get() },
+          animation: 'fade',
         }}
       >
         <Tabs.Screen

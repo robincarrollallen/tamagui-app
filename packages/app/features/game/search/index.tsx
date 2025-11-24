@@ -8,7 +8,7 @@ import { Recent } from './segments/recent'
 import { Favorite } from './segments/favorite'
 import { useTranslation } from 'react-i18next'
 import { Icon, NavigationBar, SearchBar } from '@my/ui'
-import { createElement, useMemo, useState } from 'react'
+import { createElement, useCallback, useMemo, useState } from 'react'
 import { SizableText, Tabs, XStack, YStack, isWeb, useTheme } from 'tamagui'
 
 
@@ -29,14 +29,14 @@ export const GameSearchScreen = ({ type, id }: { type: string, id: string }) => 
   ], [])
 
   /** 搜索点击事件 */
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     if (!searchValue) return
     setActiveTab('tab1')
     setSearchLoading(true)
     setTimeout(() => {
       setSearchLoading(false)
     }, 2000)
-  }
+  }, [searchValue])
 
   return (
     <>

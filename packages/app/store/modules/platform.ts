@@ -5,10 +5,14 @@ import type { BaseStore } from '../types'
 
 interface PlatformState extends BaseStore {
   isNative: boolean
+  isIOS: boolean
+  isAndroid: boolean
 }
 
 const initialState = {
   isNative: Platform.OS !== 'web',
+  isIOS: Platform.OS === 'ios',
+  isAndroid: Platform.OS === 'android',
   _hasHydrated: false,
 }
 

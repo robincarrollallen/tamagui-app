@@ -1,8 +1,8 @@
-import { defaultConfig } from '@tamagui/config/v4'
 import { createTamagui } from 'tamagui'
-import { bodyFont, headingFont } from './fonts'
 import { animations } from './animations'
-import { style_25 } from './themes'
+import { style_25, THEME } from './themes'
+import { bodyFont, headingFont } from './fonts'
+import { defaultConfig } from '@tamagui/config/v4'
 
 export const config = createTamagui({
   ...defaultConfig,
@@ -22,7 +22,7 @@ export const config = createTamagui({
       ...defaultConfig.themes.dark,
       ...style_25,
     },
-    "Layout2:SupremeGreen": {
+    [THEME.STYLE_25]: {
       ...defaultConfig.themes.dark,
       ...style_25,
     },

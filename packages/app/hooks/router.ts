@@ -34,7 +34,9 @@ export function useRouter() {
   const push = (path: string) => {
     const pathname = getPathname(path)
     if (authed(pathname)) {
+      useRouterStore.getState().setPrevious(pathname)
       router.push(pathname)
+      useRouterStore.getState().setCurrent(pathname)
     } else {
       useStatusStore.getState().showLoginPopup()
     }
@@ -45,6 +47,7 @@ export function useRouter() {
     const pathname = getPathname(path)
     if (authed(pathname)) {
       router.replace(pathname)
+      useRouterStore.getState().setCurrent(pathname)
     } else {
       useStatusStore.getState().showLoginPopup()
     }

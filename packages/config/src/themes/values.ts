@@ -1,5 +1,7 @@
+import { THEME, THEME_VALUE } from './type'
+
 export const themeValues = {
-  'Layout2:SupremeGreen': 't_Layout2:SupremeGreen',
+  [THEME.STYLE_25]: THEME_VALUE.STYLE_25,
   light: 't_light',
   dark: 't_dark',
 }

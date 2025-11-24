@@ -1,5 +1,6 @@
 // apps/next/app/lib/fetchDefaultTheme.ts
 import { LRUCache } from 'lru-cache'
+import { THEME } from '@my/config/src/themes'
 
 const themeCache = new LRUCache<string, string>({
   max: 10, // 最大缓存10个key
@@ -14,7 +15,7 @@ export async function fetchDefaultThemeFromBackend(): Promise<string> {
   // 这里替换为你的真实后端请求
   // const res = await fetch('https://your-backend/api/theme')
   // const theme = (await res.json()).theme
-  const theme = 'Layout2:SupremeGreen' // 示例
+  const theme = THEME.STYLE_25 // 示例
 
   themeCache.set(cacheKey, theme)
   return theme

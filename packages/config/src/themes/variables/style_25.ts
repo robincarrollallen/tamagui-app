@@ -46,4 +46,6 @@ export const style_25 = {
 
   inverse600: 'rgb(232, 156, 0)', // #E89C00
   inverse500: 'rgb(255, 171, 0)', // #FFAB00
+
+  colorScheme: 'dark',
 }

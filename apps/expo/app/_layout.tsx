@@ -1,13 +1,9 @@
 import { useFonts } from 'expo-font'
 import { Provider } from 'app/provider'
-import { StatusBar } from 'expo-status-bar'
+import { SplashScreen} from 'expo-router'
 import { useEffect, useState } from 'react'
-import { useColorScheme } from 'react-native'
-import { LoginScreen } from 'app/features/login'
 import { initI18nClient } from 'app/i18n/client'
-import { SplashScreen, Stack } from 'expo-router'
-import { NativeToast } from '@my/ui/src/NativeToast'
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { ThemeProvider } from 'app/provider/ThemeProvider'
 
 export const unstable_settings = {
   // Ensure that reloading on `/user` keeps a back button present.
@@ -49,24 +45,10 @@ export default function App() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme()
 
   return (
     <Provider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <StatusBar style="light" backgroundColor="transparent" />
-        <Stack>
-          <Stack.Screen
-            name="(tabbar)"
-            options={{
-              headerShown: false,
-            }}
-            
-          />
-        </Stack>
-        <NativeToast />
-        <LoginScreen />
-      </ThemeProvider>
+      <ThemeProvider />
     </Provider>
   )
 }
