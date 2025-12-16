@@ -121,7 +121,7 @@ export function VerticalInfiniteScroll({
           webTranslateYRef.current = newY
         }
 
-        containerRefWeb.current!.style.setProperty('transform', `translateY(${webTranslateYRef.current}px)`) // 直接操作DOM, 不用更新状态<性能最佳>
+        containerRefWeb.current!.style?.setProperty('transform', `translateY(${webTranslateYRef.current}px)`) // 直接操作DOM, 不用更新状态<性能最佳>
       }
       
       frameRef.current = requestAnimationFrame(animate)

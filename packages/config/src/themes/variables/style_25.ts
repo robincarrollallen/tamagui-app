@@ -3,7 +3,8 @@ export const style_25 = {
   background: 'rgb(13, 18, 13)', // #0D120D
 
   topNavSecondary: 'rgb(18, 23, 19)', // #121713
-  navigationText: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
+  navigationDefault: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
+  navigationBackground: 'rgba(255, 255, 255, .04)', // #FFFFFF 4% 透明度
   navigationSelected: 'rgb(255, 255, 255)', // #FFFFFF
 
   glowPrimaryOpacity40: 'rgba(25, 204, 16, 0.4)', // #19CC10 40% 透明度

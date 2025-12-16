@@ -81,7 +81,7 @@ const CustomTabButton = ({
         <Text
           fontSize={rem(10)}
           fontWeight={focused ? "600" : "600"}
-          color={focused ? "$navigationSelected" : "$navigationText"}
+          color={focused ? "$navigationSelected" : "$navigationDefault"}
         >
           {t(label)}
         </Text>
