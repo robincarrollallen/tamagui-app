@@ -6,7 +6,7 @@ import { SPRITE_NAME, IMAGES } from "@my/assets"
 import { useGameStore, useRem } from "app/store"
 import { XStackProps, YStack, View, Text } from "tamagui"
 
-const TabComponent = memo<{ tab: { label: string, value: string }, isActive: boolean, onPress: () => void }>(({ tab, onPress }) => {
+const TabComponent = memo<{ tab: Recordable, isActive: boolean, onPress: () => void }>(({ tab, onPress }) => {
   const rem = useRem()
 
   return (
@@ -29,7 +29,7 @@ export function Sticky(props: XStackProps) {
   const homeList = useGameStore(state => state.homeList)
 
   /** 切换 tab */
-  const handleTabChange = (value: string) => {
+  const handleTabChange = (value: string | number) => {
     router.push(`/game/search?type=${value}&id=0`)
   }
 

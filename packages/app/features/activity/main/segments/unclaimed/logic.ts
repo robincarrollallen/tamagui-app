@@ -20,11 +20,10 @@ export const useUnclaimedLogic = () => {
   const setPage = useUnclaimedState.getState().setPage // 设置页码
   const rem = useRem() // 响应式尺寸
 
-
   /** 选择回调事件 */
-  const onChange = useCallback(async (value: number) => {
+  const onChange = useCallback(async (value: number | string) => {
     loading.show()
-    setDate(value)
+    setDate(Number(value))
     try {
       setPage(1)
       await mockRecordList()

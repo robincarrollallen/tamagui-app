@@ -7,6 +7,7 @@ import { LinearGradient } from "tamagui/linear-gradient";
 import { forwardRef, memo, useCallback, useMemo, useState } from "react";
 import { InView, InViewProps } from "react-native-intersection-observer";
 
+/** Lazy Image */
 export const LazyImage = memo(forwardRef<InView, InViewProps & { source?: ImageProps['source'], uri?: string }>(
   ({
     uri,

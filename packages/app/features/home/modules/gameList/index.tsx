@@ -1,6 +1,5 @@
-import { useState } from "react"
-import { useGameStore } from "app/store"
 import { YStack } from "tamagui"
+import { useGameStore } from "app/store"
 import { GameWrapperWidget } from "app/widgets/GameWrapper"
 
 

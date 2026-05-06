@@ -33,8 +33,8 @@ export function LoginScreen() {
   const theme = useTheme() // 主题
   
   /** 账号类型切换 */
-  const handleTabChange = (value: number) => {
-    setActiveTab(value)
+  const handleTabChange = (value: number | string) => {
+    setActiveTab(Number(value))
   }
 
   /** 账号验证成功 */
